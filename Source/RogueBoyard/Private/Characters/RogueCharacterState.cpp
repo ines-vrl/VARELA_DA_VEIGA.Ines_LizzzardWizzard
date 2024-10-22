@@ -26,6 +26,12 @@ void URogueCharacterState::StateInit(URogueCharacterStateMachine* InStateMachine
 {
 	StateMachine = InStateMachine;
 	Character = InStateMachine->GetCharacter();
+	GEngine->AddOnScreenDebugMessage(
+		-1,
+		3.f,
+		FColor::Magenta,
+		FString::Printf(TEXT("Init State %d"), GetStateID())
+		);
 }
 
 void URogueCharacterState::StateEnter(ERogueCharacterStateID PreviousStateID)

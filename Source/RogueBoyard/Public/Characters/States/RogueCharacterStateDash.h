@@ -19,6 +19,13 @@ public:
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
 	
-		UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimMontage> DashMontage;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimationAsset> DashMontage;
+	
+	UPROPERTY(EditAnywhere)
+	float ForceImpulse;
+	
+private:
+	FVector Sticks;
+	float DashAnimTimeRemaining;
 };

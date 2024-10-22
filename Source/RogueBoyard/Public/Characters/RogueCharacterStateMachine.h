@@ -27,6 +27,12 @@ public:
 
 	URogueCharacterState* GetState(ERogueCharacterStateID StateID);
 
+	UPROPERTY(BlueprintReadWrite)
+	FVector Sticks;
+	
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<URogueCharacterState> CurrentState;
+
 protected:
 	UPROPERTY()
 	TObjectPtr<ARogueCharacter> Character;
@@ -35,9 +41,7 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly)
 	ERogueCharacterStateID CurrentStateID;
-
-	UPROPERTY()
-	TObjectPtr<URogueCharacterState> CurrentState;
+	
 	void FindStates();
 	void InitStates();
 

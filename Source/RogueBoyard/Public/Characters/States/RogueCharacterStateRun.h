@@ -19,5 +19,5 @@ public:
 	virtual void StateTick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimMontage> RunMontage;
+	TObjectPtr<UAnimationAsset> RunMontage;
 };

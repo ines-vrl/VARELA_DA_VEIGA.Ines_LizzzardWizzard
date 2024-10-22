@@ -16,7 +16,12 @@ ERogueCharacterStateID URogueCharacterStateRun::GetStateID()
 void URogueCharacterStateRun::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	Character->PlayAnimMontage(RunMontage);
+	GEngine->AddOnScreenDebugMessage(
+	-1,
+	2.f,
+	FColor::Red,
+	TEXT("enter run"));
+	Character->GetMesh()->PlayAnimation(RunMontage, true);
 }
 
 void URogueCharacterStateRun::StateExit(ERogueCharacterStateID NextStateID)
@@ -24,7 +29,7 @@ void URogueCharacterStateRun::StateExit(ERogueCharacterStateID NextStateID)
 	Super::StateExit(NextStateID);
 	GEngine->AddOnScreenDebugMessage(
 	-1,
-	0.1f,
+	2.f,
 	FColor::Red,
 	TEXT("Exit run")
 );
