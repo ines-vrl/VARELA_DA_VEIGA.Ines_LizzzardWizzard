@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/LevelStreamingDynamic.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "RogueRoomSubsystem.generated.h"
 
@@ -29,19 +30,19 @@ class ROGUEBOYARD_API URogueRoomSubsystem : public UWorldSubsystem
 {
 	GENERATED_BODY()
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+	void NextRoom();
+	void InitFirstRoom();
 	
 private:
 	TArray<TSoftObjectPtr<UWorld>> Rooms;
-	TArray<FLevelRef> ActiveLevels;
-	int NextUUID = 1;
-
-	void LoadStreamingLevelAtPosition(FVector3d Position);
-
-	void LoadStreamingLevel(FName LevelName, FLevelFinishedLoading &&Callback);
-	void UnloadStreamingLevel(FName LevelName);
-
-	UFUNCTION()
-	void OnLoadStreamLevelFinished(int Linkage);
-	UFUNCTION()
-	void OnUnloadStreamLevelFinished(int Linkage);
+	UPROPERTY()
+	TArray<ULevelStreamingDynamic*> LoadedRooms;
+	int ActiveRoomId = 0;
+	int LastLoadedRoomId = -1;
+	FVector NextRoomPosition = FVector(0,0,0);
+	
+	void LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room, const FVector& Position);
+	void UnloadRoom(ULevelStreamingDynamic* Room);
+	void LoadNextRoom();
+	void UnloadPreviousRoom();
 };
