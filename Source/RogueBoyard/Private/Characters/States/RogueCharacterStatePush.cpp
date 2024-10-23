@@ -3,6 +3,7 @@
 
 #include "Characters/States/RogueCharacterStatePush.h"
 
+#include "PushableComponent.h"
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateMachine.h"
 #include "Components/BoxComponent.h"
@@ -46,8 +47,10 @@ void URogueCharacterStatePush::Push(TArray<AActor*> Actors)
 {
 	for (AActor* Actor : Actors)
 	{
-		//Actor->GetComponentByClass(UPrimitiveComponent*)->
-		//TODO Pushactors
+		FVector Dir = Actor->GetActorLocation() - Character->GetActorLocation();
+		Dir.Normalize();
+		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
+		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
 	}
 }
 

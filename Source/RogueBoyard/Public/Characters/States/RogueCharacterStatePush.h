@@ -25,6 +25,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> PushMontage;
+
+	UPROPERTY(EditAnywhere)
+	float PushForce;
 	
 private:
 	float PushAnimTimeRemaining;
