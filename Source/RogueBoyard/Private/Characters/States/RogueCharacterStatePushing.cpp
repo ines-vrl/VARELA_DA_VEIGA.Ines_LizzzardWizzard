@@ -1,32 +1,35 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Characters/States/RogueCharacterStatePush.h"
+#include "Characters/States/RogueCharacterStatePushing.h"
 
 #include "PushableComponent.h"
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateMachine.h"
-#include "Components/BoxComponent.h"
 
 
-ERogueCharacterStateID URogueCharacterStatePush::GetStateID()
+ERogueCharacterStateID URogueCharacterStatePushing::GetStateID()
 {
-	return ERogueCharacterStateID::Push;
+	return ERogueCharacterStateID::Pushing;
 }
 
-void URogueCharacterStatePush::StateEnter(ERogueCharacterStateID PreviousStateID)
+void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	Character->GetMesh()->PlayAnimation(PushMontage, false);
-	if(PushMontage) PushAnimTimeRemaining = PushMontage->GetPlayLength();
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
+			TEXT("Enter Pushing")));
+	bPushing = true;
+	Character->GetMesh()->PlayAnimation(PushingMontage, false);
+	if(PushingMontage) PushAnimTimeRemaining = PushingMontage->GetPlayLength();
 }
 
-void URogueCharacterStatePush::StateExit(ERogueCharacterStateID NextStateID)
+void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+	bPushing = false;
 }
 
-void URogueCharacterStatePush::StateTick(float DeltaTime)
+void URogueCharacterStatePushing::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
 	PushAnimTimeRemaining -= DeltaTime;
@@ -43,7 +46,7 @@ void URogueCharacterStatePush::StateTick(float DeltaTime)
 	}
 }
 
-void URogueCharacterStatePush::Push(TArray<AActor*> Actors)
+void URogueCharacterStatePushing::Push(TArray<AActor*> Actors)
 {
 	for (AActor* Actor : Actors)
 	{

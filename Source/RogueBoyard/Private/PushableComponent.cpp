@@ -3,6 +3,10 @@
 
 #include "PushableComponent.h"
 
+#include "Characters/RogueCharacter.h"
+#include "Characters/RogueCharacterStateID.h"
+#include "Characters/RogueCharacterStateMachine.h"
+
 
 // Sets default values for this component's properties
 UPushableComponent::UPushableComponent()
@@ -19,22 +23,34 @@ void UPushableComponent::Push(FVector Dir, float Force) const
 {
 	if(MyOwner)
 	{
-		UPrimitiveComponent* PrimitiveComponent = MyOwner->FindComponentByClass<UPrimitiveComponent>();
-		if(PrimitiveComponent != nullptr)
+		ARogueCharacter* Character = Cast<ARogueCharacter>(MyOwner);
+		FVector Impulse = Dir * Force;
+		Impulse.Z = 100.f;
+		if(Character == nullptr)
 		{
-			if(!PrimitiveComponent->IsSimulatingPhysics()) PrimitiveComponent->SetSimulatePhysics(true);
-			
-			ECollisionEnabled::Type CollisionEnabled = PrimitiveComponent->GetCollisionEnabled();
-			
-			if(PrimitiveComponent->GetCollisionEnabled() != ECollisionEnabled::QueryAndPhysics)
+			UPrimitiveComponent* PrimitiveComponent = Cast<UPrimitiveComponent>(MyOwner->GetRootComponent());
+			if(PrimitiveComponent != nullptr)
 			{
-				PrimitiveComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+				if(!PrimitiveComponent->IsSimulatingPhysics()) PrimitiveComponent->SetSimulatePhysics(true);
+				
+				ECollisionEnabled::Type CollisionEnabled = PrimitiveComponent->GetCollisionEnabled();
+				
+				if(PrimitiveComponent->GetCollisionEnabled() != ECollisionEnabled::QueryAndPhysics)
+				{
+					PrimitiveComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+				}
+				
+				PrimitiveComponent->AddImpulse(Impulse, NAME_None, true);
+				PrimitiveComponent->SetCollisionEnabled(CollisionEnabled);
 			}
-			FVector Impulse = Dir * Force;
-			Impulse.Z = 100.f;
-			PrimitiveComponent->AddImpulse(Impulse, NAME_None, true);
-			PrimitiveComponent->SetCollisionEnabled(CollisionEnabled);
 		}
+		else
+		{
+			Character->StateMachine->ChangeState(ERogueCharacterStateID::Pushed);
+			Character->LaunchCharacter(Impulse, false, false);
+		}
+
+			
 	}
 
 }
