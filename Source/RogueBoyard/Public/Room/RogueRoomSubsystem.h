@@ -30,6 +30,8 @@ class ROGUEBOYARD_API URogueRoomSubsystem : public UWorldSubsystem
 {
 	GENERATED_BODY()
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+public:
+	UFUNCTION(BlueprintCallable)
 	void NextRoom();
 	void InitFirstRoom();
 	

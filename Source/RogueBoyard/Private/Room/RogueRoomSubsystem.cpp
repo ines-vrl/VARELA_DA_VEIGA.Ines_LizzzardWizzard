@@ -1,6 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
+
 #include "Room/RogueRoomSubsystem.h"
 #include "Engine/LevelStreamingDynamic.h"
 #include "Room/RogueRoomSettings.h"
@@ -27,12 +28,14 @@ void URogueRoomSubsystem::NextRoom() {
 	ActiveRoomId++;
 	LoadNextRoom();
 	UnloadPreviousRoom();
+	GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "ActiveRoom :" + FString::SanitizeFloat(ActiveRoomId));
 }
 
 void URogueRoomSubsystem::InitFirstRoom() {
 	const URogueRoomSettings* Settings = GetDefault<URogueRoomSettings>();
 	LoadRoomAtPosition(Rooms[0], NextRoomPosition);
 	NextRoomPosition += FVector(Settings->MaxRoomSize, 0, 0);
+	LoadNextRoom();
 }
 
 void URogueRoomSubsystem::LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room, const FVector& Position) {
@@ -54,6 +57,7 @@ void URogueRoomSubsystem::LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room,
 	}
 	NewRoom->SetShouldBeLoaded(true);
 	LoadedRooms.Add(NewRoom);
+	GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "LastLoadedRoom :" + FString::SanitizeFloat(LastLoadedRoomId));
 }
 
 void URogueRoomSubsystem::UnloadRoom(ULevelStreamingDynamic* Room) {
