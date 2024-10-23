@@ -16,7 +16,7 @@ ERogueCharacterStateID URogueCharacterStateIdle::GetStateID()
 void URogueCharacterStateIdle::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	Character->PlayAnimMontage(IdleMontage);
+	Character->GetMesh()->PlayAnimation(IdleMontage, true);
 }
 
 void URogueCharacterStateIdle::StateExit(ERogueCharacterStateID NextStateID)
@@ -37,7 +37,7 @@ void URogueCharacterStateIdle::StateTick(float DeltaTime)
 	{
 		GEngine->AddOnScreenDebugMessage(
 		-1,
-		0.1f,
+		2.f,
 		FColor::Cyan,
 		TEXT("Moving")
 		);
