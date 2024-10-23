@@ -9,4 +9,6 @@ class ROGUEBOYARD_API ARogueGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	virtual void BeginPlay() override;
+
+	void InitPlayers();
 };
