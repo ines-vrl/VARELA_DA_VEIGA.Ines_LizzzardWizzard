@@ -24,6 +24,9 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	float ForceImpulse;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float DashCoolDown;
 	
 private:
 	FVector Sticks;

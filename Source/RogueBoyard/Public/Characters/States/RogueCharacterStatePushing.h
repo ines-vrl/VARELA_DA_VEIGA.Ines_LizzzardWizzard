@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Characters/RogueCharacterState.h"
-#include "RogueCharacterStatePush.generated.h"
+#include "RogueCharacterStatePushing.generated.h"
 
 
 class UBoxComponent;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class ROGUEBOYARD_API URogueCharacterStatePush : public URogueCharacterState
+class ROGUEBOYARD_API URogueCharacterStatePushing : public URogueCharacterState
 {
 	GENERATED_BODY()
 
@@ -24,7 +24,16 @@ public:
 	void Push(TArray<AActor*> Actors);
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimationAsset> PushMontage;
+	TObjectPtr<UAnimationAsset> PushingMontage;
+
+	UPROPERTY(EditAnywhere)
+	float PushForce;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float PushingCoolDown;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bPushing;
 	
 private:
 	float PushAnimTimeRemaining;
