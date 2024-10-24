@@ -16,10 +16,25 @@ public:
 	ACrossbow();
 
 protected:
-	// Called when the game starts or when spawned
+	
 	virtual void BeginPlay() override;
+
+	virtual void InputJoystick(float DeltaTime,FVector InputAxis) override;
+
+	virtual void InputButtonDown() override;
+
+	virtual void InputButtonUp() override;
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION()
+	void RotateCrossbow(float DeltaTime, const FVector& InputAxis);
+
+	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
+	void ChargeShot();
+
+	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
+	void ReleaseShot();
 };

@@ -15,7 +15,7 @@ void ARogueTrap::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ARogueTrap::InputJoystick(FVector InputAxis)
+void ARogueTrap::InputJoystick(float DeltaTime,FVector InputAxis)
 {
 }
 
@@ -31,10 +31,11 @@ void ARogueTrap::InputButtonUp()
 void ARogueTrap::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
 }
 
-/*
-void ARogueTrap::RotateTrap(const float DeltaTime,const FVector2f InputRotation)
+
+void ARogueTrap::RotateTrap(const float DeltaTime,const FVector& InputAxis)
 {
 	if(bCanRotate)
 	{
@@ -50,5 +51,3 @@ void ARogueTrap::RotateTrap(const float DeltaTime,const FVector2f InputRotation)
 		SetActorRotation(NewRotation);
 	}
 }
-
-*/
