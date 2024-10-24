@@ -15,9 +15,9 @@ void ULocalMultiplayerSubSystem::CreateAndInitPlayers(ELocalMultiplayerInputMapp
 	for(int i = 1; i < nKbProfile + GetDefault<ULocalMultiplayerSettings>()->NbMaxGamepads; i++)
 	{
 		UGameplayStatics::CreatePlayer(GetWorld(), i);
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
-		TEXT("PlayerIndex: %i"),
-		i));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
+		//TEXT("PlayerIndex: %i"),
+		//i));
 	}
 	for (auto Element : PlayerIndexFromKeyboardProfileIndex)
 	{
@@ -38,8 +38,8 @@ int ULocalMultiplayerSubSystem::GetAssignedPlayerIndexFromKeyboardProfileIndex(i
 int ULocalMultiplayerSubSystem::AssignNewPlayerToKeyboardProfile(int KeyboardProfileIndex)
 {
 	LastAssignedPlayerIndex++;
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red,
-		"lol" + FString::SanitizeFloat(LastAssignedPlayerIndex));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red,
+	//	"lol" + FString::SanitizeFloat(LastAssignedPlayerIndex));
 	PlayerIndexFromKeyboardProfileIndex.Add(KeyboardProfileIndex, LastAssignedPlayerIndex);
 
 	return LastAssignedPlayerIndex;
@@ -53,30 +53,30 @@ void ULocalMultiplayerSubSystem::AssignKeyboardMapping(int PlayerIndex, int Keyb
 		Player->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>()
 		->AddMappingContext(GetDefault<ULocalMultiplayerSettings>()
 		->KeyBoardProfilesData[KeyboardProfileIndex].GetIMCFromType(MappingType), 1);
-	GEngine->AddOnScreenDebugMessage(
-	-1,
-	3.f,
-	FColor::Cyan,
-	("AssignKeyboard" +  KeyboardProfileIndex)
-	);
-	GEngine->AddOnScreenDebugMessage(
-	-1,
-3.f,
-	FColor::Cyan,
-("ToPlayer" + PlayerIndex)
-	);
+	//GEngine->AddOnScreenDebugMessage(
+	//-1,
+	//3.f,
+	//FColor::Cyan,
+	//("AssignKeyboard" +  KeyboardProfileIndex)
+	//);
+	//GEngine->AddOnScreenDebugMessage(
+	//-1,
+	//3.f,
+	//FColor::Cyan,
+	//("ToPlayer" + PlayerIndex)
+	//);
 }
 
 int ULocalMultiplayerSubSystem::GetAssignedPlayerIndexFromGamepadDeviceID(int DeviceID)
 {
 	if(PlayerIndexFromGamepadProfileIndex.Contains(DeviceID))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
-		TEXT("Device ID: %i"),
-		DeviceID));
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
-			TEXT("PlayerIndex: %i"),
-			*PlayerIndexFromGamepadProfileIndex.Find(DeviceID)));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
+		//TEXT("Device ID: %i"),
+		//DeviceID));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
+		//	TEXT("PlayerIndex: %i"),
+		//	*PlayerIndexFromGamepadProfileIndex.Find(DeviceID)));
 		return *PlayerIndexFromGamepadProfileIndex.Find(DeviceID);
 	}
 	return -1;
@@ -85,11 +85,11 @@ int ULocalMultiplayerSubSystem::GetAssignedPlayerIndexFromGamepadDeviceID(int De
 int ULocalMultiplayerSubSystem::AssignNewPlayerToGamepadDeviceID(int DeviceID)
 {
 	LastAssignedPlayerIndex++;
-	GEngine->AddOnScreenDebugMessage(
-	-1,
-	15.0f,
-	FColor::Yellow,
-	FString::Printf(TEXT("Index: %i"),LastAssignedPlayerIndex));
+	//GEngine->AddOnScreenDebugMessage(
+	//-1,
+	//15.0f,
+	//FColor::Yellow,
+	//FString::Printf(TEXT("Index: %i"),LastAssignedPlayerIndex));
 	PlayerIndexFromGamepadProfileIndex.Add(DeviceID, LastAssignedPlayerIndex);
 	return LastAssignedPlayerIndex;
 }
@@ -102,9 +102,9 @@ void ULocalMultiplayerSubSystem::AssignGamepadInputMapping(int PlayerIndex,
 	Player->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>()
 	->AddMappingContext(GetDefault<ULocalMultiplayerSettings>()
 	->GamepadProfilData.GetIMCFromType(MappingType), 1);
-	GEngine->AddOnScreenDebugMessage(
-	-1,
-	3.f,
-	FColor::Cyan,
-	("ToPlayer" + PlayerIndex));
+	//GEngine->AddOnScreenDebugMessage(
+	//-1,
+	//3.f,
+	//FColor::Cyan,
+	//("ToPlayer" + PlayerIndex));
 }

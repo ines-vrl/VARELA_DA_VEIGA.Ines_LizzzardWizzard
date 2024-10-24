@@ -12,5 +12,6 @@ enum class ERogueCharacterStateID : uint8
 	Run,
 	Dash,
 	Pushing,
-	Pushed
+	Pushed,
+	Dead
 };

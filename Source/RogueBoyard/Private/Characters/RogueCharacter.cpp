@@ -3,6 +3,7 @@
 
 #include "RogueBoyard/Public/Characters/RogueCharacter.h"
 
+#include "Characters/RogueCharacterStateID.h"
 #include "RogueBoyard/Public/Characters/RogueCharacterStateMachine.h"
 
 
@@ -18,8 +19,8 @@ void ARogueCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	CreateStateMachine();
-
 	InitStateMachine();
+	CurrentLives = LivesMAX;
 }
 
 // Called every frame
@@ -50,5 +51,17 @@ void ARogueCharacter::TickStateMachine(float DeltaTime) const
 {
 	if(StateMachine == nullptr) return;
 	StateMachine->Tick(DeltaTime);
+}
+
+void ARogueCharacter::TakeDamage(int Damage)
+{
+	CurrentLives -= Damage;
+	if(CurrentLives <= 0) Die();
+}
+
+void ARogueCharacter::Die()
+{
+	if(StateMachine == nullptr) return;
+	StateMachine->ChangeState(ERogueCharacterStateID::Dead);
 }
 
