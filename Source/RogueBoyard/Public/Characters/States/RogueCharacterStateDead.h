@@ -29,4 +29,5 @@ public:
 
 private:
 	float ResurectAnimTimeRemaining = 0;
+	bool bRespawned = false;
 };

@@ -33,13 +33,15 @@ public:
 	void CreateStateMachine();
 	void InitStateMachine();
 	void TickStateMachine(float DeltaTime) const;
-
-	UFUNCTION(BlueprintCallable)
-	void TakeDamage(int Damage);
+	
 	
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<URogueCharacterStateMachine> StateMachine;
-	
+#pragma endregion
+#pragma region Life
+public:
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(int Damage);
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int LivesMAX = 3;
 	
