@@ -3,24 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "RogueRoom.h"
 #include "Engine/LevelStreamingDynamic.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "RogueRoomSubsystem.generated.h"
-
-DECLARE_DELEGATE_OneParam(FLevelFinishedLoading, FName);
-DECLARE_DELEGATE_OneParam(FLevelFinishedUnloading, FName);
-
-struct FLevelRef
-{
-	FName LevelName;
-	int Linkage;
-	int RefCount = 0;
-	bool bIsActive;
-	bool bWaitingForLevel;
-	bool bVisible;
-	FLevelFinishedLoading LoadEvent;
-	FLevelFinishedUnloading UnloadEvent;
-};
 
 /**
  * 
@@ -34,12 +20,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void NextRoom();
 	void InitFirstRoom();
-	
+	UPROPERTY(BlueprintReadOnly)
+	int ActiveRoomId = 0;
+
 private:
 	TArray<TSoftObjectPtr<UWorld>> Rooms;
 	UPROPERTY()
 	TArray<ULevelStreamingDynamic*> LoadedRooms;
-	int ActiveRoomId = 0;
 	int LastLoadedRoomId = -1;
 	FVector NextRoomPosition = FVector(0,0,0);
 	

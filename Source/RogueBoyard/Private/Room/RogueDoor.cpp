@@ -1,5 +1,7 @@
 ﻿#include "Room/RogueDoor.h"
 
+#include "Core/RogueGameMode.h"
+
 ARogueDoor::ARogueDoor()
 {
 	PrimaryActorTick.bCanEverTick = true;

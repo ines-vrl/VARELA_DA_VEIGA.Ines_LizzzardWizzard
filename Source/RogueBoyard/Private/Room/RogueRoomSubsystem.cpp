@@ -3,6 +3,8 @@
 
 
 #include "Room/RogueRoomSubsystem.h"
+
+#include "EngineUtils.h"
 #include "Engine/LevelStreamingDynamic.h"
 #include "Room/RogueRoomSettings.h"
 
@@ -38,6 +40,7 @@ void URogueRoomSubsystem::InitFirstRoom() {
 	LoadNextRoom();
 }
 
+
 void URogueRoomSubsystem::LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room, const FVector& Position) {
 	LastLoadedRoomId++;
 	bool bSuccess;
@@ -55,6 +58,12 @@ void URogueRoomSubsystem::LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room,
 		GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "Failed to load" + RoomName);
 		return;
 	}
+	
+	/*for(FActorIterator<ARogueRoom> RoomItr(NewRoom->GetLoadedLevel()->Actors); RoomItr; RoomItr++)
+	{
+		RoomManagers.Add(RoomItr);
+	}*/
+	
 	NewRoom->SetShouldBeLoaded(true);
 	LoadedRooms.Add(NewRoom);
 	GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "LastLoadedRoom :" + FString::SanitizeFloat(LastLoadedRoomId));

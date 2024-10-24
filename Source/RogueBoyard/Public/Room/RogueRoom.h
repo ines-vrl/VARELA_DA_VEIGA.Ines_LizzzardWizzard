@@ -31,15 +31,17 @@ public:
 	FOnRoomExit OnRoomExitEvent;
 
 protected:
+	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere)
 	TArray<USceneComponent*> SpawnPoints;
 
+	//TODO Mettre 4 Enter Doors, une par player, a chaque SpawnPoint;
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<ARogueDoor> EnterDoor;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<ARogueDoor> ExitDoor;
-	
+
 private:
 	UFUNCTION(BlueprintCallable)
 	virtual void BeginRoom();
