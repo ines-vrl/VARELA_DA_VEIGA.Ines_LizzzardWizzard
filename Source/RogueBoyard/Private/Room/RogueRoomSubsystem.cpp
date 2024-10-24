@@ -20,8 +20,8 @@ void URogueRoomSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	}
 
 	for(TSoftObjectPtr<UWorld> RealRoom : RealRooms) {
-		//TODO Choisir le bon lobby
-		//Rooms.Add(Settings->Lobbies[0]);
+		const int RndIndex = FMath::RandRange(0, Settings->Lobbies.Num()-1);
+		Rooms.Add(Settings->Lobbies[RndIndex]);
 		Rooms.Add(RealRoom);
 	}
 }
