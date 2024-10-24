@@ -1,0 +1,52 @@
+﻿#pragma once
+
+#include "CoreMinimal.h"
+#include "RogueDoor.h"
+#include "GameFramework/Actor.h"
+#include "RogueRoom.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoomEnter);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoomExit);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoomBegin);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoomEnd);
+
+UCLASS()
+class ROGUEBOYARD_API ARogueRoom : public AActor
+{
+	GENERATED_BODY()
+
+public:
+	ARogueRoom();
+	virtual void Tick(float DeltaTime) override;
+	
+	UFUNCTION(BlueprintCallable)
+	virtual void RoomEnter();
+
+	UFUNCTION(BlueprintCallable)
+	void PlacePlayers(TArray<ACharacter*> Players);
+
+	FOnRoomBegin OnRoomBeginEvent;
+	FOnRoomEnd OnRoomEndEvent;
+	FOnRoomEnter OnRoomEnterEvent;
+	FOnRoomExit OnRoomExitEvent;
+
+protected:
+	UPROPERTY(EditAnywhere)
+	TArray<USceneComponent*> SpawnPoints;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<ARogueDoor> EnterDoor;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<ARogueDoor> ExitDoor;
+	
+private:
+	UFUNCTION(BlueprintCallable)
+	virtual void BeginRoom();
+	
+	UFUNCTION(BlueprintCallable)
+	virtual void EndRoom();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void RoomExit();
+};
