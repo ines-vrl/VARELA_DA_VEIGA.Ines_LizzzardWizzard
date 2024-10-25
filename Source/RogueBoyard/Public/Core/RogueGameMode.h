@@ -26,19 +26,19 @@ public:
 
 	void InitPlayers();
 
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartBattleRoom();
 	void StartBattleRoom_Implementation();
 
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void EndBattleRoom();
 	void EndBattleRoom_Implementation();
 
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartLobbyRoom();
 	void StartLobbyRoom_Implementation();
 
-	UFUNCTION(BlueprintNativeEvent)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void EndLobbyRoom();
 	void EndLobbyRoom_Implementation();
 };

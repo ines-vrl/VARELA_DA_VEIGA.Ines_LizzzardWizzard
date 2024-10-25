@@ -14,10 +14,14 @@ public:
 	ARogueLobbyRoom();
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(BlueprintReadOnly)
+	int VotedPlayerIndex;
+
 protected:
 	virtual void BeginPlay() override;
 
 private:
+	
 	UPROPERTY(EditAnywhere)
 	bool bShouldVoteTimerReset = false;
 	

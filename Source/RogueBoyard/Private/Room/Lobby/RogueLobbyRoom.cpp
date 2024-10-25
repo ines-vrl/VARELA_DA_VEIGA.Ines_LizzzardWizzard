@@ -14,6 +14,7 @@ void ARogueLobbyRoom::Tick(float DeltaTime)
 	MaxLobbyTime -= DeltaTime;
 	if (MaxLobbyTime <= 0)
 	{
+		VotedPlayerIndex = VoteZone->GetVoteResults(-1);
 		Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndLobbyRoom();
 	}
 
@@ -24,6 +25,7 @@ void ARogueLobbyRoom::Tick(float DeltaTime)
 	
 	if (ElapsedTime >= VoteTimer)
 	{
+		VotedPlayerIndex = VoteZone->GetVoteResults(-1);
 		Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndLobbyRoom();		
 	}
 }
