@@ -21,6 +21,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
+	UPROPERTY(BlueprintReadWrite,EditAnywhere, Category = "Trap")
+	bool bReusable;
+	
 	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
 	FVector InputAxisDebug;
 

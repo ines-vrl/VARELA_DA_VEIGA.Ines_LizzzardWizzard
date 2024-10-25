@@ -3,6 +3,8 @@
 
 
 #include "Room/RogueRoomSubsystem.h"
+
+#include "EngineUtils.h"
 #include "Engine/LevelStreamingDynamic.h"
 #include "Room/RogueRoomSettings.h"
 
@@ -11,6 +13,11 @@ void URogueRoomSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	Super::Initialize(Collection);
 	const URogueRoomSettings* Settings = GetDefault<URogueRoomSettings>();
 	TArray<TSoftObjectPtr<UWorld>> RealRooms;
+
+	if(Settings->Rooms.Num()<=0 || Settings->Lobbies.Num()<=0)
+	{
+		return;
+	}
 	
 	for(int i=0; i<Settings->NumberOfRooms; i++) {
 		const int RndIndex = FMath::RandRange(0, Settings->Rooms.Num()-1);
@@ -18,8 +25,8 @@ void URogueRoomSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	}
 
 	for(TSoftObjectPtr<UWorld> RealRoom : RealRooms) {
-		//TODO Choisir le bon lobby
-		//Rooms.Add(Settings->Lobbies[0]);
+		const int RndIndex = FMath::RandRange(0, Settings->Lobbies.Num()-1);
+		Rooms.Add(Settings->Lobbies[RndIndex]);
 		Rooms.Add(RealRoom);
 	}
 }
@@ -38,6 +45,7 @@ void URogueRoomSubsystem::InitFirstRoom() {
 	LoadNextRoom();
 }
 
+
 void URogueRoomSubsystem::LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room, const FVector& Position) {
 	LastLoadedRoomId++;
 	bool bSuccess;
@@ -55,6 +63,12 @@ void URogueRoomSubsystem::LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room,
 		GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "Failed to load" + RoomName);
 		return;
 	}
+	
+	/*for(FActorIterator<ARogueRoom> RoomItr(NewRoom->GetLoadedLevel()->Actors); RoomItr; RoomItr++)
+	{
+		RoomManagers.Add(RoomItr);
+	}*/
+	
 	NewRoom->SetShouldBeLoaded(true);
 	LoadedRooms.Add(NewRoom);
 	GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "LastLoadedRoom :" + FString::SanitizeFloat(LastLoadedRoomId));
