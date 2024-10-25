@@ -16,8 +16,6 @@ ERogueCharacterStateID URogueCharacterStatePushing::GetStateID()
 void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
-			TEXT("Enter Pushing")));
 	bPushing = true;
 	Character->GetMesh()->PlayAnimation(PushingMontage, false);
 	if(PushingMontage) PushAnimTimeRemaining = PushingMontage->GetPlayLength();
