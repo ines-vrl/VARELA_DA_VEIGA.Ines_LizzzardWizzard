@@ -33,6 +33,7 @@ void ARogueLobbyRoom::Tick(float DeltaTime)
 void ARogueLobbyRoom::BeginPlay()
 {
 	Super::BeginPlay();
+	//TODO Add Guard
 	VoteZone->OnPlayerEnterZoneEvent.AddUniqueDynamic(this, &ARogueLobbyRoom::PlayerEnteredVoteZone);
 	VoteZone->OnAllPlayersLeaveZoneEvent.AddUniqueDynamic(this, &ARogueLobbyRoom::AllPlayerExitVoteZone);
 }

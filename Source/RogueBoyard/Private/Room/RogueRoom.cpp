@@ -50,6 +50,7 @@ void ARogueRoom::PlacePlayers(TArray<ACharacter*> Players)
 
 void ARogueRoom::PlacePlayer(ARogueCharacter* Player, const int Index)
 {
+	//TODO Guard Pour Index
 	Player->SetActorTransform(SpawnPoints[Index]->GetComponentTransform());
 }
 
