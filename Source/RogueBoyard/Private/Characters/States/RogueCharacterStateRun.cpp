@@ -38,7 +38,7 @@ void URogueCharacterStateRun::StateExit(ERogueCharacterStateID NextStateID)
 void URogueCharacterStateRun::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
-	if(FMath::Abs(Character->GetCharacterMovement()->Velocity.Length()) <= 0.f)
+	if(StateMachine->Sticks.X == 0 && StateMachine->Sticks.Y == 0)
 	{
 		GEngine->AddOnScreenDebugMessage(
 		-1,
@@ -48,4 +48,27 @@ void URogueCharacterStateRun::StateTick(float DeltaTime)
 		);
 		StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 	}
+}
+
+void URogueCharacterStateRun::Movement(float X, float Y)
+{
+	Super::Movement(X, Y);
+	Character->AddMovementInput(Character->GetActorRightVector(), X);
+	Character->AddMovementInput(Character->GetActorForwardVector(), Y);
+}
+
+void URogueCharacterStateRun::Dash(float X, float Y)
+{
+	Super::Dash(X, Y);
+}
+
+TArray<AActor*> URogueCharacterStateRun::Interact()
+{
+	return Super::Interact();
+}
+
+void URogueCharacterStateRun::Push(TArray<AActor*> Actors)
+{
+	Super::Push(Actors);
+	StateMachine->ChangeState(ERogueCharacterStateID::Pushing);
 }

@@ -23,6 +23,18 @@ public:
 	virtual void StateEnter(ERogueCharacterStateID PreviousStateID);
 	virtual void StateExit(ERogueCharacterStateID NextStateID);
 	virtual void StateTick(float DeltaTime);
+
+	UFUNCTION(BlueprintCallable)
+	virtual void Movement(float X, float Y);
+	UFUNCTION(BlueprintCallable)
+	virtual void Dash(float X, float Y);
+	UFUNCTION(BlueprintCallable)
+	virtual TArray<AActor*> Interact();
+	UFUNCTION(BlueprintCallable)
+	virtual void Push(TArray<AActor*> Actors);
+	UFUNCTION(BlueprintCallable)
+	virtual void Resurrect();
+	
 	
 
 protected:

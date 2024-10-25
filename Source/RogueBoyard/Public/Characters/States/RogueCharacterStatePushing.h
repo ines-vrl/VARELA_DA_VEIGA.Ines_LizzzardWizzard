@@ -20,8 +20,9 @@ public:
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable)
-	void Push(TArray<AActor*> Actors);
+	
+	
+	virtual void Push(TArray<AActor*> Actors) override;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> PushingMontage;

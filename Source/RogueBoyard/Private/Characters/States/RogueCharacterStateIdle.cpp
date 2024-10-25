@@ -33,16 +33,41 @@ void URogueCharacterStateIdle::StateExit(ERogueCharacterStateID NextStateID)
 void URogueCharacterStateIdle::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
-	if(FMath::Abs(Character->GetCharacterMovement()->Velocity.Length()) > 0.f)
+}
+
+void URogueCharacterStateIdle::Movement(float X, float Y)
+{
+	Super::Movement(X, Y);
+	GEngine->AddOnScreenDebugMessage(
+	-1,
+	2.f,
+	FColor::Cyan,
+	TEXT("Moving")
+	);
+	StateMachine->ChangeState(ERogueCharacterStateID::Run);
+}
+
+void URogueCharacterStateIdle::Dash(float X, float Y)
+{
+	Super::Dash(X, Y);
+	if(StateMachine->Sticks.X > 0.f || StateMachine->Sticks.Y > 0.f)
 	{
-		GEngine->AddOnScreenDebugMessage(
-		-1,
-		2.f,
-		FColor::Cyan,
-		TEXT("Moving")
-		);
-		StateMachine->ChangeState(ERogueCharacterStateID::Run);
+		StateMachine->ChangeState(ERogueCharacterStateID::Dash);
 	}
+}
+
+TArray<AActor*> URogueCharacterStateIdle::Interact()
+{
+	Super::Interact();
+	TArray<AActor*> OverlappingActors;
+	Character->GetOverlappingActors(OverlappingActors);
+	return OverlappingActors;
+}
+
+void URogueCharacterStateIdle::Push(TArray<AActor*> Actors)
+{
+	Super::Push(Actors);
+	StateMachine->ChangeState(ERogueCharacterStateID::Pushing);
 }
 
 
