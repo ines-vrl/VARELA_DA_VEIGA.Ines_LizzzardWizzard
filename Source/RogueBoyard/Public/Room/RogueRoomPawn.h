@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "RogueRoomPawn.generated.h"
 
+class ARogueCharacter;
 class ARogueTrap;
 
 UCLASS()
@@ -53,5 +54,6 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<ARogueTrap*> RightTrigger;
 	
+	void UnPossesRoom(int PlayerControllerIndex, ARogueCharacter* RogueCharacter);
 	
 };

@@ -4,7 +4,9 @@
 #include "RogueBoyard/Public/Characters/RogueCharacter.h"
 
 #include "Characters/RogueCharacterStateID.h"
+#include "Kismet/GameplayStatics.h"
 #include "RogueBoyard/Public/Characters/RogueCharacterStateMachine.h"
+#include "Room/RogueRoomPawn.h"
 
 
 // Sets default values
@@ -64,4 +66,14 @@ void ARogueCharacter::Die()
 	if(StateMachine == nullptr) return;
 	StateMachine->ChangeState(ERogueCharacterStateID::Dead);
 }
+
+void ARogueCharacter::UnPossessCharacter(int PlayerControllerIndex, ARogueRoomPawn* Room)
+{
+	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), PlayerControllerIndex);
+	PC->UnPossess();
+	PC->Possess(Room);
+	
+}
+
+
 

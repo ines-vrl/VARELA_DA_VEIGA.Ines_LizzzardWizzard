@@ -52,4 +52,5 @@ private:
 	void Die();
 	
 #pragma endregion
+	void UnPossessCharacter(int PlayerControllerIndex, ARogueRoomPawn* Room);
 };
