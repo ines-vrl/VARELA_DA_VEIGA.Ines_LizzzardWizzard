@@ -53,15 +53,10 @@ void ARogueCharacter::TickStateMachine(float DeltaTime) const
 	StateMachine->Tick(DeltaTime);
 }
 
-bool ARogueCharacter::TakeDamage(int Damage)
+void ARogueCharacter::TakeDamage(int Damage)
 {
 	CurrentLives -= Damage;
-	if(CurrentLives <= 0)
-	{
-		Die();
-		return true;
-	}
-	return false;
+	if(CurrentLives <= 0) Die();
 }
 
 void ARogueCharacter::Die()

@@ -41,11 +41,11 @@ public:
 #pragma region Life
 public:
 	UFUNCTION(BlueprintCallable)
-	bool TakeDamage(int Damage);
+	void TakeDamage(int Damage);
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int LivesMAX = 3;
 	
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	UPROPERTY(BlueprintReadWrite)
 	int CurrentLives;
 
 private:
