@@ -6,12 +6,16 @@
 
 ARogueVoteZone::ARogueVoteZone()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 	USceneComponent* Root = CreateDefaultSubobject<USceneComponent>("Root");
-	VoteZones.Add(CreateDefaultSubobject<UBoxComponent>("VoteZoneP1"));
-	VoteZones.Add(CreateDefaultSubobject<UBoxComponent>("VoteZoneP2"));
-	VoteZones.Add(CreateDefaultSubobject<UBoxComponent>("VoteZoneP3"));
-	VoteZones.Add(CreateDefaultSubobject<UBoxComponent>("VoteZoneP4"));
+	P1VoteZone = CreateDefaultSubobject<UBoxComponent>("VoteZoneP1");
+	VoteZones.Add(P1VoteZone);
+	P2VoteZone = CreateDefaultSubobject<UBoxComponent>("VoteZoneP2");
+	VoteZones.Add(P2VoteZone);
+	P3VoteZone = CreateDefaultSubobject<UBoxComponent>("VoteZoneP3");
+	VoteZones.Add(P3VoteZone);
+	P4VoteZone = CreateDefaultSubobject<UBoxComponent>("VoteZoneP4");
+	VoteZones.Add(P4VoteZone);
 	for (UBoxComponent* Zone : VoteZones)
 	{
 		Zone->SetupAttachment(Root);
@@ -81,6 +85,8 @@ int ARogueVoteZone::GetVoteResults(const int LastMjIndex)
 	const int RndIndex = FMath::RandRange(0, MaxIndex.Num()-1);
 	return MaxIndex[RndIndex];
 }
+
+
 
 
 

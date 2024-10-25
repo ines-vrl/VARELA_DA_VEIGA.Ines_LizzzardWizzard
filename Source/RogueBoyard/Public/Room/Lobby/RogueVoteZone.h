@@ -5,6 +5,9 @@
 #include "GameFramework/Actor.h"
 #include "RogueVoteZone.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerEnterZone);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAllPlayersLeaveZone);
+
 UCLASS()
 class ROGUEBOYARD_API ARogueVoteZone : public AActor
 {
@@ -14,7 +17,26 @@ public:
 	ARogueVoteZone();
 	virtual void OnConstruction(const FTransform& Transform) override;
 	int GetVoteResults(int LastMjIndex);
+
+	UPROPERTY()
+	TArray<UBoxComponent*> VoteZones;
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* P1VoteZone;
 	
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* P2VoteZone;
+	
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* P3VoteZone;
+	
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* P4VoteZone;
+
+	UPROPERTY(BlueprintCallable)
+	FOnPlayerEnterZone OnPlayerEnterZoneEvent;
+	
+	UPROPERTY(BlueprintCallable)
+	FOnAllPlayersLeaveZone OnAllPlayersLeaveZoneEvent;
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -22,9 +44,6 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	float ZoneHeight;
-	
-	UPROPERTY()
-	TArray<UBoxComponent*> VoteZones;
 
 	UPROPERTY(EditAnywhere)
 	bool bCanMjGetVoted;

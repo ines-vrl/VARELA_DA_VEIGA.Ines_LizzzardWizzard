@@ -25,4 +25,20 @@ public:
 	TArray<ARogueCharacter*> Characters;
 
 	void InitPlayers();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void StartBattleRoom();
+	void StartBattleRoom_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void EndBattleRoom();
+	void EndBattleRoom_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void StartLobbyRoom();
+	void StartLobbyRoom_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void EndLobbyRoom();
+	void EndLobbyRoom_Implementation();
 };
