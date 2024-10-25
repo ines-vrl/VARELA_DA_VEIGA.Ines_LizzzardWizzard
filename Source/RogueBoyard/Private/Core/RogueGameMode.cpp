@@ -7,6 +7,8 @@
 #include "LocalMultiplayerSubSystem.h"
 #include "Room/RogueRoomSubsystem.h"
 
+//TODO Mettre la bonne Cam
+
 void ARogueGameMode::BeginPlay()
 {
 	Super::BeginPlay();
@@ -24,4 +26,24 @@ void ARogueGameMode::InitPlayers()
 
 	//TODO MODIFIER LE PARAMETRE EN DESSOUS
 	LocalMultiplayerSubSystem->CreateAndInitPlayers(ELocalMultiplayerInputMappingType::InGame);
+}
+
+void ARogueGameMode::StartBattleRoom_Implementation()
+{
+	
+}
+
+void ARogueGameMode::EndBattleRoom_Implementation()
+{
+	
+}
+
+void ARogueGameMode::StartLobbyRoom_Implementation()
+{
+	
+}
+
+void ARogueGameMode::EndLobbyRoom_Implementation()
+{
+	
 }

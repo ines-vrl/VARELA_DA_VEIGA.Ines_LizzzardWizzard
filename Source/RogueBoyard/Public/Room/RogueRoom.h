@@ -18,6 +18,10 @@ class ROGUEBOYARD_API ARogueRoom : public AActor
 
 public:
 	ARogueRoom();
+
+	UPROPERTY(EditAnywhere)
+	ACameraActor* RoomCamera = nullptr;
+	
 	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION(BlueprintCallable)
