@@ -14,4 +14,10 @@ class ROGUEBOYARD_API ARogueGameMode : public AGameModeBase
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueRoom*> RoomManagers;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TArray<ARogueRoomPawn*> RoomPawns;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	TArray<ARogueCharacter*> Characters;
 };
