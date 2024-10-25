@@ -42,7 +42,7 @@ void ACrossbow::Tick(float DeltaTime)
 	
 }
 
-void ACrossbow::RotateCrossbow(float DeltaTime, const FVector& InputAxis)
+void ACrossbow::RotateCrossbow_Implementation(float DeltaTime, const FVector& InputAxis)
 {
 	InputJoystick(DeltaTime,InputAxis);
 }

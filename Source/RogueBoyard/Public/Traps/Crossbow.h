@@ -29,7 +29,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION()
+	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
 	void RotateCrossbow(float DeltaTime, const FVector& InputAxis);
 
 	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
