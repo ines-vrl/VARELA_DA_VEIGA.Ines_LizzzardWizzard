@@ -5,6 +5,9 @@
 #include "Room/RogueRoom.h"
 #include "RogueGameMode.generated.h"
 
+class ARogueCharacter;
+class ARogueRoomPawn;
+
 UCLASS()
 class ROGUEBOYARD_API ARogueGameMode : public AGameModeBase
 {
@@ -20,4 +23,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueCharacter*> Characters;
+
+	void InitPlayers();
 };

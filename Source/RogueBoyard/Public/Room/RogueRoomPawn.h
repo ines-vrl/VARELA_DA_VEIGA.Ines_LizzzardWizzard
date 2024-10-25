@@ -53,7 +53,8 @@ public:
 	TArray<ARogueTrap*> LeftTrigger;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<ARogueTrap*> RightTrigger;
-	
-	void UnPossesRoom(int PlayerControllerIndex, ARogueCharacter* RogueCharacter);
+
+	UFUNCTION(BlueprintCallable)
+	void UnPossesRoom(ARogueCharacter* RogueCharacter);
 	
 };

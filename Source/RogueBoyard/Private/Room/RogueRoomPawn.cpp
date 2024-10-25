@@ -4,6 +4,7 @@
 #include "Room/RogueRoomPawn.h"
 
 #include "Characters/RogueCharacter.h"
+#include "Core/RogueGameMode.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -18,7 +19,7 @@ ARogueRoomPawn::ARogueRoomPawn()
 void ARogueRoomPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->RoomPawns.Add(this);
 }
 
 // Called every frame
@@ -33,9 +34,13 @@ void ARogueRoomPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-void ARogueRoomPawn::UnPossesRoom(int PlayerControllerIndex, ARogueCharacter* Character)
+void ARogueRoomPawn::UnPossesRoom(ARogueCharacter* Character)
 {
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), PlayerControllerIndex);
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if (!PC)
+	{
+		return;
+	}
 	PC->UnPossess();
 	PC->Possess(Character);
 }

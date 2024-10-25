@@ -13,6 +13,11 @@ void URogueRoomSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	Super::Initialize(Collection);
 	const URogueRoomSettings* Settings = GetDefault<URogueRoomSettings>();
 	TArray<TSoftObjectPtr<UWorld>> RealRooms;
+
+	if(Settings->Rooms.Num()<=0 || Settings->Lobbies.Num()<=0)
+	{
+		return;
+	}
 	
 	for(int i=0; i<Settings->NumberOfRooms; i++) {
 		const int RndIndex = FMath::RandRange(0, Settings->Rooms.Num()-1);

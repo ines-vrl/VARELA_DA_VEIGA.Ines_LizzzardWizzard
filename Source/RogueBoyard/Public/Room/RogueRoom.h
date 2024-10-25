@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "RogueRoom.generated.h"
 
+class ARogueCharacter;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoomEnter);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoomExit);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRoomBegin);
@@ -24,6 +25,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void PlacePlayers(TArray<ACharacter*> Players);
+
+	UFUNCTION(BlueprintCallable)
+	void PlacePlayer(ARogueCharacter* Player, int Index);
 
 	FOnRoomBegin OnRoomBeginEvent;
 	FOnRoomEnd OnRoomEndEvent;

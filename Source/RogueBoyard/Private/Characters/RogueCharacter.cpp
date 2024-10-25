@@ -4,6 +4,7 @@
 #include "RogueBoyard/Public/Characters/RogueCharacter.h"
 
 #include "Characters/RogueCharacterStateID.h"
+#include "Core/RogueGameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "RogueBoyard/Public/Characters/RogueCharacterStateMachine.h"
 #include "Room/RogueRoomPawn.h"
@@ -23,6 +24,7 @@ void ARogueCharacter::BeginPlay()
 	CreateStateMachine();
 	InitStateMachine();
 	CurrentLives = LivesMAX;
+	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->Characters.Add(this);
 }
 
 // Called every frame
@@ -67,12 +69,14 @@ void ARogueCharacter::Die()
 	StateMachine->ChangeState(ERogueCharacterStateID::Dead);
 }
 
-void ARogueCharacter::UnPossessCharacter(int PlayerControllerIndex, ARogueRoomPawn* Room)
+void ARogueCharacter::UnPossessCharacter(ARogueRoomPawn* Room)
 {
-	APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), PlayerControllerIndex);
-	PC->UnPossess();
-	PC->Possess(Room);
-	
+	APlayerController* PC = Cast<APlayerController>(GetController());
+	if(PC)
+	{
+		PC->UnPossess();
+		PC->Possess(Room);
+	}
 }
 
 

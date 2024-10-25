@@ -1,5 +1,6 @@
 ﻿#include "Room/RogueRoom.h"
 
+#include "Characters/RogueCharacter.h"
 #include "Core/RogueGameMode.h"
 #include "GameFramework/Character.h"
 #include "Room/RogueRoomSubsystem.h"
@@ -45,6 +46,11 @@ void ARogueRoom::PlacePlayers(TArray<ACharacter*> Players)
 	{
 		Players[i]->SetActorLocation(SpawnPoints[i]->GetComponentLocation());
 	}
+}
+
+void ARogueRoom::PlacePlayer(ARogueCharacter* Player, const int Index)
+{
+	Player->SetActorTransform(SpawnPoints[Index]->GetComponentTransform());
 }
 
 void ARogueRoom::BeginPlay()
