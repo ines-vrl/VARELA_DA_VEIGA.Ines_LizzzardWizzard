@@ -46,3 +46,26 @@ void URogueCharacterState::StateTick(float DeltaTime)
 {
 }
 
+void URogueCharacterState::Movement(float X, float Y)
+{
+}
+
+bool URogueCharacterState::Dash(float X, float Y)
+{
+	return false;
+}
+
+TArray<AActor*> URogueCharacterState::Interact()
+{
+	return TArray<AActor*>();
+}
+
+bool URogueCharacterState::Push(TArray<AActor*> Actors)
+{
+	return false;
+}
+
+void URogueCharacterState::Resurrect()
+{
+}
+

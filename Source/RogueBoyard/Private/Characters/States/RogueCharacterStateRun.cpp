@@ -4,6 +4,8 @@
 #include "RogueBoyard/Public/Characters/States/RogueCharacterStateRun.h"
 
 #include "Characters/RogueCharacterStateMachine.h"
+#include "Characters/States/RogueCharacterStateDash.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "RogueBoyard/Public/Characters/RogueCharacter.h"
 
@@ -16,36 +18,65 @@ ERogueCharacterStateID URogueCharacterStateRun::GetStateID()
 void URogueCharacterStateRun::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	GEngine->AddOnScreenDebugMessage(
-	-1,
-	2.f,
-	FColor::Red,
-	TEXT("enter run"));
 	Character->GetMesh()->PlayAnimation(RunMontage, true);
 }
 
 void URogueCharacterStateRun::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
-	GEngine->AddOnScreenDebugMessage(
-	-1,
-	2.f,
-	FColor::Red,
-	TEXT("Exit run")
-);
 }
 
 void URogueCharacterStateRun::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
-	if(FMath::Abs(Character->GetCharacterMovement()->Velocity.Length()) <= 0.f)
+	if(StateMachine->Sticks.X == 0 && StateMachine->Sticks.Y == 0)
 	{
-		GEngine->AddOnScreenDebugMessage(
-		-1,
-		0.1f,
-		FColor::Cyan,
-		TEXT("Not Moving")
-		);
 		StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 	}
+}
+
+void URogueCharacterStateRun::Movement(float X, float Y)
+{
+	Super::Movement(X, Y);
+	Character->AddMovementInput(Character->GetActorRightVector(), X);
+	Character->AddMovementInput(Character->GetActorForwardVector(), Y);
+}
+
+bool URogueCharacterStateRun::Dash(float X, float Y)
+{
+	Super::Dash(X, Y);
+	StateMachine->ChangeState(ERogueCharacterStateID::Dash);
+	FVector Direction = FVector(X, Y, 0.0f);
+	URogueCharacterStateDash* DashState = Cast<URogueCharacterStateDash>(StateMachine->CurrentState);
+	if(Direction.IsZero())
+	{
+		Direction = Character->GetActorRotation().Vector() * DashState->ForceImpulse;
+		Character->LaunchCharacter(Direction, true, false);
+	}
+	else
+	{
+		Character->LaunchCharacter(Direction * DashState->ForceImpulse,	 true, false);
+	}
+	return true;
+}
+
+TArray<AActor*> URogueCharacterStateRun::Interact()
+{
+	Super::Interact();
+	TArray<AActor*> OverlappingActors;
+	Character->Box->GetOverlappingActors(OverlappingActors);
+	GEngine->AddOnScreenDebugMessage(
+	-1,
+	2.f,
+	FColor::Cyan,
+	TEXT("InteractC++")
+	);
+	return OverlappingActors;
+}
+
+bool URogueCharacterStateRun::Push(TArray<AActor*> Actors)
+{
+	Super::Push(Actors);
+	StateMachine->ChangeState(ERogueCharacterStateID::Pushing);
+	return StateMachine->CurrentState->Push(Actors);
 }
