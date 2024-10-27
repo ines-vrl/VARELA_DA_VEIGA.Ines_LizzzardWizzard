@@ -22,7 +22,7 @@ public:
 
 	
 	
-	virtual void Push(TArray<AActor*> Actors) override;
+	virtual bool Push(TArray<AActor*> Actors) override;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> PushingMontage;

@@ -4,6 +4,8 @@
 #include "RogueBoyard/Public/Characters/States/RogueCharacterStateIdle.h"
 
 #include "Characters/RogueCharacterStateMachine.h"
+#include "Characters/States/RogueCharacterStateDash.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "RogueBoyard/Public/Characters/RogueCharacter.h"
 
@@ -47,27 +49,43 @@ void URogueCharacterStateIdle::Movement(float X, float Y)
 	StateMachine->ChangeState(ERogueCharacterStateID::Run);
 }
 
-void URogueCharacterStateIdle::Dash(float X, float Y)
+bool URogueCharacterStateIdle::Dash(float X, float Y)
 {
 	Super::Dash(X, Y);
-	if(StateMachine->Sticks.X > 0.f || StateMachine->Sticks.Y > 0.f)
+	StateMachine->ChangeState(ERogueCharacterStateID::Dash);
+	FVector Direction = FVector(X, Y, 0.0f);
+	URogueCharacterStateDash* DashState = Cast<URogueCharacterStateDash>(StateMachine->CurrentState);
+	if(Direction.IsZero())
 	{
-		StateMachine->ChangeState(ERogueCharacterStateID::Dash);
+		Direction = FVector(X + (DashState->ForceImpulse), Y + (DashState->ForceImpulse), 1.0f);
+		Character->LaunchCharacter(Direction, true, false);
 	}
+	else
+	{
+		Character->LaunchCharacter(Direction * DashState->ForceImpulse,	 true, false);
+	}
+	return true;
 }
 
 TArray<AActor*> URogueCharacterStateIdle::Interact()
 {
 	Super::Interact();
 	TArray<AActor*> OverlappingActors;
-	Character->GetOverlappingActors(OverlappingActors);
+	Character->Box->GetOverlappingActors(OverlappingActors);
+	GEngine->AddOnScreenDebugMessage(
+	-1,
+	2.f,
+	FColor::Cyan,
+	TEXT("InteractC++")
+	);
 	return OverlappingActors;
 }
 
-void URogueCharacterStateIdle::Push(TArray<AActor*> Actors)
+bool URogueCharacterStateIdle::Push(TArray<AActor*> Actors)
 {
 	Super::Push(Actors);
 	StateMachine->ChangeState(ERogueCharacterStateID::Pushing);
+	return StateMachine->CurrentState->Push(Actors);
 }
 
 

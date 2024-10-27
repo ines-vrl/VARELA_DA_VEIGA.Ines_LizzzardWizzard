@@ -50,8 +50,9 @@ void URogueCharacterState::Movement(float X, float Y)
 {
 }
 
-void URogueCharacterState::Dash(float X, float Y)
+bool URogueCharacterState::Dash(float X, float Y)
 {
+	return false;
 }
 
 TArray<AActor*> URogueCharacterState::Interact()
@@ -59,8 +60,9 @@ TArray<AActor*> URogueCharacterState::Interact()
 	return TArray<AActor*>();
 }
 
-void URogueCharacterState::Push(TArray<AActor*> Actors)
+bool URogueCharacterState::Push(TArray<AActor*> Actors)
 {
+	return false;
 }
 
 void URogueCharacterState::Resurrect()

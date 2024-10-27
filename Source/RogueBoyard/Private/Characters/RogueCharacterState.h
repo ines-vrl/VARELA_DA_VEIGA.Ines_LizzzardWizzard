@@ -27,11 +27,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual void Movement(float X, float Y);
 	UFUNCTION(BlueprintCallable)
-	virtual void Dash(float X, float Y);
+	virtual bool Dash(float X, float Y);
 	UFUNCTION(BlueprintCallable)
 	virtual TArray<AActor*> Interact();
 	UFUNCTION(BlueprintCallable)
-	virtual void Push(TArray<AActor*> Actors);
+	virtual bool Push(TArray<AActor*> Actors);
 	UFUNCTION(BlueprintCallable)
 	virtual void Resurrect();
 	
