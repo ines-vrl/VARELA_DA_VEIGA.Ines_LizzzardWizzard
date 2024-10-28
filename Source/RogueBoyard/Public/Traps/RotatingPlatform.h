@@ -4,26 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "RogueTrap.h"
-#include "Trap.generated.h"
+#include "RotatingPlatform.generated.h"
 
 UCLASS()
-class ROGUEBOYARD_API ATrap : public ARogueTrap
+class ROGUEBOYARD_API ARotatingPlatform : public ARogueTrap
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	ATrap();
+	ARotatingPlatform();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
-	void OpenTrap();
+	void RotatingPlatform(float DeltaTime,FVector InputAxis);
 };

@@ -19,12 +19,6 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-	virtual void InputJoystick(float DeltaTime,FVector InputAxis) override;
-
-	virtual void InputButtonDown() override;
-
-	virtual void InputButtonUp() override;
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
