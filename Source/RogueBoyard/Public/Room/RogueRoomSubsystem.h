@@ -23,6 +23,9 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	int ActiveRoomId = 0;
 
+	void LoadNextRoom();
+	bool bPendingNextRoom = false;
+
 private:
 	TArray<TSoftObjectPtr<UWorld>> Rooms;
 	UPROPERTY()
@@ -32,6 +35,5 @@ private:
 	
 	void LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room, const FVector& Position);
 	void UnloadRoom(ULevelStreamingDynamic* Room);
-	void LoadNextRoom();
 	void UnloadPreviousRoom();
 };

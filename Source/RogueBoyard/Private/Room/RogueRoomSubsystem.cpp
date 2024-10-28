@@ -42,7 +42,7 @@ void URogueRoomSubsystem::InitFirstRoom() {
 	const URogueRoomSettings* Settings = GetDefault<URogueRoomSettings>();
 	LoadRoomAtPosition(Rooms[0], NextRoomPosition);
 	NextRoomPosition += FVector(Settings->MaxRoomSize, 0, 0);
-	LoadNextRoom();
+	bPendingNextRoom = true;
 }
 
 
@@ -80,6 +80,7 @@ void URogueRoomSubsystem::UnloadRoom(ULevelStreamingDynamic* Room) {
 }
 
 void URogueRoomSubsystem::LoadNextRoom() {
+	bPendingNextRoom = false;
 	const URogueRoomSettings* Settings = GetDefault<URogueRoomSettings>();
 	if(ActiveRoomId >= Rooms.Num()) {
 		return;
