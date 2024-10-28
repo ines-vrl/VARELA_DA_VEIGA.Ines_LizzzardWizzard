@@ -13,7 +13,7 @@ public:
 	ARogueTimedRoom();
 	virtual void Tick(float DeltaTime) override;
 	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float ElapsedTime = 0;
 
 protected:
