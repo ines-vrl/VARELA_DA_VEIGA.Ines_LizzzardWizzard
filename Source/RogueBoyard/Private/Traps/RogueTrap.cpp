@@ -15,18 +15,6 @@ void ARogueTrap::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ARogueTrap::InputJoystick(float DeltaTime,FVector InputAxis)
-{
-}
-
-void ARogueTrap::InputButtonDown()
-{
-}
-
-void ARogueTrap::InputButtonUp()
-{
-}
-
 // Called every frame
 void ARogueTrap::Tick(float DeltaTime)
 {

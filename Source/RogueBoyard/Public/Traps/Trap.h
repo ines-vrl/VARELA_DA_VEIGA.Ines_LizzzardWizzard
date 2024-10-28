@@ -19,9 +19,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-private:
-	UFUNCTION()
-	virtual void InputButtonDown() override;
 	
 public:
 	// Called every frame

@@ -21,9 +21,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	UPROPERTY(BlueprintReadWrite,EditAnywhere, Category = "Trap")
-	bool bReusable;
-	
 	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
 	FVector InputAxisDebug;
 
@@ -35,12 +32,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float MaxRotationSpeed;
-	
-	virtual void InputJoystick(float DeltaTime, FVector InputAxis);
-	
-	virtual void InputButtonDown();
-	
-	virtual void InputButtonUp();
 
 	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
 	

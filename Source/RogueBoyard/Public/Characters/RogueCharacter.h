@@ -6,12 +6,16 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+class UBoxComponent;
 class ARogueRoomPawn;
 class URogueCharacterStateMachine;
 UCLASS()
 class ROGUEBOYARD_API ARogueCharacter : public ACharacter
 {
 	GENERATED_BODY()
+	public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UBoxComponent* Box;
 #pragma region Unreal Default
 public:
 	// Sets default values for this character's properties

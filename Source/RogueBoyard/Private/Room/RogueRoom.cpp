@@ -61,6 +61,11 @@ void ARogueRoom::BeginPlay()
 	{
 		GameMode->RoomManagers.Add(this);
 	}
+	URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
+	if(RoomSubsystem->bPendingNextRoom)
+	{
+		RoomSubsystem->LoadNextRoom();
+	}
 }
 
 void ARogueRoom::BeginRoom()

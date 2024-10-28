@@ -8,13 +8,16 @@
 #include "Kismet/GameplayStatics.h"
 #include "RogueBoyard/Public/Characters/RogueCharacterStateMachine.h"
 #include "Room/RogueRoomPawn.h"
-
+#include "Components/BoxComponent.h"
+#include "Engine/ContentEncryptionConfig.h"
 
 // Sets default values
 ARogueCharacter::ARogueCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
+	Box->SetupAttachment(GetMesh());
 }
 
 // Called when the game starts or when spawned
