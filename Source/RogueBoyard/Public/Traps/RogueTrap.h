@@ -33,6 +33,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float MaxRotationSpeed;
 
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float ValueMinimalRotationJoystick;
+
 	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
 	
 public:
@@ -63,4 +66,7 @@ private:
 
 	UPROPERTY()
 	float CurrentAngle;
+
+	UPROPERTY()
+	float VectorStandard;
 };
