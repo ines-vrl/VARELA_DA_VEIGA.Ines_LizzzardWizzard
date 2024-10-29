@@ -30,6 +30,11 @@ void ARogueLobbyRoom::Tick(float DeltaTime)
 	}
 }
 
+void ARogueLobbyRoom::EndRoom()
+{
+	VotedPlayerIndex = VoteZone->GetVoteResults(-1);
+}
+
 void ARogueLobbyRoom::BeginPlay()
 {
 	Super::BeginPlay();

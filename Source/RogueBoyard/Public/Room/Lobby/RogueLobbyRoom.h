@@ -17,6 +17,8 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	int VotedPlayerIndex;
 
+	virtual void EndRoom() override;
+
 protected:
 	virtual void BeginPlay() override;
 
