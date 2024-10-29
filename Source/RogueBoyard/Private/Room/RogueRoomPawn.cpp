@@ -19,7 +19,10 @@ ARogueRoomPawn::ARogueRoomPawn()
 void ARogueRoomPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->RoomPawns.Add(this);
+	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		GameMode->RoomPawns.Add(this);
+	}
 }
 
 // Called every frame
