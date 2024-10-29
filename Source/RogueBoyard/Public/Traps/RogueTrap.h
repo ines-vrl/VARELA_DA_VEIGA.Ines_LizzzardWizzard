@@ -39,6 +39,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
 	float Acceleration;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
+	float Deceleration = 500.0f;
+
 	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
 
 	void MoveOnXAxis(const float DeltaTime,float InputAxisX,float Speed);
