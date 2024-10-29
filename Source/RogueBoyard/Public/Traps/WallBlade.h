@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "RogueTrap.h"
-#include "RotatingPlatform.generated.h"
+#include "WallBlade.generated.h"
 
 UCLASS()
-class ROGUEBOYARD_API ARotatingPlatform : public ARogueTrap
+class ROGUEBOYARD_API AWallBlade : public ARogueTrap
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	ARotatingPlatform();
+	AWallBlade();
 
 protected:
 	// Called when the game starts or when spawned
@@ -22,9 +22,4 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
-	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
-	void RotatingPlatform(float DeltaTime,FVector InputAxis);
-
-
 };
