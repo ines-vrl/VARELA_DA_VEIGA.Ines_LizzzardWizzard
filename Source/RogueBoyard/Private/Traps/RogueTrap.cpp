@@ -23,17 +23,17 @@ void ARogueTrap::Tick(float DeltaTime)
 }
 
 
-void ARogueTrap::RotateTrap(const float DeltaTime,const FVector& InputAxis)
+void ARogueTrap::RotateTrap(const float DeltaTime, const FVector& InputAxis)
 {
 	if(bCanRotate)
 	{
 		CurrentRotation = GetActorRotation();
 		AngleInRadians = FMath::Atan2(InputAxis.Y, InputAxis.X);
 		TargetAngle = FMath::RadiansToDegrees(AngleInRadians);
-		CurrentAngle = NewRotation.Yaw;
+		CurrentAngle = CurrentRotation.Yaw;
 		AngleDifference = TargetAngle - CurrentAngle;
 		AngleDifference = FMath::Fmod(AngleDifference + 180.0f, 360.0f) - 180.0f;
-		RotationToApply = FMath::Clamp(AngleDifference, -MaxRotationSpeed * DeltaTime, MaxRotationSpeed * 10 * DeltaTime);
+		RotationToApply = FMath::Clamp(AngleDifference, -MaxRotationSpeed * DeltaTime *10, MaxRotationSpeed * DeltaTime *10);
 		NewRotation = CurrentRotation;
 		NewRotation.Yaw += RotationToApply;
 		SetActorRotation(NewRotation);
