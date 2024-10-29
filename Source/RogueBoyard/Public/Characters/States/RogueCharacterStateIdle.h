@@ -19,7 +19,7 @@ public:
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
 
-	virtual void Movement(float X, float Y) override;
+	virtual void Movement(float X, float Y, ACameraActor* Camera) override;
 	virtual bool Dash(float X, float Y) override;
 	virtual TArray<AActor*> Interact() override;
 	virtual bool Push(TArray<AActor*> Actors) override;
