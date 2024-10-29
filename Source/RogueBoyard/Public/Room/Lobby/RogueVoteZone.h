@@ -20,16 +20,16 @@ public:
 
 	UPROPERTY()
 	TArray<UBoxComponent*> VoteZones;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBoxComponent* P1VoteZone;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBoxComponent* P2VoteZone;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBoxComponent* P3VoteZone;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBoxComponent* P4VoteZone;
 
 	UPROPERTY(BlueprintCallable)
