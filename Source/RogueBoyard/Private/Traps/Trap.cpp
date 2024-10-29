@@ -17,12 +17,6 @@ void ATrap::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ATrap::InputButtonDown()
-{
-	Super::InputButtonDown();
-	
-}
-
 
 // Called every frame
 void ATrap::Tick(float DeltaTime)
@@ -33,6 +27,6 @@ void ATrap::Tick(float DeltaTime)
 
 void ATrap::OpenTrap_Implementation()
 {
-	InputButtonDown();
+	
 }
 
