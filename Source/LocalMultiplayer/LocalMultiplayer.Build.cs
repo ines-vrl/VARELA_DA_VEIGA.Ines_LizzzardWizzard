@@ -9,19 +9,20 @@ public class LocalMultiplayer : ModuleRules
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
-                "Core", "EnhancedInput",
-            }
-        );
-
-        PrivateDependencyModuleNames.AddRange(
-            new string[]
-            {
+                "Core",
+                "EnhancedInput",
                 "CoreUObject",
                 "Engine",
                 "Slate",
                 "SlateCore",
                 "DeveloperSettings",
                 "InputCore"
+            }
+        );
+
+        PrivateDependencyModuleNames.AddRange(
+            new string[]
+            {
             }
         );
     }
