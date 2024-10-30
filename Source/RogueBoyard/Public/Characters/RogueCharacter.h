@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+class ARogueRoomPawn;
 class URogueCharacterStateMachine;
 UCLASS()
 class ROGUEBOYARD_API ARogueCharacter : public ACharacter
@@ -33,7 +34,26 @@ public:
 	void CreateStateMachine();
 	void InitStateMachine();
 	void TickStateMachine(float DeltaTime) const;
+	
+	
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<URogueCharacterStateMachine> StateMachine;
 #pragma endregion
+#pragma region Life
+public:
+	UFUNCTION(BlueprintCallable)
+	void TakeDamage(int Damage);
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int LivesMAX = 3;
+	
+	UPROPERTY(BlueprintReadWrite)
+	int CurrentLives;
+
+private:
+	void Die();
+	
+#pragma endregion
+	UFUNCTION(BlueprintCallable)
+	void UnPossessCharacter(ARogueRoomPawn* Room);
 };
