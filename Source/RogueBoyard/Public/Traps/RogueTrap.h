@@ -42,15 +42,18 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
 	float Deceleration = 500.0f;
 
+	UPROPERTY()
+	float MaxDistance;
+	
+	UPROPERTY()
+	float MovementSpeed;
+
 	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
 
-	void MoveOnXAxis(const float DeltaTime,float InputAxisX,float Speed);
+	void MoveOnXAxis(const float DeltaTime,float InputAxisX);
 	
 public:
 	virtual void Tick(float DeltaTime) override;
-
-	
-
 
 
 private:
@@ -74,9 +77,6 @@ private:
 
 	UPROPERTY()
 	FVector NewLocation;
-
-	UPROPERTY()
-	float MaxDistance;
 
 	UPROPERTY()
 	FVector OriginalPosition;
