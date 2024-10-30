@@ -16,6 +16,7 @@ void ARogueGameMode::BeginPlay()
 	InitPlayers();
 }
 
+
 void ARogueGameMode::InitPlayers()
 {
 	UGameInstance* GameInstance = GetGameInstance();

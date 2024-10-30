@@ -25,7 +25,7 @@ public:
 	virtual void StateTick(float DeltaTime);
 
 	UFUNCTION(BlueprintCallable)
-	virtual void Movement(float X, float Y, ACameraActor* Camera = nullptr);
+	virtual void Movement(float X, float Y);
 	UFUNCTION(BlueprintCallable)
 	virtual bool Dash(float X, float Y);
 	UFUNCTION(BlueprintCallable)

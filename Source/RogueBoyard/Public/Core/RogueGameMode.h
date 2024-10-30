@@ -24,6 +24,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueCharacter*> Characters;
 
+
 	void InitPlayers();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)

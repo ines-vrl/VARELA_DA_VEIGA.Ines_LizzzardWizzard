@@ -36,22 +36,19 @@ void URogueCharacterStateRun::StateTick(float DeltaTime)
 	}
 }
 
-void URogueCharacterStateRun::Movement(float X, float Y, ACameraActor* Camera)
+void URogueCharacterStateRun::Movement(float X, float Y)
 {
 	Super::Movement(X, Y);
-	FRotator CameraRotation = Camera->GetActorRotation();
-	CameraRotation.Pitch = 0.0f;
-	FVector Forward = FRotationMatrix(CameraRotation).GetScaledAxis(EAxis::X);
-	FVector Right = FRotationMatrix(CameraRotation).GetScaledAxis(EAxis::Y);
-	Character->AddMovementInput(Right, X);
-	Character->AddMovementInput(Forward, Y);
+	Character->AddMovementInput(Character->GetCamera()->GetActorRightVector(), X);
+	Character->AddMovementInput(Character->GetCamera()->GetActorForwardVector(), Y);
+	
 }
 
 bool URogueCharacterStateRun::Dash(float X, float Y)
 {
 	Super::Dash(X, Y);
 	StateMachine->ChangeState(ERogueCharacterStateID::Dash);
-	FVector Direction = FVector(X, Y, 0.0f);
+	/*FVector Direction = FVector(X, Y, 0.0f);
 	URogueCharacterStateDash* DashState = Cast<URogueCharacterStateDash>(StateMachine->CurrentState);
 	if(Direction.IsZero())
 	{
@@ -61,7 +58,7 @@ bool URogueCharacterStateRun::Dash(float X, float Y)
 	else
 	{
 		Character->LaunchCharacter(Direction * DashState->ForceImpulse,	 true, false);
-	}
+	}*/
 	return true;
 }
 

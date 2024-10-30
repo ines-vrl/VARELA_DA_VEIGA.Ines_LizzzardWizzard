@@ -10,6 +10,7 @@
 #include "Room/RogueRoomPawn.h"
 #include "Components/BoxComponent.h"
 #include "Engine/ContentEncryptionConfig.h"
+#include "Room/RogueRoomSubsystem.h"
 
 // Sets default values
 ARogueCharacter::ARogueCharacter()
@@ -76,6 +77,25 @@ void ARogueCharacter::Die()
 {
 	if(StateMachine == nullptr) return;
 	StateMachine->ChangeState(ERogueCharacterStateID::Dead);
+}
+
+ACameraActor* ARogueCharacter::GetCamera()
+{
+	if(Camera)
+	{
+		return Camera;
+	}
+	SetCamera();
+	return Camera;
+}
+
+void ARogueCharacter::SetCamera()
+{
+	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		int ActiveRoom = GetWorld()->GetSubsystem<URogueRoomSubsystem>()->ActiveRoomId;
+		Camera = GameMode->RoomManagers[ActiveRoom]->RoomCamera;
+	}
 }
 
 void ARogueCharacter::UnPossessCharacter(ARogueRoomPawn* Room)
