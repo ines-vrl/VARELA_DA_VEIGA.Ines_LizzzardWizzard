@@ -36,35 +36,32 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float ValueMinimalRotationJoystick;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
-	float Acceleration;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
-	float Deceleration = 500.0f;
-
-	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
-
-	void MoveOnXAxis(const float DeltaTime,float InputAxisX,float Speed);
-	
-public:
-	virtual void Tick(float DeltaTime) override;
-
-	
-
-
-
-private:
 	UPROPERTY()
-	FRotator CurrentRotation;
-
+	float MaxDistance;
+	
 	UPROPERTY()
-	float RotationToApply;
+	float MovementSpeed;
 
 	UPROPERTY()
 	float RotationInput;
 
 	UPROPERTY()
-	float CurrentRotationSpeed;
+	float DesiredRotationSpeed;
+
+	UPROPERTY()
+	float TargetRotationSpeed;
+
+	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
+
+	void MoveOnXAxis(const float DeltaTime,float InputAxisX);
+	
+public:
+	virtual void Tick(float DeltaTime) override;
+
+
+private:
+	UPROPERTY()
+	FRotator CurrentRotation;
 
 	UPROPERTY()
 	float DistanceToMove;
@@ -74,9 +71,6 @@ private:
 
 	UPROPERTY()
 	FVector NewLocation;
-
-	UPROPERTY()
-	float MaxDistance;
 
 	UPROPERTY()
 	FVector OriginalPosition;

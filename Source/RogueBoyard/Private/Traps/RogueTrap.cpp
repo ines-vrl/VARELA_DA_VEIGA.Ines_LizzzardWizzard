@@ -26,29 +26,26 @@ void ARogueTrap::Tick(float DeltaTime)
 
 void ARogueTrap::RotateTrap(const float DeltaTime, const FVector& InputAxis)
 {
-	if (bCanRotate)
+	if (bCanRotate && FMath::Abs(InputAxis.X) > ValueMinimalRotationJoystick)
 	{
-		if (FMath::Abs(InputAxis.X) > ValueMinimalRotationJoystick)
-		{
-			CurrentRotation = GetActorRotation();
-			RotationInput = InputAxis.X;
-			CurrentRotationSpeed += RotationInput * Acceleration * DeltaTime;
-			CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
-			CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
-			SetActorRotation(CurrentRotation);
-		}
-		else
-		{
-			CurrentRotationSpeed = FMath::FInterpTo(CurrentRotationSpeed, 0.0f, DeltaTime, 5.0f); 
-		}
+		CurrentRotation = GetActorRotation();
+		RotationInput = InputAxis.X;
+		TargetRotationSpeed = RotationInput * MaxRotationSpeed;
+		CurrentRotation.Yaw += TargetRotationSpeed * DeltaTime;
+		SetActorRotation(CurrentRotation);
+	}
+	else
+	{
+		CurrentRotation = GetActorRotation();
+		SetActorRotation(CurrentRotation);
 	}
 }
 
-void ARogueTrap::MoveOnXAxis(const float DeltaTime, float InputAxisX,float Speed)
+void ARogueTrap::MoveOnXAxis(const float DeltaTime, float InputAxisX)
 {
-	if (FMath::Abs(InputAxisX) > KINDA_SMALL_NUMBER)
+	if (FMath::Abs(InputAxisX) > ValueMinimalRotationJoystick)
 	{
-		DistanceToMove = InputAxisX * Speed * DeltaTime;
+		DistanceToMove = InputAxisX * MovementSpeed * DeltaTime;
 		NewLocation = GetActorLocation() + FVector(DistanceToMove, 0, 0);
 		SetActorLocation(NewLocation);
 		CurrentDistance += FMath::Abs(DistanceToMove);
