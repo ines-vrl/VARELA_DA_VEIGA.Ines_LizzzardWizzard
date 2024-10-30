@@ -26,21 +26,21 @@ void ARogueTrap::Tick(float DeltaTime)
 
 void ARogueTrap::RotateTrap(const float DeltaTime, const FVector& InputAxis)
 {
-	if (bCanRotate)
+	if (bCanRotate && FMath::Abs(InputAxis.X) > ValueMinimalRotationJoystick && FMath::Abs(InputAxis.X) < -ValueMinimalRotationJoystick)
 	{
-		if (FMath::Abs(InputAxis.X) > ValueMinimalRotationJoystick)
-		{
-			CurrentRotation = GetActorRotation();
-			RotationInput = InputAxis.X;
-			CurrentRotationSpeed += RotationInput * Acceleration * DeltaTime;
-			CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
-			CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
-			SetActorRotation(CurrentRotation);
-		}
-		else
-		{
-			CurrentRotationSpeed = FMath::FInterpTo(CurrentRotationSpeed, 0.0f, DeltaTime, 5.0f); 
-		}
+		CurrentRotation = GetActorRotation();
+		RotationInput = InputAxis.X;
+		CurrentRotationSpeed += RotationInput * Acceleration * DeltaTime;
+		CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
+		CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
+		SetActorRotation(CurrentRotation);
+	}
+	else
+	{
+		CurrentRotationSpeed = FMath::FInterpTo(CurrentRotationSpeed, 0.0f, DeltaTime, Deceleration);
+		CurrentRotation = GetActorRotation();
+		CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
+		SetActorRotation(CurrentRotation); 
 	}
 }
 
