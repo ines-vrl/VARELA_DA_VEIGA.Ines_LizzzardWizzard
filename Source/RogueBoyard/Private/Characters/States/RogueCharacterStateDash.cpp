@@ -3,10 +3,12 @@
 
 #include "RogueBoyard/Public/Characters/States/RogueCharacterStateDash.h"
 
+#include "Camera/CameraActor.h"
 #include "Characters/RogueCharacterStateMachine.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "RogueBoyard/Public/Characters/RogueCharacter.h"
 
+#define printFString(text, fstring) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT(text), fstring))
 
 ERogueCharacterStateID URogueCharacterStateDash::GetStateID()
 {
@@ -17,9 +19,13 @@ void URogueCharacterStateDash::StateEnter(ERogueCharacterStateID PreviousStateID
 {
 	Super::StateEnter(PreviousStateID);
 	Sticks = StateMachine->Sticks;
-	Character->GetCharacterMovement()->AddImpulse(StateMachine->Sticks * ForceImpulse);
-	Character->GetMesh()->PlayAnimation(DashMontage, false);
-	if(DashMontage) DashAnimTimeRemaining = DashMontage->GetPlayLength();
+	Sticks.Y = -Sticks.Y;
+	FRotator CameraRotation = Character->GetCamera()->GetActorRotation();
+	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString::SanitizeFloat(CameraRotation.Yaw));
+	const FVector Dir = Sticks.RotateAngleAxis(CameraRotation.Yaw + 90, FVector::UpVector);
+	Character->LaunchCharacter(Dir * ForceImpulse, true, false);
+	//Character->GetMesh()->PlayAnimation(DashMontage, false);
+	//if(DashMontage) DashAnimTimeRemaining = DashMontage->GetPlayLength();
 }
 
 void URogueCharacterStateDash::StateExit(ERogueCharacterStateID NextStateID)
