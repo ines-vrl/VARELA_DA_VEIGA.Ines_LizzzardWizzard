@@ -32,15 +32,15 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<URogueCharacterState> CurrentState;
-
+	
+	UPROPERTY(BlueprintReadOnly)
+	ERogueCharacterStateID CurrentStateID;
+	
 protected:
 	UPROPERTY()
 	TObjectPtr<ARogueCharacter> Character;
 
 	TArray<URogueCharacterState*> AllStates;
-
-	UPROPERTY(BlueprintReadOnly)
-	ERogueCharacterStateID CurrentStateID;
 	
 	void FindStates();
 	void InitStates();

@@ -20,7 +20,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
-	void RotateFlameThrower(float DeltaTime, FVector &InputAxis);
+	void RotateFlameThrower(float DeltaTime,const FVector &InputAxis);
 
 public:
 	// Called every frame

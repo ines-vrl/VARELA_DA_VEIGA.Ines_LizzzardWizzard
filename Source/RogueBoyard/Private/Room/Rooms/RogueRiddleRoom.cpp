@@ -19,7 +19,9 @@ void ARogueRiddleRoom::Tick(float DeltaTime)
 
 	if(ThingsToValidate <= 0)
 	{
-		Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndBattleRoom();
+		if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
+			GameMode->EndBattleRoom();
+		}
 	}
 }
 

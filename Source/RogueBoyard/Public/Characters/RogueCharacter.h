@@ -51,6 +51,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void TakeDamage(int Damage);
 	
+	UFUNCTION(BlueprintCallable)
+	void Resurrect();
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int LivesMAX = 3;
 	
