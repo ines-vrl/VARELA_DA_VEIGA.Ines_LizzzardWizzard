@@ -30,17 +30,14 @@ void ARogueTrap::RotateTrap(const float DeltaTime, const FVector& InputAxis)
 	{
 		CurrentRotation = GetActorRotation();
 		RotationInput = InputAxis.X;
-		CurrentRotationSpeed += RotationInput * Acceleration * DeltaTime;
-		CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
-		CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
+		TargetRotationSpeed = RotationInput * MaxRotationSpeed;
+		CurrentRotation.Yaw += TargetRotationSpeed * DeltaTime;
 		SetActorRotation(CurrentRotation);
 	}
 	else
 	{
-		CurrentRotationSpeed = FMath::FInterpTo(CurrentRotationSpeed, 0.0f, DeltaTime, Deceleration);
 		CurrentRotation = GetActorRotation();
-		CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
-		SetActorRotation(CurrentRotation); 
+		SetActorRotation(CurrentRotation);
 	}
 }
 
