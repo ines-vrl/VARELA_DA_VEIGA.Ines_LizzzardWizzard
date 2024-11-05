@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterDeath);
 class UBoxComponent;
 class ARogueRoomPawn;
 class URogueCharacterStateMachine;
@@ -16,6 +17,8 @@ class ROGUEBOYARD_API ARogueCharacter : public ACharacter
 	public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UBoxComponent* Box;
+	UPROPERTY(BlueprintCallable, BlueprintAssignable)
+	FOnCharacterDeath OnCharacterDeathEvent;
 #pragma region Unreal Default
 public:
 	// Sets default values for this character's properties
@@ -47,6 +50,9 @@ public:
 public:
 	UFUNCTION(BlueprintCallable)
 	void TakeDamage(int Damage);
+	
+	UFUNCTION(BlueprintCallable)
+	void Resurrect();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int LivesMAX = 3;

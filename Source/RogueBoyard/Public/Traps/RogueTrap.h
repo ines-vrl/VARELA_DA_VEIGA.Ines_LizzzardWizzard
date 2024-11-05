@@ -21,9 +21,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	UPROPERTY(BlueprintReadWrite,EditAnywhere, Category = "Trap")
-	bool bReusable;
-	
 	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
 	FVector InputAxisDebug;
 
@@ -35,14 +32,19 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float MaxRotationSpeed;
-	
-	virtual void InputJoystick(float DeltaTime, FVector InputAxis);
-	
-	virtual void InputButtonDown();
-	
-	virtual void InputButtonUp();
+
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float ValueMinimalRotationJoystick;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
+	float Acceleration;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
+	float Deceleration = 500.0f;
 
 	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
+
+	void MoveOnXAxis(const float DeltaTime,float InputAxisX,float Speed);
 	
 public:
 	virtual void Tick(float DeltaTime) override;
@@ -56,20 +58,26 @@ private:
 	FRotator CurrentRotation;
 
 	UPROPERTY()
-	FRotator NewRotation;
-
-	UPROPERTY()
 	float RotationToApply;
 
 	UPROPERTY()
-	float AngleDifference;
+	float RotationInput;
 
 	UPROPERTY()
-	float TargetAngle;
+	float CurrentRotationSpeed;
 
 	UPROPERTY()
-	float AngleInRadians;
+	float DistanceToMove;
 
 	UPROPERTY()
-	float CurrentAngle;
+	float CurrentDistance;
+
+	UPROPERTY()
+	FVector NewLocation;
+
+	UPROPERTY()
+	float MaxDistance;
+
+	UPROPERTY()
+	FVector OriginalPosition;
 };

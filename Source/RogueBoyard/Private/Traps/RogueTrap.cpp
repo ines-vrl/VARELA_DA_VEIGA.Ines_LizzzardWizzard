@@ -3,6 +3,7 @@
 
 #include "RogueBoyard/Public/Traps/RogueTrap.h"
 #include "Math/UnrealMathUtility.h"
+#include <cmath>
 
 ARogueTrap::ARogueTrap()
 {
@@ -15,18 +16,6 @@ void ARogueTrap::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ARogueTrap::InputJoystick(float DeltaTime,FVector InputAxis)
-{
-}
-
-void ARogueTrap::InputButtonDown()
-{
-}
-
-void ARogueTrap::InputButtonUp()
-{
-}
-
 // Called every frame
 void ARogueTrap::Tick(float DeltaTime)
 {
@@ -35,19 +24,45 @@ void ARogueTrap::Tick(float DeltaTime)
 }
 
 
-void ARogueTrap::RotateTrap(const float DeltaTime,const FVector& InputAxis)
+void ARogueTrap::RotateTrap(const float DeltaTime, const FVector& InputAxis)
 {
-	if(bCanRotate)
+	if (bCanRotate)
 	{
-		CurrentRotation = GetActorRotation();
-		AngleInRadians = FMath::Atan2(InputAxis.Y, InputAxis.X);
-		TargetAngle = FMath::RadiansToDegrees(AngleInRadians);
-		CurrentAngle = NewRotation.Yaw;
-		AngleDifference = TargetAngle - CurrentAngle;
-		AngleDifference = FMath::Fmod(AngleDifference + 180.0f, 360.0f) - 180.0f;
-		RotationToApply = FMath::Clamp(AngleDifference, -MaxRotationSpeed * DeltaTime, MaxRotationSpeed * 10 * DeltaTime);
-		NewRotation = CurrentRotation;
-		NewRotation.Yaw += RotationToApply;
-		SetActorRotation(NewRotation);
+		if (FMath::Abs(InputAxis.X) > ValueMinimalRotationJoystick)
+		{
+			CurrentRotation = GetActorRotation();
+			RotationInput = InputAxis.X;
+			CurrentRotationSpeed += RotationInput * Acceleration * DeltaTime;
+			CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
+			CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
+			SetActorRotation(CurrentRotation);
+		}
+		else
+		{
+			CurrentRotationSpeed = FMath::FInterpTo(CurrentRotationSpeed, 0.0f, DeltaTime, 5.0f); 
+		}
+	}
+}
+
+void ARogueTrap::MoveOnXAxis(const float DeltaTime, float InputAxisX,float Speed)
+{
+	if (FMath::Abs(InputAxisX) > KINDA_SMALL_NUMBER)
+	{
+		DistanceToMove = InputAxisX * Speed * DeltaTime;
+		NewLocation = GetActorLocation() + FVector(DistanceToMove, 0, 0);
+		SetActorLocation(NewLocation);
+		CurrentDistance += FMath::Abs(DistanceToMove);
+		if (CurrentDistance > MaxDistance)
+		{
+			CurrentDistance = MaxDistance;
+			NewLocation = OriginalPosition + FVector(MaxDistance, 0, 0);
+			SetActorLocation(NewLocation);
+		}
+		else if (CurrentDistance < 0.0f)
+		{
+			CurrentDistance = 0.0f;
+			NewLocation = OriginalPosition;
+			SetActorLocation(NewLocation);
+		}
 	}
 }

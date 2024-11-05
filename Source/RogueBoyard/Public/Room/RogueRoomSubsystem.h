@@ -8,6 +8,8 @@
 #include "Subsystems/WorldSubsystem.h"
 #include "RogueRoomSubsystem.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNextRoom);
+
 /**
  * 
  */
@@ -25,6 +27,9 @@ public:
 
 	void LoadNextRoom();
 	bool bPendingNextRoom = false;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnNextRoom OnNextRoomEvent;
 
 private:
 	TArray<TSoftObjectPtr<UWorld>> Rooms;

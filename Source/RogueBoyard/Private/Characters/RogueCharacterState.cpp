@@ -46,7 +46,7 @@ void URogueCharacterState::StateTick(float DeltaTime)
 {
 }
 
-void URogueCharacterState::Movement(float X, float Y)
+void URogueCharacterState::Movement(float X, float Y, ACameraActor* Camera)
 {
 }
 

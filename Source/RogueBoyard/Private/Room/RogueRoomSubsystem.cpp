@@ -35,6 +35,7 @@ void URogueRoomSubsystem::NextRoom() {
 	ActiveRoomId++;
 	LoadNextRoom();
 	UnloadPreviousRoom();
+	OnNextRoomEvent.Broadcast();
 	GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "ActiveRoom :" + FString::SanitizeFloat(ActiveRoomId));
 }
 
