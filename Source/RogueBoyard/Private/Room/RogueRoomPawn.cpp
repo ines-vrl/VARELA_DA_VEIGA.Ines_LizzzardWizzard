@@ -5,7 +5,7 @@
 
 #include "Characters/RogueCharacter.h"
 #include "Core/RogueGameMode.h"
-#include "Kismet/GameplayStatics.h"
+#include "Room/RogueRoomSubsystem.h"
 
 
 // Sets default values
@@ -21,8 +21,10 @@ void ARogueRoomPawn::BeginPlay()
 	Super::BeginPlay();
 	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
 	{
-		GameMode->RoomPawns.Add(this);
+		GameMode->AddRoomPawn(this);
 	}
+	URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
+	RoomSubsystem->RoomLoadedCallback(ERoomLoaded::Pawn);
 }
 
 // Called every frame

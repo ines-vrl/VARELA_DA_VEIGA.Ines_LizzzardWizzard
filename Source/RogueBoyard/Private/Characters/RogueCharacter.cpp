@@ -28,7 +28,7 @@ void ARogueCharacter::BeginPlay()
 	CreateStateMachine();
 	InitStateMachine();
 	CurrentLives = LivesMAX;
-	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->Characters.Add(this);
+	//Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->Characters.Add(this);
 }
 
 // Called every frame
