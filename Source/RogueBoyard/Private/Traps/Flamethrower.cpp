@@ -18,11 +18,6 @@ void AFlamethrower::BeginPlay()
 	
 }
 
-void AFlamethrower::RotateFlameThrower_Implementation(float DeltaTime, const FVector& InputAxis)
-{
-	RotateTrap(DeltaTime, InputAxis);
-}
-
 // Called every frame
 void AFlamethrower::Tick(float DeltaTime)
 {

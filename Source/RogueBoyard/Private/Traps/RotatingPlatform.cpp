@@ -15,18 +15,11 @@ ARotatingPlatform::ARotatingPlatform()
 void ARotatingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ARotatingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	RotatingPlatform_Implementation(DeltaTime,InputAxisDebug);
-}
-
-void ARotatingPlatform::RotatingPlatform_Implementation(float DeltaTime, FVector InputAxis)
-{
-	RotateTrap(DeltaTime, InputAxis);
 }
 
