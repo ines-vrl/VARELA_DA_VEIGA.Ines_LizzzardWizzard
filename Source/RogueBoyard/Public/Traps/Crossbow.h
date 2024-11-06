@@ -24,9 +24,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
-	void RotateCrossbow(float DeltaTime, const FVector& InputAxis);
-
-	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
 	void ChargeShot();
 
 	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)

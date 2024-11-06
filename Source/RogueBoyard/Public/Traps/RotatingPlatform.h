@@ -22,9 +22,4 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	
-	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
-	void RotatingPlatform(float DeltaTime,FVector InputAxis);
-
-
 };
