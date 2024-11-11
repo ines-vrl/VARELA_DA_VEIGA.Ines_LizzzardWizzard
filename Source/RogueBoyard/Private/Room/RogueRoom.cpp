@@ -59,13 +59,10 @@ void ARogueRoom::BeginPlay()
 	Super::BeginPlay();
 	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
 	{
-		GameMode->RoomManagers.Add(this);
+		GameMode->AddRoomManager(this);
 	}
 	URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
-	if(RoomSubsystem->bPendingNextRoom)
-	{
-		RoomSubsystem->LoadNextRoom();
-	}
+	RoomSubsystem->RoomLoadedCallback(ERoomLoaded::Manager);
 }
 
 void ARogueRoom::BeginRoom()

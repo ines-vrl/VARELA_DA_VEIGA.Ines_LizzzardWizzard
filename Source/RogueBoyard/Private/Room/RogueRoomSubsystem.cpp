@@ -4,7 +4,6 @@
 
 #include "Room/RogueRoomSubsystem.h"
 
-#include "EngineUtils.h"
 #include "Engine/LevelStreamingDynamic.h"
 #include "Room/RogueRoomSettings.h"
 
@@ -88,6 +87,30 @@ void URogueRoomSubsystem::LoadNextRoom() {
 	}
 	LoadRoomAtPosition(Rooms[ActiveRoomId+1], NextRoomPosition);
 	NextRoomPosition += FVector(Settings->MaxRoomSize, 0, 0);
+}
+
+void URogueRoomSubsystem::RoomLoadedCallback(ERoomLoaded context)
+{
+	if(bPendingNextRoom)
+	{
+		LoadNextRoom();
+	}
+
+	switch (context) {
+		case Pawn:
+			bIsNextRoomPawnLoaded = true;
+			break;
+		case Manager:
+			bIsNextRoomManagerLoaded = true;
+			break;
+	}
+
+	if( bIsNextRoomPawnLoaded && bIsNextRoomManagerLoaded)
+	{
+		bIsNextRoomPawnLoaded = false;
+		bIsNextRoomManagerLoaded = false;
+		OnRoomFinishedLoadingEvent.Broadcast();
+	}
 }
 
 void URogueRoomSubsystem::UnloadPreviousRoom() {
