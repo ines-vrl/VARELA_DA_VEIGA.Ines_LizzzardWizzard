@@ -3,7 +3,7 @@
 
 #include "EditorLib.h"
 #include "LevelEditor.h"
-#include "Components/BoxComponent.h"
+#include "Editor.h"
 
 void AEditorLib::StartListening()
 {
@@ -30,13 +30,15 @@ void AEditorLib::ProceduralWall(FVector Start, FVector End)
 
 void AEditorLib::SavePoint(FVector Point)
 {
-
+	GEditor->BeginTransaction(FText::FromString("Saved Point"));
 	if(Points.Contains(Point))
 	{
 		Points.Remove(Point);
+		GEditor->EndTransaction();
 		return;
 	}
 	Points.Add(Point);
+	GEditor->EndTransaction();
 }
 
 FVector AEditorLib::FindPoint(FVector End)
