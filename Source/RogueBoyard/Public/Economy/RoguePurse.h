@@ -17,6 +17,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY(VisibleAnywhere)
 	int Coins = 0;
 	
 	UFUNCTION(BlueprintCallable)
