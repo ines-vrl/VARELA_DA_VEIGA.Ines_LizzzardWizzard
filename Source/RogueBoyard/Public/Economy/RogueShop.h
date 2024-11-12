@@ -14,12 +14,15 @@ USTRUCT()
 struct FShopItemData : public FTableRowBase
 {
 	GENERATED_BODY()
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName Name;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int Price;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	EItemEffect Effect;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSoftObjectPtr<UStaticMesh> Mesh;
 };
 
 class UCapsuleComponent;
@@ -31,10 +34,19 @@ class ROGUEBOYARD_API ARogueShop : public AActor
 
 public:
 	ARogueShop();
-	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UCapsuleComponent> Collider;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FShopItemData Item;
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnItemBought);
+	UPROPERTY(BlueprintAssignable)
+	FOnItemBought OnItemBoughtEvent;
+
+	UFUNCTION(BlueprintCallable)
+	int BuyItem();
 
 protected:
 	virtual void BeginPlay() override;
@@ -42,5 +54,4 @@ protected:
 private:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UStaticMeshComponent> Mesh;
-	
 };

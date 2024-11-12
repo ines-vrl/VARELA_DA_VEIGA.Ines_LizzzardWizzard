@@ -5,20 +5,20 @@
 
 ARogueShop::ARogueShop()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 	Collider = CreateDefaultSubobject<UCapsuleComponent>("RootCollider");
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	Mesh->SetupAttachment(Collider);
 }
 
+
+int ARogueShop::BuyItem() {
+	OnItemBoughtEvent.Broadcast();
+	Destroy(); //TODO Trouver un truc mieux
+	return Item.Price;
+}
+
 void ARogueShop::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
-
-void ARogueShop::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
