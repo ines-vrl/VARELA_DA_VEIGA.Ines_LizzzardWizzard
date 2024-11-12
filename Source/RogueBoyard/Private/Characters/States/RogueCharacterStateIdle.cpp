@@ -37,7 +37,7 @@ void URogueCharacterStateIdle::StateTick(float DeltaTime)
 	Super::StateTick(DeltaTime);
 }
 
-void URogueCharacterStateIdle::Movement(float X, float Y, ACameraActor* Camera)
+void URogueCharacterStateIdle::Movement(float X, float Y)
 {
 	Super::Movement(X, Y);
 	GEngine->AddOnScreenDebugMessage(
@@ -54,7 +54,7 @@ bool URogueCharacterStateIdle::Dash(float X, float Y)
 	Super::Dash(X, Y);
 	StateMachine->ChangeState(ERogueCharacterStateID::Dash);
 	FVector Direction = FVector(X, Y, 0.0f);
-	URogueCharacterStateDash* DashState = Cast<URogueCharacterStateDash>(StateMachine->CurrentState);
+	/*URogueCharacterStateDash* DashState = Cast<URogueCharacterStateDash>(StateMachine->CurrentState);
 	if(Direction.IsZero())
 	{
 		Direction = Character->GetMesh()->GetRightVector() * DashState->ForceImpulse;
@@ -63,7 +63,7 @@ bool URogueCharacterStateIdle::Dash(float X, float Y)
 	else
 	{
 		Character->LaunchCharacter(Direction * DashState->ForceImpulse,	 true, false);
-	}
+	}*/
 	return true;
 }
 

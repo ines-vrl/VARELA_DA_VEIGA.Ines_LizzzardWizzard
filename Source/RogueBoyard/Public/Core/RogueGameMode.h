@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Room/RogueRoom.h"
+#include "Room/RogueRoomPawn.h"
 #include "RogueGameMode.generated.h"
 
 class ARogueCharacter;
@@ -12,9 +13,10 @@ UCLASS()
 class ROGUEBOYARD_API ARogueGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	virtual void BeginPlay() override;
 
 public:
+	virtual void BeginPlay() override;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueRoom*> RoomManagers;
 
@@ -24,21 +26,39 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueCharacter*> Characters;
 
-	void InitPlayers();
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UMaterialInterface*> Materials;
+	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartBattleRoom();
-	void StartBattleRoom_Implementation();
+	virtual void StartBattleRoom_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void EndBattleRoom();
-	void EndBattleRoom_Implementation();
+	virtual void EndBattleRoom_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartLobbyRoom();
-	void StartLobbyRoom_Implementation();
+	virtual void StartLobbyRoom_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void EndLobbyRoom();
-	void EndLobbyRoom_Implementation();
+	virtual void EndLobbyRoom_Implementation();
+
+	void AddRoom(ARogueRoomPawn* Pawn, ARogueRoom* Manager);
+	void AddRoomPawn(ARogueRoomPawn* Pawn);
+	void AddRoomManager(ARogueRoom* Manager);
+
+private:
+	bool bIsFirstRoomLoaded = false;
+	
+	virtual void InitPlayers();
+	virtual void InitCharacters();
+	virtual void InitFirstRoom();
+
+	UFUNCTION()
+	void OnCharacterDeath();
+
+	UFUNCTION()
+	void OnRoomLoaded();
 };
