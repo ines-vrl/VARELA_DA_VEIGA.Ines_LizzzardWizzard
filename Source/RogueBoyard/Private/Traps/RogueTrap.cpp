@@ -8,6 +8,7 @@
 ARogueTrap::ARogueTrap()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	
 }
 
 // Called when the game starts or when spawned
@@ -20,37 +21,37 @@ void ARogueTrap::BeginPlay()
 void ARogueTrap::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+	RotateTrap(DeltaTime);
 }
 
-
-void ARogueTrap::RotateTrap(const float DeltaTime, const FVector& InputAxis)
+void ARogueTrap::RotateTrap(float DeltaTime)
 {
-	if (bCanRotate && FMath::Abs(InputAxis.X) > ValueMinimalRotationJoystick && FMath::Abs(InputAxis.X) < -ValueMinimalRotationJoystick)
+	if (bCanRotate)
 	{
-		CurrentRotation = GetActorRotation();
-		RotationInput = InputAxis.X;
-		CurrentRotationSpeed += RotationInput * Acceleration * DeltaTime;
-		CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
-		CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
-		SetActorRotation(CurrentRotation);
-	}
-	else
-	{
-		CurrentRotationSpeed = FMath::FInterpTo(CurrentRotationSpeed, 0.0f, DeltaTime, Deceleration);
-		CurrentRotation = GetActorRotation();
-		CurrentRotation.Yaw += CurrentRotationSpeed * DeltaTime;
-		SetActorRotation(CurrentRotation); 
+		if(FMath::Abs(JoystickInputAxis.X) > ValueMinimalRotationJoystick)
+		{
+			CurrentRotationSpeed += JoystickInputAxis.X * Acceleration * DeltaTime;
+			CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
+		}
+		CurrentRotationSpeed -= CurrentRotationSpeed * Friction * DeltaTime;
+		NewRotation = GetActorRotation();
+		NewRotation.Yaw += CurrentRotationSpeed * DeltaTime;
+		SetActorRotation(NewRotation);
 	}
 }
 
-void ARogueTrap::MoveOnXAxis(const float DeltaTime, float InputAxisX,float Speed)
+void ARogueTrap::Trigger_Implementation(const FVector& InputAxis)
 {
-	if (FMath::Abs(InputAxisX) > KINDA_SMALL_NUMBER)
+	JoystickInputAxis = InputAxis;
+}
+
+void ARogueTrap::MoveOnXAxis(const float DeltaTime, float InputAxisX)
+{
+	if (FMath::Abs(JoystickInputAxis.X) > ValueMinimalRotationJoystick)
 	{
-		DistanceToMove = InputAxisX * Speed * DeltaTime;
+		DistanceToMove = InputAxisX * MovementSpeed * DeltaTime;
 		NewLocation = GetActorLocation() + FVector(DistanceToMove, 0, 0);
-		SetActorLocation(NewLocation);
+		SetActorLocation(NewLocation); 
 		CurrentDistance += FMath::Abs(DistanceToMove);
 		if (CurrentDistance > MaxDistance)
 		{

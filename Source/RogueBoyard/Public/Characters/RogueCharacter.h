@@ -64,6 +64,17 @@ private:
 	void Die();
 	
 #pragma endregion
+#pragma region Camera
+public:
+	UFUNCTION(BlueprintCallable)
+	ACameraActor* GetCamera();
+	UFUNCTION(BlueprintCallable)
+	void SetCamera();
+private:
+	UPROPERTY()
+	ACameraActor* Camera;
+#pragma endregion
+	
 	UFUNCTION(BlueprintCallable)
 	void UnPossessCharacter(ARogueRoomPawn* Room);
 };
