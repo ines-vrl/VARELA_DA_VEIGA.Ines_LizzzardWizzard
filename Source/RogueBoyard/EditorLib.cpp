@@ -3,6 +3,7 @@
 
 #include "EditorLib.h"
 #include "LevelEditor.h"
+#include "Components/BoxComponent.h"
 
 void AEditorLib::StartListening()
 {
@@ -21,14 +22,42 @@ void AEditorLib::StopListening()
 		LevelEditorModule->OnActorSelectionChanged().RemoveAll(this);
 }
 
+void AEditorLib::ProceduralWall(FVector Start, FVector End)
+{
+	FVector WallCenter = (Start + End) * 0.5;
+	FVector WallExtents = (End - Start).GetAbs() * 0.5; //Distance entre centre et la bordure
+}
+
+void AEditorLib::SavePoint(FVector Point)
+{
+
+	if(Points.Contains(Point))
+	{
+		Points.Remove(Point);
+		return;
+	}
+	Points.Add(Point);
+}
+
+FVector AEditorLib::FindPoint(FVector End)
+{
+	for (auto Point : Points)
+	{
+		//UE_LOG(LogTemp, Log, TEXT("CurrentDistance: %f"), (Point - End).Length());
+		if((Point - End).Length() < SnapDistance) return Point;
+	}
+	return End;
+}
+
 void AEditorLib::HandleActorSelectionChanged(const TArray<UObject*>& NewSelection, bool bForceRefresh)
 {
 	for (UObject* SelectedObject : NewSelection)
 	{
 		if (AActor* SelectedActor = Cast<AActor>(SelectedObject))
 		{
-			UE_LOG(LogTemp, Log, TEXT("Selected Actor: %s"), *SelectedActor->GetName());
+			//wUE_LOG(LogTemp, Log, TEXT("Selected Actor: %s"), *SelectedActor->GetName());
 			OnActorSelectionChanged.Broadcast(SelectedActor);
 		}
 	}
 }
+
