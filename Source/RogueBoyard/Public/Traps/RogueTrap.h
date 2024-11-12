@@ -3,13 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TrapsInput.h"
 #include "GameFramework/Actor.h"
 #include "RogueTrap.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRogueTrapActivated);
 
-UCLASS(Abstract)
-class ROGUEBOYARD_API ARogueTrap : public AActor
+UCLASS()
+class ROGUEBOYARD_API ARogueTrap : public AActor, public ITrapsInput
 {
 	GENERATED_BODY()
 
@@ -31,38 +32,50 @@ protected:
 	bool bCanRotate;
 
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
-	float MaxRotationSpeed;
-
-	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float ValueMinimalRotationJoystick;
 
-	UPROPERTY()
-	float MaxDistance;
+	/**
+	 * In degrees per second
+	 */
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float MaxRotationSpeed;
 	
-	UPROPERTY()
-	float MovementSpeed;
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float Friction;
 
-	UPROPERTY()
-	float RotationInput;
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float Acceleration;
+	
+	UFUNCTION()
+	void RotateTrap(float DeltaTime);
 
-	UPROPERTY()
-	float DesiredRotationSpeed;
+	virtual void Trigger_Implementation(const FVector& InputAxis) override;
 
-	UPROPERTY()
-	float TargetRotationSpeed;
-
-	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
-
+	UFUNCTION()
 	void MoveOnXAxis(const float DeltaTime,float InputAxisX);
+
 	
 public:
 	virtual void Tick(float DeltaTime) override;
 
-
 private:
+	//Rotation
 	UPROPERTY()
-	FRotator CurrentRotation;
+	float CurrentRotationSpeed;
 
+	UPROPERTY()
+	FRotator NewRotation;
+
+	UPROPERTY()
+	FVector JoystickInputAxis;
+
+	//Movement
+	UPROPERTY()
+	float MovementSpeed;
+	
+	UPROPERTY()
+	float MaxDistance;
+	
 	UPROPERTY()
 	float DistanceToMove;
 

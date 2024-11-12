@@ -22,14 +22,9 @@ void ACrossbow::BeginPlay()
 void ACrossbow::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	RotateCrossbow(DeltaTime,InputAxisDebug);
 	
 }
 
-void ACrossbow::RotateCrossbow_Implementation(float DeltaTime, const FVector& InputAxis)
-{
-	RotateTrap(DeltaTime,InputAxis);
-}
 
 void ACrossbow::ChargeShot_Implementation()
 {
