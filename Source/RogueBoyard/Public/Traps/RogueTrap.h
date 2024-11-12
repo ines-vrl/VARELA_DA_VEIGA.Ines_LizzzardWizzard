@@ -15,25 +15,19 @@ class ROGUEBOYARD_API ARogueTrap : public AActor, public ITrapsInput
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
+	
 	ARogueTrap();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 	
-	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
-	FVector InputAxisDebug;
-
-	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
-	bool bInputDownDebug;
+	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	bool bCanRotate;
 
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float ValueMinimalRotationJoystick;
-
+	
 	/**
 	 * In degrees per second
 	 */
@@ -46,45 +40,18 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float Acceleration;
 	
-	UFUNCTION()
 	void RotateTrap(float DeltaTime);
 
 	virtual void Trigger_Implementation(const FVector& InputAxis) override;
-
-	UFUNCTION()
-	void MoveOnXAxis(const float DeltaTime,float InputAxisX);
-
+	
+	FVector JoystickInputAxis;
 	
 public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
 	//Rotation
-	UPROPERTY()
 	float CurrentRotationSpeed;
-
-	UPROPERTY()
+	
 	FRotator NewRotation;
-
-	UPROPERTY()
-	FVector JoystickInputAxis;
-
-	//Movement
-	UPROPERTY()
-	float MovementSpeed;
-	
-	UPROPERTY()
-	float MaxDistance;
-	
-	UPROPERTY()
-	float DistanceToMove;
-
-	UPROPERTY()
-	float CurrentDistance;
-
-	UPROPERTY()
-	FVector NewLocation;
-
-	UPROPERTY()
-	FVector OriginalPosition;
 };

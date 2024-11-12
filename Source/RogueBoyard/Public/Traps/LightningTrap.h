@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "RogueTrap.h"
-#include "WallBlade.generated.h"
+#include "LightningTrap.generated.h"
 
 UCLASS()
-class ROGUEBOYARD_API AWallBlade : public ARogueTrap
+class ROGUEBOYARD_API ALightningTrap : public ARogueTrap
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AWallBlade();
+	ALightningTrap();
 
 protected:
 	// Called when the game starts or when spawned
@@ -23,21 +23,15 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private:
+	UPROPERTY(EditAnywhere, Category = "Trap|LightningTrap")
+	float Speed;
 
-	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
-	float MovementSpeed;
-
-	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
-	float MaxDistance;
-	
-	float DistanceToMove;
-	
-	float CurrentDistance;
+	FVector Movement;
 	
 	FVector NewLocation;
 
-	FVector OriginalPosition;
-	
-	void MoveOnXAxis(const float& DeltaTime);
+	FVector CurrentLocation;
+
+private:
+	void MoveOnXYDirection(float DeltaTime);
 };
