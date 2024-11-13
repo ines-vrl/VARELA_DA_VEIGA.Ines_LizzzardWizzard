@@ -12,6 +12,8 @@ class ROGUEBOYARD_API URoguePurse : public UActorComponent
 
 public:
 	URoguePurse();
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnPurseUpdateMoney, int);
+	FOnPurseUpdateMoney OnUpdatedMoneyEvent;
 
 protected:
 	virtual void BeginPlay() override;

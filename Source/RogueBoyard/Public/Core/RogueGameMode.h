@@ -55,6 +55,8 @@ private:
 	virtual void InitPlayers();
 	virtual void InitCharacters();
 	virtual void InitFirstRoom();
+	void InitStatSubsystem();
+
 
 	UFUNCTION()
 	void OnCharacterDeath();

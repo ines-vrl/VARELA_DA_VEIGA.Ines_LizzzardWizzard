@@ -8,6 +8,7 @@
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateID.h"
 #include "Characters/RogueCharacterStateMachine.h"
+#include "Core/PlayerStatSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "Room/RogueRoomPawn.h"
 #include "Room/RogueRoomSubsystem.h"
@@ -18,6 +19,7 @@ void ARogueGameMode::BeginPlay()
 	InitPlayers();
 	InitCharacters();
 	InitFirstRoom();
+	InitStatSubsystem();
 }
 
 
@@ -51,6 +53,11 @@ void ARogueGameMode::InitFirstRoom()
 	URogueRoomSubsystem* RoomSubsystem = GetWorld()->GetSubsystem<URogueRoomSubsystem>();
 	RoomSubsystem->OnRoomFinishedLoadingEvent.AddUObject(this, &ARogueGameMode::OnRoomLoaded);
 	RoomSubsystem->InitFirstRoom();
+}
+
+void ARogueGameMode::InitStatSubsystem() {
+	UE_LOG(LogTemp, Warning, TEXT("Stat Subsystem try Init"));
+	GetGameInstance()->GetSubsystem<UPlayerStatSubsystem>()->Init(Characters);
 }
 
 void ARogueGameMode::OnCharacterDeath()
