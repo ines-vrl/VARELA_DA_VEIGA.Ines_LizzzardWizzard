@@ -55,7 +55,7 @@ Binaries/*
 !Binaries/Win64
 Binaries/Win64/*
 !Binaries/Win64/RogueBoyardEditor.target
-!Binaries/Win64/UnrealEditor.module
+!Binaries/Win64/UnrealEditor.modules
 !Binaries/Win64/UnrealEditor-RogueBoyard.dll
 !Binaries/Win64/UnrealEditor-LocalMultiplayer.dll
 
