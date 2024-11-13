@@ -21,13 +21,16 @@ public:
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* Collider;
 
+	UFUNCTION(BlueprintCallable)
 	int GetBids() const;
 
+	UFUNCTION(BlueprintCallable)
 	void AddBid();
 	
 protected:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY(VisibleAnywhere)
 	int Bids;
 };

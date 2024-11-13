@@ -18,6 +18,10 @@ void URogueItemComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
+void URogueItemComponent::SetCurrentItem(URogueItem* Item) {
+	CurrentItem = Item;
+}
+
 void URogueItemComponent::UseItem() const
 {
 	if(!CurrentItem)
