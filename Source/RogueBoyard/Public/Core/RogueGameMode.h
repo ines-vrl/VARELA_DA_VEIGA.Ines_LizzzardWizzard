@@ -13,9 +13,10 @@ UCLASS()
 class ROGUEBOYARD_API ARogueGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	virtual void BeginPlay() override;
 
 public:
+	virtual void BeginPlay() override;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueRoom*> RoomManagers;
 
@@ -30,19 +31,19 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartBattleRoom();
-	void StartBattleRoom_Implementation();
+	virtual void StartBattleRoom_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void EndBattleRoom();
-	void EndBattleRoom_Implementation();
+	virtual void EndBattleRoom_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartLobbyRoom();
-	void StartLobbyRoom_Implementation();
+	virtual void StartLobbyRoom_Implementation();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void EndLobbyRoom();
-	void EndLobbyRoom_Implementation();
+	virtual void EndLobbyRoom_Implementation();
 
 	void AddRoom(ARogueRoomPawn* Pawn, ARogueRoom* Manager);
 	void AddRoomPawn(ARogueRoomPawn* Pawn);
@@ -51,9 +52,9 @@ public:
 private:
 	bool bIsFirstRoomLoaded = false;
 	
-	void InitPlayers();
-	void InitCharacters();
-	void InitFirstRoom();
+	virtual void InitPlayers();
+	virtual void InitCharacters();
+	virtual void InitFirstRoom();
 
 	UFUNCTION()
 	void OnCharacterDeath();
