@@ -36,6 +36,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Editor")
 	FVector FindPoint(FVector End);
+
+	UFUNCTION(BlueprintCallable, Category="Editor")
+	void ClearPoints();
 	
 private:
 	void HandleActorSelectionChanged(const TArray<UObject*>& NewSelection, bool bForceRefresh);

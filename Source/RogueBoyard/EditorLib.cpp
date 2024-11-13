@@ -51,6 +51,11 @@ FVector AEditorLib::FindPoint(FVector End)
 	return End;
 }
 
+void AEditorLib::ClearPoints()
+{
+	Points.Empty();
+}
+
 void AEditorLib::HandleActorSelectionChanged(const TArray<UObject*>& NewSelection, bool bForceRefresh)
 {
 	for (UObject* SelectedObject : NewSelection)
