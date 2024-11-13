@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "RogueShop.generated.h"
 
+class URogueItem;
+
 UENUM()
 enum class EItemEffect
 {
@@ -23,6 +25,9 @@ struct FShopItemData : public FTableRowBase
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSoftObjectPtr<UStaticMesh> Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<URogueItem> ItemObject;
 };
 
 class UCapsuleComponent;
@@ -46,7 +51,7 @@ public:
 	FOnItemBought OnItemBoughtEvent;
 
 	UFUNCTION(BlueprintCallable)
-	int BuyItem();
+	FShopItemData BuyItem();
 
 protected:
 	virtual void BeginPlay() override;

@@ -2,6 +2,7 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Economy/Items/RogueItem.h"
 
 ARogueShop::ARogueShop()
 {
@@ -12,10 +13,10 @@ ARogueShop::ARogueShop()
 }
 
 
-int ARogueShop::BuyItem() {
+FShopItemData ARogueShop::BuyItem()
+{
 	OnItemBoughtEvent.Broadcast();
-	Destroy(); //TODO Trouver un truc mieux
-	return Item.Price;
+	return Item;
 }
 
 void ARogueShop::BeginPlay()
