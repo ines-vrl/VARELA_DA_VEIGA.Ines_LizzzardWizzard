@@ -80,8 +80,8 @@ void AWall_P::ProceduralPlatform(FVector Center, FVector GridSize, float Height,
 	int32 VertexOffset = 0;
 
 	TArray<FVector> InputVert = CalculateCoordinatesForPlatforms(Center, GridSize, Height, Thickness);
-	FVector MainAxis = (FVector(Center.X + GridSize.X / 2, Center.Y - GridSize.Y / 2, 0) -
-		FVector(Center.X - GridSize.X / 2, Center.Y - GridSize.Y / 2, 0));
+	FVector MainAxis = (FVector(Center.X + GridSize.X / 2, Center.Y, 0) -
+		FVector(Center.X - GridSize.X / 2, Center.Y, 0));
 	MainAxis.Z = 0;
 	MainAxis.Normalize();
 	FVector SecondaryAxis = FVector(-MainAxis.Y, MainAxis.X, MainAxis.Z);
@@ -151,8 +151,8 @@ TArray<FVector> AWall_P::CalculateCoordinatesForPlatforms(FVector Center, FVecto
 	float Thickness)
 {
 	TArray<FVector> Vertices;
-	FVector p1 = FVector(Center.X - GridSize.X / 2, Center.Y - GridSize.Y / 2, 0);
-	FVector p2 = FVector(Center.X + GridSize.X / 2, Center.Y - GridSize.Y / 2, 0);
+	FVector p1 = FVector(Center.X - GridSize.X / 2, Center.Y, 0);
+	FVector p2 = FVector(Center.X + GridSize.X / 2, Center.Y, 0);
 	FVector MainAxis = (p2 - p1);
 	MainAxis.Normalize();
 	FVector NormalAxis = FVector(- MainAxis.Y, MainAxis.X, MainAxis.Z);
