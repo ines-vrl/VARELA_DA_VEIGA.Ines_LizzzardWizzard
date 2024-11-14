@@ -14,6 +14,10 @@ class ROGUEBOYARD_API UPlayerStatSubsystem : public UGameInstanceSubsystem {
 public:
 	void Init(TArray<ARogueCharacter*> Characters);
 
+	UFUNCTION(BlueprintCallable)
+	TArray<int> GetPlayerPurses() const;
+	
+
 private:
 	void BindUpdateMoney(URoguePurse* Purse, const int& PlayerIndex);
 

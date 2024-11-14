@@ -9,6 +9,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNextRoom);
 DECLARE_MULTICAST_DELEGATE(FOnRoomFinishedLoading);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWasLastRoom);
 
 UENUM()
 enum ERoomLoaded
@@ -33,8 +34,11 @@ public:
 	int ActiveRoomId = 0;
 
 	void LoadNextRoom();
-	void RoomLoadedCallback(ERoomLoaded context);
+	void RoomLoadedCallback(ERoomLoaded Context);
 	FOnRoomFinishedLoading OnRoomFinishedLoadingEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnWasLastRoom OnWasLastRoomEvent;
 
 	UPROPERTY(BlueprintAssignable)
 	FOnNextRoom OnNextRoomEvent;

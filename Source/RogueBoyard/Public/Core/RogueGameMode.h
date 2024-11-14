@@ -17,6 +17,9 @@ class ROGUEBOYARD_API ARogueGameMode : public AGameModeBase
 public:
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	ARogueRoom* ActiveRoom;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueRoom*> RoomManagers;
 
@@ -45,10 +48,16 @@ public:
 	void EndLobbyRoom();
 	virtual void EndLobbyRoom_Implementation();
 
+	UFUNCTION(BlueprintCallable)
+	TArray<ARogueCharacter*> GetAlivePlayers();
+	
 	void AddRoom(ARogueRoomPawn* Pawn, ARogueRoom* Manager);
 	void AddRoomPawn(ARogueRoomPawn* Pawn);
 	void AddRoomManager(ARogueRoom* Manager);
-
+	
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsLastRoom = false;
+	
 private:
 	bool bIsFirstRoomLoaded = false;
 	
@@ -57,10 +66,22 @@ private:
 	virtual void InitFirstRoom();
 	void InitStatSubsystem();
 
+	UFUNCTION(BlueprintCallable)
+	void GiveRoomRewards(TArray<ARogueCharacter*> Winners);
 
 	UFUNCTION()
 	void OnCharacterDeath();
 
 	UFUNCTION()
 	void OnRoomLoaded();
+
+public:
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "PostLastRoom"))
+	void ReceivePostLastRoom();
+
+	UFUNCTION()
+	void LastRoomLoaded();
+	
+	UFUNCTION(BlueprintCallable)
+	void PostLastRoom();
 };
