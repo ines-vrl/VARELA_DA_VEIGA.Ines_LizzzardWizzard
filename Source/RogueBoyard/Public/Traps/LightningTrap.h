@@ -4,23 +4,34 @@
 
 #include "CoreMinimal.h"
 #include "RogueTrap.h"
-#include "Millstone.generated.h"
+#include "LightningTrap.generated.h"
 
-UCLASS(HideCategories=("Rotation"))
-class ROGUEBOYARD_API AMillstone : public ARogueTrap
+UCLASS()
+class ROGUEBOYARD_API ALightningTrap : public ARogueTrap
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AMillstone();
+	ALightningTrap();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, Category = "Trap|LightningTrap")
+	float Speed;
+
+	FVector Movement;
+	
+	FVector NewLocation;
+
+	FVector CurrentLocation;
+
+private:
+	void MoveOnXYDirection(float DeltaTime);
 };

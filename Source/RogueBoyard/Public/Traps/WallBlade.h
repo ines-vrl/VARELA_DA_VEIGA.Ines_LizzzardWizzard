@@ -22,4 +22,22 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
+	float MovementSpeed;
+
+	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
+	float MaxDistance;
+	
+	float DistanceToMove;
+	
+	float CurrentDistance;
+	
+	FVector NewLocation;
+
+	FVector OriginalPosition;
+	
+	void MoveOnXAxis(const float& DeltaTime);
 };

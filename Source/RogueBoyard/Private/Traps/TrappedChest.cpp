@@ -1,27 +1,26 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Traps/Flamethrower.h"
+#include "Traps/TrappedChest.h"
 
 
 // Sets default values
-AFlamethrower::AFlamethrower()
+ATrappedChest::ATrappedChest()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
-void AFlamethrower::BeginPlay()
+void ATrappedChest::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void AFlamethrower::Tick(float DeltaTime)
+void ATrappedChest::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-
 

@@ -3,81 +3,55 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TrapsInput.h"
 #include "GameFramework/Actor.h"
 #include "RogueTrap.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRogueTrapActivated);
 
-UCLASS(Abstract)
-class ROGUEBOYARD_API ARogueTrap : public AActor
+UCLASS()
+class ROGUEBOYARD_API ARogueTrap : public AActor, public ITrapsInput
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
+	
 	ARogueTrap();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 	
-	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
-	FVector InputAxisDebug;
-
-	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
-	bool bInputDownDebug;
+	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	bool bCanRotate;
 
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float ValueMinimalRotationJoystick;
+	
+	/**
+	 * In degrees per second
+	 */
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float MaxRotationSpeed;
+	
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float Friction;
 
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
-	float ValueMinimalRotationJoystick;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
 	float Acceleration;
+	
+	void RotateTrap(float DeltaTime);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category="Trap|Rotation")
-	float Deceleration = 500.0f;
-
-	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
-
-	void MoveOnXAxis(const float DeltaTime,float InputAxisX,float Speed);
+	virtual void Trigger_Implementation(const FVector& InputAxis) override;
+	
+	FVector JoystickInputAxis;
 	
 public:
 	virtual void Tick(float DeltaTime) override;
 
-	
-
-
-
 private:
-	UPROPERTY()
-	FRotator CurrentRotation;
-
-	UPROPERTY()
-	float RotationToApply;
-
-	UPROPERTY()
-	float RotationInput;
-
-	UPROPERTY()
+	//Rotation
 	float CurrentRotationSpeed;
-
-	UPROPERTY()
-	float DistanceToMove;
-
-	UPROPERTY()
-	float CurrentDistance;
-
-	UPROPERTY()
-	FVector NewLocation;
-
-	UPROPERTY()
-	float MaxDistance;
-
-	UPROPERTY()
-	FVector OriginalPosition;
+	
+	FRotator NewRotation;
 };

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RogueTrap.h"
+#include "TrapsInput.h"
 #include "Trap.generated.h"
 
 UCLASS()

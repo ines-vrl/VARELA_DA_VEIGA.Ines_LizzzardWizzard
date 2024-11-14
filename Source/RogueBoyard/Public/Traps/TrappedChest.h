@@ -4,21 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "RogueTrap.h"
-#include "Millstone.generated.h"
+#include "TrappedChest.generated.h"
 
-UCLASS(HideCategories=("Rotation"))
-class ROGUEBOYARD_API AMillstone : public ARogueTrap
+UCLASS()
+class ROGUEBOYARD_API ATrappedChest : public ARogueTrap
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	AMillstone();
+	ATrappedChest();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 
 public:
 	// Called every frame
