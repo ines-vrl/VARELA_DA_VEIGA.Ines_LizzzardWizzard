@@ -1,21 +1,18 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "RogueLobby.h"
 #include "RogueVoteZone.h"
-#include "Room/RogueRoom.h"
-#include "RogueLobbyRoom.generated.h"
+#include "RogueVoteLobby.generated.h"
 
 UCLASS()
-class ROGUEBOYARD_API ARogueLobbyRoom : public ARogueRoom
+class ROGUEBOYARD_API ARogueVoteLobby : public ARogueLobby
 {
 	GENERATED_BODY()
 
 public:
-	ARogueLobbyRoom();
+	ARogueVoteLobby();
 	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(BlueprintReadOnly)
-	int VotedPlayerIndex;
 
 	virtual void EndRoom() override;
 
@@ -30,9 +27,6 @@ private:
 	UPROPERTY(EditAnywhere)
 	ARogueVoteZone* VoteZone;
 	
-	UPROPERTY(EditAnywhere)
-	float MaxLobbyTime = 120.0f;
-
 	UPROPERTY(EditAnywhere)
 	float VoteTimer = 10.0f;
 	
