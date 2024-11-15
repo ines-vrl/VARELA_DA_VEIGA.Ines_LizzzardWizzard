@@ -12,7 +12,12 @@ class ROGUEBOYARD_API URoguePurse : public UActorComponent
 
 public:
 	URoguePurse();
-
+	DECLARE_MULTICAST_DELEGATE_OneParam(FOnPurseUpdateMoney, int);
+	FOnPurseUpdateMoney OnUpdatedMoneyEvent;
+	
+	UFUNCTION(BlueprintCallable)
+	void Earn(const int Money);
+	
 protected:
 	virtual void BeginPlay() override;
 
@@ -22,7 +27,4 @@ private:
 	
 	UFUNCTION(BlueprintCallable)
 	void Spend(const int Price);
-
-	UFUNCTION(BlueprintCallable)
-	void Earn(const int Money);
 };

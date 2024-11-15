@@ -19,8 +19,11 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 						   FActorComponentTickFunction* ThisTickFunction) override;
 
-	UPROPERTY(BlueprintReadWrite)
-	TObjectPtr<URogueItem> CurrentItem = nullptr;
+	UPROPERTY(BlueprintReadOnly)
+	URogueItem* CurrentItem;
+	
+	UFUNCTION(BlueprintCallable)
+	void SetCurrentItem(URogueItem* Item);
 
 	UFUNCTION(BlueprintCallable)
 	void UseItem() const;

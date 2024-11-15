@@ -16,10 +16,12 @@ void URoguePurse::BeginPlay()
 void URoguePurse::Spend(const int Price)
 {
 	Coins -= Price;
+	OnUpdatedMoneyEvent.Broadcast(Coins);
 }
 
 void URoguePurse::Earn(const int Money)
 {
 	Coins += Money;
+	OnUpdatedMoneyEvent.Broadcast(Coins);
 }
 

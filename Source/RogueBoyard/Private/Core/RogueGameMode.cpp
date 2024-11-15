@@ -8,6 +8,8 @@
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateID.h"
 #include "Characters/RogueCharacterStateMachine.h"
+#include "Core/PlayerStatSubsystem.h"
+#include "Economy/RoguePurse.h"
 #include "Kismet/GameplayStatics.h"
 #include "Room/RogueRoomPawn.h"
 #include "Room/RogueRoomSubsystem.h"
@@ -18,6 +20,7 @@ void ARogueGameMode::BeginPlay()
 	InitPlayers();
 	InitCharacters();
 	InitFirstRoom();
+	InitStatSubsystem();
 }
 
 
@@ -40,6 +43,7 @@ void ARogueGameMode::InitCharacters()
 		APawn* CharPawn =  UGameplayStatics::GetPlayerController(GetWorld(), i)->GetPawn();
 		ARogueCharacter* Character = Cast<ARogueCharacter>(CharPawn);
 		Characters[i] = Character;
+		Character->PlayerIndex = i;
 		Character->GetMesh()->SetMaterial(0, Materials[i]);
 		Character->OnCharacterDeathEvent.AddDynamic(this, &ARogueGameMode::OnCharacterDeath);
 		//TODO Characters Init
@@ -51,6 +55,18 @@ void ARogueGameMode::InitFirstRoom()
 	URogueRoomSubsystem* RoomSubsystem = GetWorld()->GetSubsystem<URogueRoomSubsystem>();
 	RoomSubsystem->OnRoomFinishedLoadingEvent.AddUObject(this, &ARogueGameMode::OnRoomLoaded);
 	RoomSubsystem->InitFirstRoom();
+	RoomSubsystem->OnWasLastRoomEvent.AddUniqueDynamic(this, &ARogueGameMode::LastRoomLoaded);
+}
+
+void ARogueGameMode::InitStatSubsystem() {
+	UE_LOG(LogTemp, Warning, TEXT("Stat Subsystem try Init"));
+	GetGameInstance()->GetSubsystem<UPlayerStatSubsystem>()->Init(Characters);
+}
+
+void ARogueGameMode::GiveRoomRewards(TArray<ARogueCharacter*> Winners) {
+	for(ARogueCharacter* Character : Winners) {
+		Character->Purse->Earn(ActiveRoom->RoomRewards);
+	}
 }
 
 void ARogueGameMode::OnCharacterDeath()
@@ -77,6 +93,15 @@ void ARogueGameMode::OnRoomLoaded()
 	}
 }
 
+void ARogueGameMode::LastRoomLoaded() {
+	bIsLastRoom = true;
+}
+
+void ARogueGameMode::PostLastRoom() {
+	
+	ReceivePostLastRoom();
+}
+
 void ARogueGameMode::StartBattleRoom_Implementation()
 {
 	
@@ -84,7 +109,7 @@ void ARogueGameMode::StartBattleRoom_Implementation()
 
 void ARogueGameMode::EndBattleRoom_Implementation()
 {
-	
+
 }
 
 void ARogueGameMode::StartLobbyRoom_Implementation()
@@ -95,6 +120,16 @@ void ARogueGameMode::StartLobbyRoom_Implementation()
 void ARogueGameMode::EndLobbyRoom_Implementation()
 {
 	
+}
+
+TArray<ARogueCharacter*> ARogueGameMode::GetAlivePlayers() {
+	TArray<ARogueCharacter*> AliveCharacters;
+	for(ARogueCharacter* Character : Characters) {
+		if(Character->StateMachine->CurrentStateID != ERogueCharacterStateID::Dead) {
+			AliveCharacters.Add(Character);
+		}
+	}
+	return AliveCharacters;
 }
 
 void ARogueGameMode::AddRoom(ARogueRoomPawn* Pawn, ARogueRoom* Manager)
