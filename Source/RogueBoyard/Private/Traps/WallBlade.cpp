@@ -23,5 +23,18 @@ void AWallBlade::BeginPlay()
 void AWallBlade::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	MoveOnOneAxis(DeltaTime);
+}
+
+void AWallBlade::MoveOnOneAxis(const float& DeltaTime)
+{
+	DistanceToMove = JoystickInputAxis.X * MovementSpeed * DeltaTime;
+	NewLocation = GetActorLocation() + FVector(DistanceToMove, 0, 0);
+	if (FMath::Abs(NewLocation.X - OriginalPosition.X) > MaxDistance)
+	{
+		ClampedDistance = FMath::Sign(DistanceToMove) * MaxDistance;
+		NewLocation.X = OriginalPosition.X + ClampedDistance;
+	}
+	SetActorLocation(NewLocation);
 }
 

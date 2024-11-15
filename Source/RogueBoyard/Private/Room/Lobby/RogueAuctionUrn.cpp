@@ -18,7 +18,7 @@ int ARogueAuctionUrn::GetBids() const
 
 void ARogueAuctionUrn::AddBid()
 {
-	Bids += 1;
+	Bids++;
 }
 
 void ARogueAuctionUrn::BeginPlay()

@@ -19,8 +19,27 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
+	float MovementSpeed;
+
+	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
+	float MaxDistance;
+	
+	float DistanceToMove;
+	
+	float CurrentDistance;
+
+	float ClampedDistance;
+	
+	FVector NewLocation;
+
+	FVector OriginalPosition;
+	
+	void MoveOnOneAxis(const float& DeltaTime);
 };
