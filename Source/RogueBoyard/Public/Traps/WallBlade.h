@@ -34,10 +34,12 @@ private:
 	float DistanceToMove;
 	
 	float CurrentDistance;
+
+	float ClampedDistance;
 	
 	FVector NewLocation;
 
 	FVector OriginalPosition;
 	
-	void MoveOnXAxis(const float& DeltaTime);
+	void MoveOnOneAxis(const float& DeltaTime);
 };
