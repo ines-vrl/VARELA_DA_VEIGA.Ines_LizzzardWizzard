@@ -57,7 +57,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<ARogueDoor> ExitDoor;
 
-private:	
 	UFUNCTION(BlueprintCallable)
 	virtual void BeginRoom();
 	
@@ -66,4 +65,11 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void RoomExit();
+	
+private:	
+	bool bHasRoomStarted = false;
+	bool bHasRoomEnded = false;
+	
+	UPROPERTY(EditAnywhere)
+	float MaxRoomTime = 120.0f;
 };
