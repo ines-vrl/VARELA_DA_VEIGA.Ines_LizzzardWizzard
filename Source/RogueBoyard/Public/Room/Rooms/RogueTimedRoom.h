@@ -27,6 +27,7 @@ private:
 	float Time = 90.0f;
 
 	bool bHasBegun = false;
+	bool bHasEnded = false;
 	
 	virtual void BeginRoom() override;
 };

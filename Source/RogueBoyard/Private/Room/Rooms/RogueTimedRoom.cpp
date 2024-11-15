@@ -27,8 +27,9 @@ void ARogueTimedRoom::Tick(float DeltaTime)
 	if(bHasBegun)
 	{
 		ElapsedTime += DeltaTime;
-		if (ElapsedTime >= Time)
+		if (ElapsedTime >= Time && !bHasEnded)
 		{
+			bHasEnded = true;
 			Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndBattleRoom();
 		}
 	}
