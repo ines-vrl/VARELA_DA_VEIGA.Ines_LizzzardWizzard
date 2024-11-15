@@ -68,6 +68,63 @@ void AWall_P::ProceduralWall(FVector Start, FVector End, float Height, float Thi
 	ProceduralMesh->CreateMeshSection(0, Vertices, Triangles, Normals, UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
 }
 
+void AWall_P::ProceduralPlatform(FVector Center, FVector GridSize, float Height, float Thickness)
+{
+	ProceduralMesh->ClearAllMeshSections();
+	
+	TArray<FVector> Vertices;
+	TArray<FVector> Normals;
+	TArray<FProcMeshTangent> Tangents;
+	TArray<FVector2D> UVs;
+	TArray<int32> Triangles;
+	int32 VertexOffset = 0;
+
+	TArray<FVector> InputVert = CalculateCoordinatesForPlatforms(Center, GridSize, Height, Thickness);
+	FVector MainAxis = (FVector(Center.X + GridSize.X / 2, Center.Y, 0) -
+		FVector(Center.X - GridSize.X / 2, Center.Y, 0));
+	MainAxis.Z = 0;
+	MainAxis.Normalize();
+	FVector SecondaryAxis = FVector(-MainAxis.Y, MainAxis.X, MainAxis.Z);
+
+	//TopFace //
+	FVector Normal = FVector(0, 0, 1);
+	FVector Tangent = FVector(1, 0, 0);
+	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
+		InputVert[4], InputVert[5], InputVert[6], InputVert[7], Normal, Tangent, VertexOffset);
+
+	//BottomFace
+	Normal = FVector(0, 0, -1);
+	Tangent = FVector(-1, 0, 0);
+	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
+		InputVert[3], InputVert[2], InputVert[1], InputVert[0], Normal, Tangent, VertexOffset);
+
+	//FrontFace
+	Normal = MainAxis;
+	Tangent = SecondaryAxis;
+	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
+		InputVert[0], InputVert[1], InputVert[5], InputVert[4], Normal, Tangent, VertexOffset);
+
+	//BackFace//
+	Normal = -MainAxis;
+	Tangent = -SecondaryAxis;
+	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
+		InputVert[7], InputVert[6], InputVert[2], InputVert[3], Normal, Tangent, VertexOffset);
+
+	//LeftFace
+	Normal = -SecondaryAxis;
+	Tangent = MainAxis;
+	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
+		InputVert[7], InputVert[3], InputVert[0], InputVert[4], Normal, Tangent, VertexOffset);
+
+	//RightFace//
+	Normal = SecondaryAxis;
+	Tangent = -MainAxis;
+	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
+		InputVert[2], InputVert[6], InputVert[5], InputVert[1], Normal, Tangent, VertexOffset);
+
+	ProceduralMesh->CreateMeshSection(0, Vertices, Triangles, Normals, UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+}
+
 TArray<FVector> AWall_P::CalculateCoordinates(FVector Start, FVector End, float Height, float Thickness)
 {
 	TArray<FVector> Vertices;
@@ -90,9 +147,34 @@ TArray<FVector> AWall_P::CalculateCoordinates(FVector Start, FVector End, float 
 	return Vertices;
 }
 
+TArray<FVector> AWall_P::CalculateCoordinatesForPlatforms(FVector Center, FVector GridSize, float Height,
+	float Thickness)
+{
+	TArray<FVector> Vertices;
+	FVector p1 = FVector(Center.X - GridSize.X / 2, Center.Y, 0);
+	FVector p2 = FVector(Center.X + GridSize.X / 2, Center.Y, 0);
+	FVector MainAxis = (p2 - p1);
+	MainAxis.Normalize();
+	FVector NormalAxis = FVector(- MainAxis.Y, MainAxis.X, MainAxis.Z);
+	
+	Vertices.Add(p1 - NormalAxis * Thickness / 2); //0
+	Vertices.Add(p1 + NormalAxis * Thickness / 2); //1
+	Vertices.Add(p2 + NormalAxis * Thickness / 2); //2
+	Vertices.Add(p2 - NormalAxis * Thickness / 2); // 3      //PLAN 2D
+
+	for(int i = 0; i < 4 ; i++)
+	{
+		FVector Vertex = Vertices[i];
+		Vertex.Z = p1.Z + Height;
+		Vertices.Add(Vertex);
+	} // Ajout du Second plan en hauteur
+	
+	return Vertices;
+}
+
 void AWall_P::CalculateFace(TArray<FVector>& OutVertices, TArray<FVector>& OutNormals, TArray<FVector2D>& OutUVs,
-	TArray<FProcMeshTangent>& OutTangents, TArray<int32> &Triangles, FVector P0, FVector P1, FVector P2, FVector P3, FVector Normal, FVector Tangent,
-	int32 &VertexOffset)
+                            TArray<FProcMeshTangent>& OutTangents, TArray<int32> &Triangles, FVector P0, FVector P1, FVector P2, FVector P3, FVector Normal, FVector Tangent,
+                            int32 &VertexOffset)
 {
 	FProcMeshTangent Tan = FProcMeshTangent(Tangent, false);
 	OutVertices.Add(P0);

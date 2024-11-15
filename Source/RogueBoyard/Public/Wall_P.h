@@ -20,6 +20,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ProceduralWall(FVector Start, FVector End, float Height, float Thickness);
+	UFUNCTION(BlueprintCallable)
+	void ProceduralPlatform(FVector Center, FVector GridSize, float Height, float Thickness);
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	UProceduralMeshComponent* ProceduralMesh;
@@ -27,6 +29,7 @@ public:
 
 private:
 	TArray<FVector> CalculateCoordinates(FVector Start, FVector End, float Height, float Thickness);
+	TArray<FVector> CalculateCoordinatesForPlatforms(FVector Center, FVector GridSize, float Height, float Thickness);
 	void CalculateFace(TArray<FVector> &OutVertices, TArray<FVector> &OutNormals, TArray<FVector2D> &OutUVs, TArray<FProcMeshTangent> &OutTangents, TArray<int32> &Triangles,
 		FVector P0, FVector P1,FVector P2,FVector P3, FVector Normal, FVector Tangent, int32 &VertexOffset);
 	TArray<int> MakeTriangles(); 
