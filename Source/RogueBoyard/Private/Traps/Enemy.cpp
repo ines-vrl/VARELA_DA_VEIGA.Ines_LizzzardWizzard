@@ -3,6 +3,8 @@
 
 #include "Traps/Enemy.h"
 
+#include "Kismet/KismetMathLibrary.h"
+
 
 // Sets default values
 AEnemy::AEnemy()
@@ -15,12 +17,34 @@ AEnemy::AEnemy()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	InitialPosition = GetActorLocation();
+	SetLifeSpan(LifeSpan);
 }
 
 // Called every frame
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AEnemy::Push(TArray<AActor*> Actors)
+{
+	for (AActor* Actor : Actors)
+	{
+		FVector Dir = Actor->GetActorLocation() - Actor->GetActorLocation();
+		Dir.Normalize();
+		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
+		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
+	}
+}
+
+void AEnemy::SearchMovement(float DeltaTime)
+{
+	CurrentTime += DeltaTime * MoveSpeed;
+	NewPosition = InitialPosition;
+	NewPosition.X += InitialPosition.X + MoveAmplitudeX * FMath::Sin(CurrentTime);
+	NewPosition.Y += InitialPosition.Y + MoveAmplitudeY * FMath::Sin(2 * CurrentTime);
+	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), NewPosition));
+	SetActorLocation(NewPosition);
 }
 
