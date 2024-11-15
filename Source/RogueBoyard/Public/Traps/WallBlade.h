@@ -32,14 +32,16 @@ private:
 	float MaxDistance;
 	
 	float DistanceToMove;
-	
-	float CurrentDistance;
 
 	float ClampedDistance;
 	
 	FVector NewLocation;
 
 	FVector OriginalPosition;
+
+	FVector ForwardDirection;
+	
+	FRotator ActorRotation;
 	
 	void MoveOnOneAxis(const float& DeltaTime);
 };
