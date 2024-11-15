@@ -14,6 +14,7 @@ ERogueCharacterStateID URogueCharacterStatePushed::GetStateID()
 void URogueCharacterStatePushed::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	Character->OnCharacterPushedEvent.Broadcast();
 	Character->GetMesh()->PlayAnimation(PushedMontage, false);
 }
 

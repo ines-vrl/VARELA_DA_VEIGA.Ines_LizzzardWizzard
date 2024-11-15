@@ -8,6 +8,7 @@
 
 class URoguePurse;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterDeath);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterPushed);
 class UBoxComponent;
 class ARogueRoomPawn;
 class URogueCharacterStateMachine;
@@ -84,6 +85,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void UnPossessCharacter(ARogueRoomPawn* Room);
+
+	UPROPERTY(BlueprintAssignable)
+	FOnCharacterPushed OnCharacterPushedEvent;
 	
 	UPROPERTY(BlueprintReadOnly)
 	int PlayerIndex = -1;

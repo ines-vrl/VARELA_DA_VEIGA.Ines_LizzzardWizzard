@@ -20,10 +20,5 @@ void ARogueLobby::EndRoom()
 void ARogueLobby::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	MaxLobbyTime -= DeltaTime;
-	if (MaxLobbyTime <= 0)
-	{
-		EndRoom();
-	}
 }
 

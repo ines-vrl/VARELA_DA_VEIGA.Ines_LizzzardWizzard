@@ -24,6 +24,16 @@ ARogueRoom::ARogueRoom()
 void ARogueRoom::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if(bHasRoomStarted)
+	{
+		MaxRoomTime-= DeltaTime;
+		if(MaxRoomTime <= 0 && !bHasRoomEnded)
+		{
+			EndRoom();
+			bHasRoomEnded = true;
+		}
+	}
 }
 
 void ARogueRoom::RoomEnter()
@@ -72,6 +82,7 @@ void ARogueRoom::BeginRoom()
 		EnterDoor->Close();
 	}
 	DEBUG("Room Begun");
+	bHasRoomStarted = true;
 	OnRoomBeginEvent.Broadcast();
 }
 

@@ -9,29 +9,20 @@ ARogueTimedRoom::ARogueTimedRoom()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+void ARogueTimedRoom::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+void ARogueTimedRoom::EndRoom()
+{
+	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndBattleRoom();
+	Super::EndRoom();
+}
+
 void ARogueTimedRoom::BeginPlay()
 {
 	Super::BeginPlay();
 	
-}
-
-void ARogueTimedRoom::BeginRoom()
-{
-	bHasBegun = true;
-}
-
-void ARogueTimedRoom::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	if(bHasBegun)
-	{
-		ElapsedTime += DeltaTime;
-		if (ElapsedTime >= Time && !bHasEnded)
-		{
-			bHasEnded = true;
-			Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndBattleRoom();
-		}
-	}
 }
 

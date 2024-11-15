@@ -14,6 +14,7 @@ class ROGUEBOYARD_API ARogueGrimoireLobby : public ARogueLobby
 public:
 	ARogueGrimoireLobby();
 	virtual void Tick(float DeltaTime) override;
+	virtual void BeginRoom() override;
 
 	virtual void EndRoom() override;
 
@@ -24,6 +25,6 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	ARogueGrimoire* Grimoire;
 };

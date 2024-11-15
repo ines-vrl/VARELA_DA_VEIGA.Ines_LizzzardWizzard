@@ -16,18 +16,37 @@ class ROGUEBOYARD_API ARogueGrimoire : public AActor
 public:
 	ARogueGrimoire();
 	virtual void Tick(float DeltaTime) override;
-	ARogueCharacter* GetCurrentOwner();
+	ARogueCharacter* GetCurrentOwner() const;
 
 	UPROPERTY(BlueprintAssignable)
 	FOnGrimoireChangedOwner OnGrimoireChangedOwnerEvent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ARogueCharacter* CurrentOwner;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	bool bGrounded = true;
+	
 protected:
 	virtual void BeginPlay() override;
-
-private:
+	
 	UFUNCTION(BlueprintCallable)
 	void SwitchOwner(ARogueCharacter* NewOwner);
+
+private:
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	ARogueCharacter* CurrentOwner;
+	UPROPERTY(EditAnywhere)
+	float F;
+
+	UPROPERTY(EditAnywhere)
+	float Zeta;
+
+	UPROPERTY(EditAnywhere)
+	float R;
+
+	FVector Velocity;
+
+	FVector LastInputPos;
+	float K1, K2, K3;
+	void ComputeConstants();
 };
