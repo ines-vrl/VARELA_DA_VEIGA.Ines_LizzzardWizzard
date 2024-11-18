@@ -22,13 +22,18 @@ public:
 
 	
 	
-	virtual bool Push(TArray<AActor*> Actors) override;
+	virtual bool Push(TArray<AActor*> Actors, float PushForce) override;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> PushingMontage;
 
-	UPROPERTY(EditAnywhere)
-	float PushForce;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MinForce;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxForce;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float TimeMax;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float PushingCoolDown;

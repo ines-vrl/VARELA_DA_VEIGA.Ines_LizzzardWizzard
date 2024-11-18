@@ -77,9 +77,9 @@ TArray<AActor*> URogueCharacterStateRun::Interact()
 	return OverlappingActors;
 }
 
-bool URogueCharacterStateRun::Push(TArray<AActor*> Actors)
+bool URogueCharacterStateRun::Push(TArray<AActor*> Actors, float PushForce)
 {
-	Super::Push(Actors);
+	Super::Push(Actors, PushForce);
 	StateMachine->ChangeState(ERogueCharacterStateID::Pushing);
-	return StateMachine->CurrentState->Push(Actors);
+	return StateMachine->CurrentState->Push(Actors, PushForce);
 }
