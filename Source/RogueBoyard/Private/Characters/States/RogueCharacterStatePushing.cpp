@@ -44,7 +44,7 @@ void URogueCharacterStatePushing::StateTick(float DeltaTime)
 	}
 }
 
-bool URogueCharacterStatePushing::Push(TArray<AActor*> Actors)
+bool URogueCharacterStatePushing::Push(TArray<AActor*> Actors , float PushForce)
 {
 	for (AActor* Actor : Actors)
 	{
