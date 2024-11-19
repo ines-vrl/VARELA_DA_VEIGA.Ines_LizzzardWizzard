@@ -18,6 +18,7 @@ AWallBlade::AWallBlade()
 void AWallBlade::BeginPlay()
 {
 	Super::BeginPlay();
+	StartPosition = GetActorLocation();
 }
 
 // Called every frame
@@ -29,35 +30,19 @@ void AWallBlade::Tick(float DeltaTime)
 
 void AWallBlade::MoveOnOneAxis(const float& DeltaTime)
 {
-	FVector RightVector = GetActorRightVector();  // Récupère la direction "droite" dans le monde (localisé à l'acteur)
-
-	// 2. On applique un mouvement basé sur MoveJoystick (valeur entre -1 et 1)
-	FVector Direction = RightVector * MoveJoystick;
-
-	// 3. Calculer la distance parcourue pendant cette frame
+	RightVector = GetActorRightVector();
+	Direction = RightVector * JoystickInputAxis.X; 
 	MovementDelta = Direction * MovementSpeed * DeltaTime;
-
-	// 4. Nouvelle position de l'acteur en fonction du mouvement calculé
 	NewLocation = GetActorLocation() + MovementDelta;
-
-	// 5. Calculer la distance totale parcourue depuis le début
-	// On utilise le vecteur de départ et on calcule la distance par rapport à la position initiale
-	float DistanceFromStart = FVector::Dist(StartPosition, NewLocation);
-
-	// 6. Si la distance parcourue dépasse la distance maximale, on limite la position
+	DistanceFromStart = FVector::Dist(StartPosition, NewLocation);
 	if (DistanceFromStart <= MaxDistance)
 	{
-		// Si la distance est inférieure à MaxDistance, on déplace l'acteur normalement
 		SetActorLocation(NewLocation);
 	}
 	else
 	{
-		// Si la distance dépasse MaxDistance, on calcule la position limite
-		// On va restreindre la position à la limite de la MaxDistance
-		FVector ClampedLocation = StartPosition + RightVector * MaxDistance * FMath::Sign(MoveJoystick);
-		SetActorLocation(ClampedLocation); // Appliquer la position limitée
+		ClampedLocation = StartPosition + RightVector * MaxDistance * FMath::Sign(JoystickInputAxis.X);
+		SetActorLocation(ClampedLocation);
 	}
-
-	// 7. Mettre à jour la distance parcourue
 	DistanceTravelled = FVector::Dist(StartPosition, GetActorLocation());
 }
