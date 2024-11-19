@@ -25,23 +25,34 @@ public:
 
 private:
 
-	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
+	UPROPERTY(EditAnywhere,Blueprintable , Category = "Trap|WallBlade")
 	float MovementSpeed;
 
-	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
+	UPROPERTY(EditAnywhere,Blueprintable , Category = "Trap|WallBlade")
 	float MaxDistance;
-	
-	float DistanceToMove;
 
-	float ClampedDistance;
+	UPROPERTY(EditAnywhere , Blueprintable, Category = "Trap|WallBlade")
+	float MoveJoystick;
+
+	FVector StartPosition;
+
+	float DistanceTravelled;
+
+	FVector MoveDirection;
+
+	FVector MovementDelta;
+
+	float DistanceTraveled;
+
+	FVector DirectionToStart;
 	
+	FVector MaxDistanceLocation;
+
+	FVector CurrentLocation;
+
 	FVector NewLocation;
 
-	FVector OriginalPosition;
-
-	FVector ForwardDirection;
-	
-	FRotator ActorRotation;
+	float MoveSpeed;
 	
 	void MoveOnOneAxis(const float& DeltaTime);
 };

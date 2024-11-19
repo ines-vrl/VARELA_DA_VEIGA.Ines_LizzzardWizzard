@@ -23,8 +23,4 @@ protected:
 	 * Super à mettre à la fin;
 	 */
 	virtual void EndRoom() override;
-
-private:
-	UPROPERTY(EditAnywhere)
-	float MaxLobbyTime = 120.0f;
 };
