@@ -60,7 +60,7 @@ TArray<AActor*> URogueCharacterState::Interact()
 	return TArray<AActor*>();
 }
 
-bool URogueCharacterState::Push(TArray<AActor*> Actors)
+bool URogueCharacterState::Push(TArray<AActor*> Actors, float PushForce)
 {
 	return false;
 }

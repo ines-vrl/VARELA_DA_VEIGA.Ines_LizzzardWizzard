@@ -2,7 +2,7 @@
 
 
 #include "Wall_P.h"
-#include "ProceduralMeshComponent.h"
+#include "NavMesh/RecastNavMesh.h"
 
 // Sets default values
 AWall_P::AWall_P()
@@ -16,11 +16,7 @@ void AWall_P::ProceduralWall(FVector Start, FVector End, float Height, float Thi
 {
 	ProceduralMesh->ClearAllMeshSections();
 	
-	TArray<FVector> Vertices;
-	TArray<FVector> Normals;
-	TArray<FProcMeshTangent> Tangents;
-	TArray<FVector2D> UVs;
-	TArray<int32> Triangles;
+	FMeshStruct Mesh;
 	int32 VertexOffset = 0;
 
 	TArray<FVector> InputVert = CalculateCoordinates(Start, End, Height, Thickness);
@@ -32,97 +28,104 @@ void AWall_P::ProceduralWall(FVector Start, FVector End, float Height, float Thi
 	//TopFace //
 	FVector Normal = FVector(0, 0, 1);
 	FVector Tangent = FVector(1, 0, 0);
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[4], InputVert[5], InputVert[6], InputVert[7], Normal, Tangent, VertexOffset);
+	CalculateFace(Mesh,InputVert[4], InputVert[5], InputVert[6], InputVert[7], Normal, Tangent, VertexOffset);
 
 	//BottomFace
 	Normal = FVector(0, 0, -1);
 	Tangent = FVector(-1, 0, 0);
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[3], InputVert[2], InputVert[1], InputVert[0], Normal, Tangent, VertexOffset);
+	CalculateFace(Mesh, InputVert[3], InputVert[2], InputVert[1], InputVert[0], Normal, Tangent, VertexOffset);
 
 	//FrontFace
 	Normal = MainAxis;
 	Tangent = SecondaryAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[0], InputVert[1], InputVert[5], InputVert[4], Normal, Tangent, VertexOffset);
+	CalculateFace(Mesh, InputVert[0], InputVert[1], InputVert[5], InputVert[4], Normal, Tangent, VertexOffset);
 
 	//BackFace//
 	Normal = -MainAxis;
 	Tangent = -SecondaryAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[7], InputVert[6], InputVert[2], InputVert[3], Normal, Tangent, VertexOffset);
+	CalculateFace(Mesh, InputVert[7], InputVert[6], InputVert[2], InputVert[3], Normal, Tangent, VertexOffset);
 
 	//LeftFace
 	Normal = -SecondaryAxis;
 	Tangent = MainAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[7], InputVert[3], InputVert[0], InputVert[4], Normal, Tangent, VertexOffset);
+	CalculateFace(Mesh, InputVert[7], InputVert[3], InputVert[0], InputVert[4], Normal, Tangent, VertexOffset);
 
 	//RightFace//
 	Normal = SecondaryAxis;
 	Tangent = -MainAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[2], InputVert[6], InputVert[5], InputVert[1], Normal, Tangent, VertexOffset);
+	CalculateFace(Mesh, InputVert[2], InputVert[6], InputVert[5], InputVert[1], Normal, Tangent, VertexOffset);
 
-	ProceduralMesh->CreateMeshSection(0, Vertices, Triangles, Normals, UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+	ProceduralMesh->CreateMeshSection(0, Mesh.Vertices, Mesh.Triangles, Mesh.Normals, Mesh.UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
 }
 
-void AWall_P::ProceduralPlatform(FVector Center, FVector GridSize, float Height, float Thickness)
+void AWall_P::ProceduralPlatform(TArray<FTileBrush> Tiles, float GridSize, float Height, float SurfaceSize)
 {
 	ProceduralMesh->ClearAllMeshSections();
 	
-	TArray<FVector> Vertices;
-	TArray<FVector> Normals;
-	TArray<FProcMeshTangent> Tangents;
-	TArray<FVector2D> UVs;
-	TArray<int32> Triangles;
+	FMeshStruct Mesh;
 	int32 VertexOffset = 0;
-
-	TArray<FVector> InputVert = CalculateCoordinatesForPlatforms(Center, GridSize, Height, Thickness);
-	FVector MainAxis = (FVector(Center.X + GridSize.X / 2, Center.Y, 0) -
-		FVector(Center.X - GridSize.X / 2, Center.Y, 0));
-	MainAxis.Z = 0;
-	MainAxis.Normalize();
-	FVector SecondaryAxis = FVector(-MainAxis.Y, MainAxis.X, MainAxis.Z);
-
-	//TopFace //
-	FVector Normal = FVector(0, 0, 1);
-	FVector Tangent = FVector(1, 0, 0);
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[4], InputVert[5], InputVert[6], InputVert[7], Normal, Tangent, VertexOffset);
-
-	//BottomFace
-	Normal = FVector(0, 0, -1);
-	Tangent = FVector(-1, 0, 0);
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[3], InputVert[2], InputVert[1], InputVert[0], Normal, Tangent, VertexOffset);
-
-	//FrontFace
-	Normal = MainAxis;
-	Tangent = SecondaryAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[0], InputVert[1], InputVert[5], InputVert[4], Normal, Tangent, VertexOffset);
-
-	//BackFace//
-	Normal = -MainAxis;
-	Tangent = -SecondaryAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[7], InputVert[6], InputVert[2], InputVert[3], Normal, Tangent, VertexOffset);
-
-	//LeftFace
-	Normal = -SecondaryAxis;
-	Tangent = MainAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[7], InputVert[3], InputVert[0], InputVert[4], Normal, Tangent, VertexOffset);
-
-	//RightFace//
-	Normal = SecondaryAxis;
-	Tangent = -MainAxis;
-	CalculateFace(Vertices, Normals, UVs, Tangents, Triangles,
-		InputVert[2], InputVert[6], InputVert[5], InputVert[1], Normal, Tangent, VertexOffset);
-
-	ProceduralMesh->CreateMeshSection(0, Vertices, Triangles, Normals, UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+	for (FTileBrush Tile : Tiles)
+	{
+		CalculateFace(Mesh, FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z + Height),
+			FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z + Height),
+			FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z + Height),
+			FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z + Height),
+			FVector(0, 0, 1),
+			FVector(1, 0, 0),
+			VertexOffset);
+	}
+	for (FTileBrush Tile : Tiles)
+	{
+		CalculateFace(Mesh, FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z),
+			FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z),
+			FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z),
+			FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z),
+			FVector(0, 0, -1),
+			FVector(-1, 0, 0),
+			VertexOffset);
+	}
+	//for (FTileBrush Tile : Tiles) // North
+	//{
+	//	CalculateFace(Mesh, FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z),
+	//	FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z + Height),
+	//	FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z + Height),
+	//	FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z),
+	//	FVector(0,1,0),
+	//	FVector(1,0,0),
+	//	VertexOffset);
+	//}
+	//for (FTileBrush Tile : Tiles) // South
+	//{
+	//	CalculateFace(Mesh, FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z),
+	//	FVector(Tile.TileCoords.X - GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z + Height),
+	//	FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z + Height),
+	//	FVector(Tile.TileCoords.X + GridSize /2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z),
+	//	FVector(0,-1,0),
+	//	FVector(-1,0,0),
+	//	VertexOffset);
+	//}
+	/*for (FTileBrush Tile : Tiles) // West
+	{
+		CalculateFace(Mesh, FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z),
+		FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z + Height),
+		FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z + Height),
+		FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z),
+		FVector(-1,0,0),
+		FVector(0,-1,0),
+		VertexOffset);
+	}
+	for (FTileBrush Tile : Tiles) // East
+	{
+		CalculateFace(Mesh, 		FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z),
+		FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y + GridSize / 2, Tile.TileCoords.Z + Height),
+		FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z + Height),
+		FVector(Tile.TileCoords.X - GridSize / 2, Tile.TileCoords.Y - GridSize / 2, Tile.TileCoords.Z),
+		FVector(1,0,0),
+		FVector(0,1,0),
+		VertexOffset);
+	}*/
+	CalculateCoordinatesForPlatforms(Tiles, GridSize, Mesh, Height, VertexOffset, SurfaceSize);
+	ProceduralMesh->CreateMeshSection(0, Mesh.Vertices, Mesh.Triangles, Mesh.Normals, Mesh.UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
 }
 
 TArray<FVector> AWall_P::CalculateCoordinates(FVector Start, FVector End, float Height, float Thickness)
@@ -147,58 +150,158 @@ TArray<FVector> AWall_P::CalculateCoordinates(FVector Start, FVector End, float 
 	return Vertices;
 }
 
-TArray<FVector> AWall_P::CalculateCoordinatesForPlatforms(FVector Center, FVector GridSize, float Height,
-	float Thickness)
+void AWall_P::CalculateCoordinatesForPlatforms(TArray<FTileBrush> Tiles, float GridSize, FMeshStruct& Mesh, float Height,
+	int32& VertexOffset, float SurfaceSize)
 {
-	TArray<FVector> Vertices;
-	FVector p1 = FVector(Center.X - GridSize.X / 2, Center.Y, 0);
-	FVector p2 = FVector(Center.X + GridSize.X / 2, Center.Y, 0);
-	FVector MainAxis = (p2 - p1);
-	MainAxis.Normalize();
-	FVector NormalAxis = FVector(- MainAxis.Y, MainAxis.X, MainAxis.Z);
-	
-	Vertices.Add(p1 - NormalAxis * Thickness / 2); //0
-	Vertices.Add(p1 + NormalAxis * Thickness / 2); //1
-	Vertices.Add(p2 + NormalAxis * Thickness / 2); //2
-	Vertices.Add(p2 - NormalAxis * Thickness / 2); // 3      //PLAN 2D
-
-	for(int i = 0; i < 4 ; i++)
+	TArray<TArray<FVector>> North;
+	TArray<TArray<FVector>> South;
+	TArray<TArray<FVector>> East;
+	TArray<TArray<FVector>> West;
+	North.Init(TArray<FVector>(), SurfaceSize);
+	South.Init(TArray<FVector>(), SurfaceSize);
+	East.Init(TArray<FVector>(), SurfaceSize);
+	West.Init(TArray<FVector>(), SurfaceSize);
+	for (FTileBrush Tile : Tiles)
 	{
-		FVector Vertex = Vertices[i];
-		Vertex.Z = p1.Z + Height;
-		Vertices.Add(Vertex);
-	} // Ajout du Second plan en hauteur
+		
+		if(Tile.bNorth)
+		{
+			North[FMathf::Abs(Tile.TileCoords.Y)].Add(Tile.TileCoords);
+		}
+		if(Tile.bSouth)
+		{
+			South[FMathf::Abs(Tile.TileCoords.Y)].Add(Tile.TileCoords);
+		}
+		if(Tile.bEast)
+		{
+			East[FMathf::Abs(Tile.TileCoords.X)].Add(Tile.TileCoords);
+		}
+		if(Tile.bWest)
+		{
+			West[FMathf::Abs(Tile.TileCoords.X)].Add(Tile.TileCoords);
+		}
+	}
 	
-	return Vertices;
+	for (auto Vectors : North)
+	{
+		if(!Vectors.IsEmpty()) CalculateVerticesCoords(Vectors, Mesh, Height, GridSize, VertexOffset,true);
+	}
+	
+	TArray<FVector> SouthVertices;
+	for (auto Vectors : South)
+	{
+		if(!Vectors.IsEmpty())CalculateVerticesCoords(Vectors, Mesh, Height, GridSize, VertexOffset,true, true);
+	}
+	
+	TArray<FVector> EastVertices;
+	for (auto Vectors : East)
+	{
+		if(!Vectors.IsEmpty())CalculateVerticesCoords(Vectors, Mesh, Height, GridSize, VertexOffset,false, false, true);
+	}
+	
+	TArray<FVector> WestVertices;
+	for (auto Vectors : West)
+	{
+		if(!Vectors.IsEmpty())CalculateVerticesCoords(Vectors, Mesh, Height, GridSize, VertexOffset,false, false, true , true);
+	}
+	
 }
 
-void AWall_P::CalculateFace(TArray<FVector>& OutVertices, TArray<FVector>& OutNormals, TArray<FVector2D>& OutUVs,
-                            TArray<FProcMeshTangent>& OutTangents, TArray<int32> &Triangles, FVector P0, FVector P1, FVector P2, FVector P3, FVector Normal, FVector Tangent,
+void AWall_P::CalculateVerticesCoords(TArray<FVector> Coordinates, FMeshStruct& Mesh, float Height, float GridSize,
+		int32 &VertexOffset, bool bNorth, bool bSouth, bool bWest, bool bEast)
+{
+	TArray<FVector> Vertices;
+	FVector min,max;
+	if(bNorth)
+	{
+		min = Coordinates[0];
+		max = Coordinates[0];
+		for(int i = 0; i < Coordinates.Num(); i++)
+		{
+			if(Coordinates[i].X >= max.X + GridSize) max = Coordinates[i];
+			if(Coordinates[i].X <= min.X - GridSize) min = Coordinates[i];
+		}
+		if(bSouth)
+		{
+			CalculateFace(Mesh, FVector(min.X - GridSize / 2, min.Y - GridSize / 2, min.Z),
+			FVector(min.X - GridSize / 2, min.Y - GridSize / 2, min.Z + Height),
+			FVector(max.X + GridSize / 2, max.Y - GridSize / 2, max.Z + Height),
+			FVector(max.X + GridSize / 2, max.Y - GridSize / 2, max.Z),
+			FVector(0,-1,0),
+			FVector(-1,0,0),
+			VertexOffset); // BON
+		}
+		else
+		{
+			CalculateFace(Mesh, FVector(max.X + GridSize / 2, max.Y + GridSize / 2, max.Z),
+			FVector(max.X + GridSize / 2, max.Y + GridSize / 2, max.Z + Height),
+			FVector(min.X - GridSize / 2, min.Y + GridSize / 2, min.Z + Height),
+			FVector(min.X - GridSize / 2, min.Y + GridSize / 2, min.Z),
+			FVector(0,1,0),
+			FVector(1,0,0),
+			VertexOffset); // BON
+		}
+			
+	}
+	if(bWest)
+	{
+			min = Coordinates[0];
+			max = Coordinates[0];
+			for(int i = 0; i < Coordinates.Num(); i++)
+			{
+				if(Coordinates[i].Y >= max.Y + GridSize) max = Coordinates[i];
+				if(Coordinates[i].Y <= min.Y - GridSize) min = Coordinates[i];
+			}
+			if(bEast)
+			{
+				CalculateFace(Mesh, FVector(max.X - GridSize / 2, max.Y + GridSize / 2, max.Z),
+				FVector(max.X - GridSize / 2, max.Y + GridSize / 2, max.Z + Height),
+				FVector(min.X - GridSize / 2, min.Y - GridSize / 2, min.Z + Height),
+				FVector(min.X - GridSize / 2, min.Y - GridSize / 2, min.Z),
+				FVector(-1,0,0),
+				FVector(0,-1,0),
+				VertexOffset);
+			}
+			else
+			{
+
+				CalculateFace(Mesh, FVector(min.X + GridSize / 2, min.Y - GridSize / 2, min.Z),
+				FVector(min.X + GridSize / 2, min.Y - GridSize / 2, min.Z + Height),
+				FVector(max.X + GridSize / 2, max.Y + GridSize / 2, max.Z + Height),
+				FVector(max.X + GridSize / 2, max.Y + GridSize / 2, max.Z),
+				FVector(1,0,0),
+				FVector(0,1,0),
+				VertexOffset);
+			}
+	}
+}
+
+void AWall_P::CalculateFace(FMeshStruct& Mesh, FVector P0, FVector P1, FVector P2, FVector P3, FVector Normal, FVector Tangent,
                             int32 &VertexOffset)
 {
 	FProcMeshTangent Tan = FProcMeshTangent(Tangent, false);
-	OutVertices.Add(P0);
-	OutVertices.Add(P1);
-	OutVertices.Add(P2);
-	OutVertices.Add(P3);
-	OutNormals.Add(Normal);
-	OutNormals.Add(Normal);
-	OutNormals.Add(Normal);
-	OutNormals.Add(Normal);
-	OutTangents.Add(Tan);
-	OutTangents.Add(Tan);
-	OutTangents.Add(Tan);
-	OutTangents.Add(Tan);
-	Triangles.Add(VertexOffset);
-	Triangles.Add(VertexOffset + 1);
-	Triangles.Add(VertexOffset + 2);
-	Triangles.Add(VertexOffset);
-	Triangles.Add(VertexOffset + 2);
-	Triangles.Add(VertexOffset + 3);
-	OutUVs.Add(FVector2d(0.0f, 1.0f));
-	OutUVs.Add(FVector2d(1.0f, 1.0f));
-	OutUVs.Add(FVector2d(1.0f, 0.0f));
-	OutUVs.Add(FVector2d(0.0f, 0.0f));
+	Mesh.Vertices.Add(P0);
+	Mesh.Vertices.Add(P1);
+	Mesh.Vertices.Add(P2);
+	Mesh.Vertices.Add(P3);
+	Mesh.Normals.Add(Normal);
+	Mesh.Normals.Add(Normal);
+	Mesh.Normals.Add(Normal);
+	Mesh.Normals.Add(Normal);
+	Mesh.Tangents.Add(Tan);
+	Mesh.Tangents.Add(Tan);
+	Mesh.Tangents.Add(Tan);
+	Mesh.Tangents.Add(Tan);
+	Mesh.Triangles.Add(VertexOffset);
+	Mesh.Triangles.Add(VertexOffset + 1);
+	Mesh.Triangles.Add(VertexOffset + 2);
+	Mesh.Triangles.Add(VertexOffset);
+	Mesh.Triangles.Add(VertexOffset + 2);
+	Mesh.Triangles.Add(VertexOffset + 3);
+	Mesh.UVs.Add(FVector2d(0.0f, 1.0f));
+	Mesh.UVs.Add(FVector2d(1.0f, 1.0f));
+	Mesh.UVs.Add(FVector2d(1.0f, 0.0f));
+	Mesh.UVs.Add(FVector2d(0.0f, 0.0f));
 	VertexOffset += 4;
 }
 
