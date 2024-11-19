@@ -34,6 +34,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float TimeMax;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float TimeMin;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float PushingCoolDown;

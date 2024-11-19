@@ -39,10 +39,11 @@ void URogueCharacterStateRun::StateTick(float DeltaTime)
 void URogueCharacterStateRun::Movement(float X, float Y)
 {
 	Super::Movement(X, Y);
-	const FVector RightVector = Character->GetCamera()->GetActorRightVector();
-	const FVector ForwardVector = Character->GetCamera()->GetActorForwardVector().RotateAngleAxis(Character->GetCamera()->GetActorRotation().Pitch , RightVector);
+	const FVector XAxisRelativeToCamera = Character->GetCamera()->GetActorRightVector();
+	const FVector YAxisRelativeToCamera = Character->GetCamera()->GetActorForwardVector().RotateAngleAxis(Character->GetCamera()->GetActorRotation().Pitch , XAxisRelativeToCamera);
+	Character->ForwardVector = YAxisRelativeToCamera * Y + XAxisRelativeToCamera * X;
 	Character->AddMovementInput(Character->GetCamera()->GetActorRightVector(), X);
-	Character->AddMovementInput(ForwardVector, Y);
+	Character->AddMovementInput(YAxisRelativeToCamera, Y);
 }
 
 bool URogueCharacterStateRun::Dash(float X, float Y)
