@@ -21,6 +21,8 @@ class ROGUEBOYARD_API ARogueCharacter : public ACharacter
 	UBoxComponent* Box;
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnCharacterDeath OnCharacterDeathEvent;
+	UPROPERTY(BlueprintReadOnly)
+	FVector ForwardVector;
 	
 #pragma region Unreal Default
 public:
