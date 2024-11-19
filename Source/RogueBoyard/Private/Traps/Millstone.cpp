@@ -18,12 +18,21 @@ void AMillstone::BeginPlay()
 	
 }
 
+void AMillstone::Push(TArray<AActor*> Actors)
+{
+	for (AActor* Actor : Actors)
+	{
+		FVector Dir = Actor->GetActorLocation() - GetActorLocation();
+		Dir.Normalize();
+		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
+		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
+	}
+}
+
 // Called every frame
 void AMillstone::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-
-
 
 

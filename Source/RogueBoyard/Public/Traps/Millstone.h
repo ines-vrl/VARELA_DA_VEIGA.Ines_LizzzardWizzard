@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "RogueTrap.h"
+#include "PushableComponent.h"
 #include "Millstone.generated.h"
 
 UCLASS(HideCategories=("Rotation"))
@@ -18,6 +19,12 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere,Blueprintable, Category="Trap|Millstone")
+	float PushForce = 1;
+
+	UFUNCTION(BlueprintCallable)
+	void Push(TArray<AActor*> Actors);
 
 
 public:
