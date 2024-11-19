@@ -9,6 +9,7 @@
 #include "RogueBoyard/Public/Characters/RogueCharacterStateMachine.h"
 #include "Room/RogueRoomPawn.h"
 #include "Components/BoxComponent.h"
+#include "Economy/RoguePurse.h"
 #include "Engine/ContentEncryptionConfig.h"
 #include "Room/RogueRoomSubsystem.h"
 
@@ -17,6 +18,7 @@ ARogueCharacter::ARogueCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	Purse = CreateDefaultSubobject<URoguePurse>("Purse");
 	Box = CreateDefaultSubobject<UBoxComponent>(TEXT("Box"));
 	Box->SetupAttachment(GetMesh());
 }
@@ -28,7 +30,7 @@ void ARogueCharacter::BeginPlay()
 	CreateStateMachine();
 	InitStateMachine();
 	CurrentLives = LivesMAX;
-	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->Characters.Add(this);
+	//Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->Characters.Add(this);
 }
 
 // Called every frame

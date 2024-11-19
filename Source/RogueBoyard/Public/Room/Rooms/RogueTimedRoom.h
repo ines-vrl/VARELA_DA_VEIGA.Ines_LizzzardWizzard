@@ -12,21 +12,12 @@ class ROGUEBOYARD_API ARogueTimedRoom : public ARogueRoom
 public:
 	ARogueTimedRoom();
 	virtual void Tick(float DeltaTime) override;
+	virtual void EndRoom() override;
 	
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float ElapsedTime = 0;
 
 protected:
 	virtual void BeginPlay() override;
-
-private:
-	/**
-	 * Durée en secondes de la salle
-	 */
-	UPROPERTY(EditAnywhere)
-	float Time = 90.0f;
-
-	bool bHasBegun = false;
 	
-	virtual void BeginRoom() override;
 };
