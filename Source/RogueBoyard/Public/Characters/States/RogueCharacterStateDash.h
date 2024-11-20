@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/CapsuleComponent.h"
 #include "RogueBoyard/Private/Characters/RogueCharacterState.h"
 #include "RogueCharacterStateDash.generated.h"
 
@@ -31,4 +32,7 @@ public:
 private:
 	FVector Sticks;
 	float DashAnimTimeRemaining;
+
+	UPROPERTY()
+	UCapsuleComponent* Capsule;
 };
