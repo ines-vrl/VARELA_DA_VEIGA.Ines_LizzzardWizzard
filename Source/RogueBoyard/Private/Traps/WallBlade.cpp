@@ -3,6 +3,8 @@
 
 #include "Traps/WallBlade.h"
 
+#include "LevelInstance/LevelInstanceTypes.h"
+
 
 // Sets default values
 AWallBlade::AWallBlade()
@@ -16,12 +18,31 @@ AWallBlade::AWallBlade()
 void AWallBlade::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	StartPosition = GetActorLocation();
 }
 
 // Called every frame
 void AWallBlade::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	MoveOnOneAxis(DeltaTime);
 }
 
+void AWallBlade::MoveOnOneAxis(const float& DeltaTime)
+{
+	RightVector = GetActorRightVector();
+	Direction = RightVector * JoystickInputAxis.X; 
+	MovementDelta = Direction * MovementSpeed * DeltaTime;
+	NewLocation = GetActorLocation() + MovementDelta;
+	DistanceFromStart = FVector::Dist(StartPosition, NewLocation);
+	if (DistanceFromStart <= MaxDistance)
+	{
+		SetActorLocation(NewLocation);
+	}
+	else
+	{
+		ClampedLocation = StartPosition + RightVector * MaxDistance * FMath::Sign(JoystickInputAxis.X);
+		SetActorLocation(ClampedLocation);
+	}
+	DistanceTravelled = FVector::Dist(StartPosition, GetActorLocation());
+}

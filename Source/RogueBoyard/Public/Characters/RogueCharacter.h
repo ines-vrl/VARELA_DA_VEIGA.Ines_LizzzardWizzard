@@ -6,7 +6,9 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+class URoguePurse;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterDeath);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterPushed);
 class UBoxComponent;
 class ARogueRoomPawn;
 class URogueCharacterStateMachine;
@@ -19,6 +21,9 @@ class ROGUEBOYARD_API ARogueCharacter : public ACharacter
 	UBoxComponent* Box;
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnCharacterDeath OnCharacterDeathEvent;
+	UPROPERTY(BlueprintReadOnly)
+	FVector ForwardVector;
+	
 #pragma region Unreal Default
 public:
 	// Sets default values for this character's properties
@@ -74,7 +79,18 @@ private:
 	UPROPERTY()
 	ACameraActor* Camera;
 #pragma endregion
+#pragma region Economy
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	URoguePurse* Purse;
+#pragma endregion
 	
 	UFUNCTION(BlueprintCallable)
 	void UnPossessCharacter(ARogueRoomPawn* Room);
+
+	UPROPERTY(BlueprintAssignable)
+	FOnCharacterPushed OnCharacterPushedEvent;
+	
+	UPROPERTY(BlueprintReadOnly)
+	int PlayerIndex = -1;
 };
