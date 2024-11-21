@@ -62,9 +62,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void AddImpulse(FVector DirForce, bool wall);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	float SelfTime = 0.0f;
+
 };

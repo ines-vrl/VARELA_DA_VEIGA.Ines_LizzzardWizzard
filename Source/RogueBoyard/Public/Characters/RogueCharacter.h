@@ -50,6 +50,12 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<URogueCharacterStateMachine> StateMachine;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float SpeedNerf;
+
+	UPROPERTY(BlueprintReadWrite)
+	float speedNerfPrivate;
 #pragma endregion
 #pragma region Life
 public:
