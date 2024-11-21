@@ -18,6 +18,7 @@ ERogueCharacterStateID URogueCharacterStateDash::GetStateID()
 void URogueCharacterStateDash::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	Capsule = Cast<UCapsuleComponent>(Character->GetRootComponent());
 	Sticks = StateMachine->Sticks;
 	Sticks.Y = -Sticks.Y;
 	FRotator CameraRotation = Character->GetCamera()->GetActorRotation();
@@ -60,5 +61,9 @@ void URogueCharacterStateDash::StateTick(float DeltaTime)
 		{
 			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 		}
+	}
+	if(Capsule != nullptr)
+	{
+		//TODO
 	}
 }
