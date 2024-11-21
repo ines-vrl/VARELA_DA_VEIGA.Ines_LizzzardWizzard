@@ -26,7 +26,7 @@ struct FTileBrush
 	GENERATED_BODY()
 	public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FVector TileCoords;
+	FVector TileCoords = FVector(0.0f);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bNorth = false;

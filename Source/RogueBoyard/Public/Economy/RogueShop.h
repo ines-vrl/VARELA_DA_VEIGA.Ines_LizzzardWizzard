@@ -19,9 +19,9 @@ struct FShopItemData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName Name;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int Price;
+	int Price = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	EItemEffect Effect;
+	EItemEffect Effect = EItemEffect::NotImplemented;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSoftObjectPtr<UStaticMesh> Mesh;

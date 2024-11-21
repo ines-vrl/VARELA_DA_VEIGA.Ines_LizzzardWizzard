@@ -24,6 +24,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ARogueCharacter* CurrentOwner;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ARogueCharacter* LastOwner;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bGrounded = true;
 	
