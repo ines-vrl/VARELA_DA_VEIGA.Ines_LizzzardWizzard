@@ -28,11 +28,19 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float DashCoolDown;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float ForcePushBall;
 	
 private:
 	FVector Sticks;
 	float DashAnimTimeRemaining;
+	FVector DirPushBall;
 
 	UPROPERTY()
 	UCapsuleComponent* Capsule;
+
+	UFUNCTION(BlueprintCallable)
+	void OverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+	bool bFromSweep, const FHitResult& SweepResult);
 };
