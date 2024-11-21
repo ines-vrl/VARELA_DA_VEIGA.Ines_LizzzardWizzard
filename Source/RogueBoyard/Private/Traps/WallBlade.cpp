@@ -3,6 +3,8 @@
 
 #include "Traps/WallBlade.h"
 
+#include "LevelInstance/LevelInstanceTypes.h"
+
 
 // Sets default values
 AWallBlade::AWallBlade()
@@ -16,8 +18,7 @@ AWallBlade::AWallBlade()
 void AWallBlade::BeginPlay()
 {
 	Super::BeginPlay();
-	OriginalPosition = GetActorLocation();
-	
+	StartPosition = GetActorLocation();
 }
 
 // Called every frame
@@ -29,15 +30,19 @@ void AWallBlade::Tick(float DeltaTime)
 
 void AWallBlade::MoveOnOneAxis(const float& DeltaTime)
 {
-	DistanceToMove = JoystickInputAxis.X * MovementSpeed * DeltaTime;
-	ActorRotation = GetActorRotation();
-	ForwardDirection = ActorRotation.RotateVector(FVector(1, 0, 0));
-	NewLocation = GetActorLocation() + ForwardDirection * DistanceToMove;
-	if (FMath::Abs(NewLocation.X - OriginalPosition.X) > MaxDistance)
+	RightVector = GetActorRightVector();
+	Direction = RightVector * JoystickInputAxis.X; 
+	MovementDelta = Direction * MovementSpeed * DeltaTime;
+	NewLocation = GetActorLocation() + MovementDelta;
+	DistanceFromStart = FVector::Dist(StartPosition, NewLocation);
+	if (DistanceFromStart <= MaxDistance)
 	{
-		ClampedDistance = FMath::Sign(DistanceToMove) * MaxDistance;
-		NewLocation.X = OriginalPosition.X + ClampedDistance;
+		SetActorLocation(NewLocation);
 	}
-	SetActorLocation(NewLocation);
+	else
+	{
+		ClampedLocation = StartPosition + RightVector * MaxDistance * FMath::Sign(JoystickInputAxis.X);
+		SetActorLocation(ClampedLocation);
+	}
+	DistanceTravelled = FVector::Dist(StartPosition, GetActorLocation());
 }
-
