@@ -31,9 +31,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<UMaterialInterface*> Materials;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UDataTable* TextureCharacter;
 	
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void StartBattleRoom();
@@ -68,7 +65,6 @@ private:
 	virtual void InitCharacters();
 	virtual void InitFirstRoom();
 	void InitStatSubsystem();
-	
 
 	UFUNCTION(BlueprintCallable)
 	void GiveRoomRewards(TArray<ARogueCharacter*> Winners);
