@@ -33,6 +33,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* Blade; 
+	
 	float DistanceFromStart;
 
 	FVector ClampedLocation;

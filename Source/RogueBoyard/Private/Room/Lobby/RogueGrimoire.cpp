@@ -1,6 +1,7 @@
 ﻿#include "Room/Lobby/RogueGrimoire.h"
 
 #include "Characters/RogueCharacter.h"
+#include "Core/RogueGameMode.h"
 
 #define PI 0.3141592f
 
@@ -17,6 +18,9 @@ void ARogueGrimoire::BeginPlay()
 void ARogueGrimoire::SwitchOwner(ARogueCharacter* NewOwner)
 {
 	CurrentOwner = NewOwner;
+	if(NewOwner) {
+		LastOwner = NewOwner;
+	}
 	OnGrimoireChangedOwnerEvent.Broadcast();
 }
 
@@ -46,6 +50,11 @@ void ARogueGrimoire::Tick(float DeltaTime)
 
 ARogueCharacter* ARogueGrimoire::GetCurrentOwner() const
 {
+	if(!CurrentOwner) {
+		if(!LastOwner) {
+			return Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->GetRandomCharacter();
+		}
+	}
 	return CurrentOwner;
 }
 
