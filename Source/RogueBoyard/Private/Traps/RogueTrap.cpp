@@ -3,6 +3,7 @@
 
 #include "RogueBoyard/Public/Traps/RogueTrap.h"
 #include "Math/UnrealMathUtility.h"
+#include <cmath>
 
 ARogueTrap::ARogueTrap()
 {
@@ -15,39 +16,31 @@ void ARogueTrap::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ARogueTrap::InputJoystick(float DeltaTime,FVector InputAxis)
-{
-}
-
-void ARogueTrap::InputButtonDown()
-{
-}
-
-void ARogueTrap::InputButtonUp()
-{
-}
-
 // Called every frame
 void ARogueTrap::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
+	RotateTrap(DeltaTime);
 }
 
-
-void ARogueTrap::RotateTrap(const float DeltaTime,const FVector& InputAxis)
+void ARogueTrap::RotateTrap(float DeltaTime)
 {
-	if(bCanRotate)
+	if (bCanRotate)
 	{
-		CurrentRotation = GetActorRotation();
-		AngleInRadians = FMath::Atan2(InputAxis.Y, InputAxis.X);
-		TargetAngle = FMath::RadiansToDegrees(AngleInRadians);
-		CurrentAngle = NewRotation.Yaw;
-		AngleDifference = TargetAngle - CurrentAngle;
-		AngleDifference = FMath::Fmod(AngleDifference + 180.0f, 360.0f) - 180.0f;
-		RotationToApply = FMath::Clamp(AngleDifference, -MaxRotationSpeed * DeltaTime, MaxRotationSpeed * 10 * DeltaTime);
-		NewRotation = CurrentRotation;
-		NewRotation.Yaw += RotationToApply;
+		if(FMath::Abs(JoystickInputAxis.X) > ValueMinimalRotationJoystick)
+		{
+			CurrentRotationSpeed += JoystickInputAxis.X * Acceleration * DeltaTime;
+			CurrentRotationSpeed = FMath::Clamp(CurrentRotationSpeed, -MaxRotationSpeed, MaxRotationSpeed);
+		}
+		CurrentRotationSpeed -= CurrentRotationSpeed * Friction * DeltaTime;
+		NewRotation = GetActorRotation();
+		NewRotation.Yaw += CurrentRotationSpeed * DeltaTime;
 		SetActorRotation(NewRotation);
 	}
 }
+
+void ARogueTrap::Trigger_Implementation(const FVector& InputAxis)
+{
+	JoystickInputAxis = InputAxis;
+}
+

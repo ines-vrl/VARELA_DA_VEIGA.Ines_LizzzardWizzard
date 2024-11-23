@@ -17,6 +17,7 @@ void URogueCharacterStateDead::StateEnter(ERogueCharacterStateID PreviousStateID
 	Super::StateEnter(PreviousStateID);
 	Character->GetMesh()->PlayAnimation(DeadMontage, false);
 	if(ResurectMontage) ResurectAnimTimeRemaining = ResurectMontage->GetPlayLength();
+	Character->OnCharacterDeathEvent.Broadcast();
 }
 
 void URogueCharacterStateDead::StateExit(ERogueCharacterStateID NextStateID)
@@ -43,4 +44,10 @@ void URogueCharacterStateDead::StateTick(float DeltaTime)
 			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 		}
 	}
+}
+
+void URogueCharacterStateDead::Resurrect()
+{
+	Super::Resurrect();
+	Character->GetMesh()->PlayAnimation(DeadMontage, false);
 }

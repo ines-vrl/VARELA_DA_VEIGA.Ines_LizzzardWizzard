@@ -26,12 +26,12 @@ void URogueCharacterState::StateInit(URogueCharacterStateMachine* InStateMachine
 {
 	StateMachine = InStateMachine;
 	Character = InStateMachine->GetCharacter();
-	GEngine->AddOnScreenDebugMessage(
+	/*GEngine->AddOnScreenDebugMessage(
 		-1,
 		3.f,
 		FColor::Magenta,
 		FString::Printf(TEXT("Init State %d"), GetStateID())
-		);
+		);*/
 }
 
 void URogueCharacterState::StateEnter(ERogueCharacterStateID PreviousStateID)
@@ -43,6 +43,29 @@ void URogueCharacterState::StateExit(ERogueCharacterStateID NextStateID)
 }
 
 void URogueCharacterState::StateTick(float DeltaTime)
+{
+}
+
+void URogueCharacterState::Movement(float X, float Y)
+{
+}
+
+bool URogueCharacterState::Dash(float X, float Y)
+{
+	return false;
+}
+
+TArray<AActor*> URogueCharacterState::Interact()
+{
+	return TArray<AActor*>();
+}
+
+bool URogueCharacterState::Push(TArray<AActor*> Actors, float PushForce)
+{
+	return false;
+}
+
+void URogueCharacterState::Resurrect()
 {
 }
 

@@ -3,10 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "RogueRoom.h"
 #include "Engine/LevelStreamingDynamic.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "RogueRoomSubsystem.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnNextRoom);
+DECLARE_MULTICAST_DELEGATE(FOnRoomFinishedLoading);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWasLastRoom);
+
+UENUM()
+enum ERoomLoaded
+{
+	Pawn,
+	Manager
+};
 
 /**
  * 
@@ -23,7 +33,22 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	int ActiveRoomId = 0;
 
+	void LoadNextRoom();
+	void RoomLoadedCallback(ERoomLoaded Context);
+	FOnRoomFinishedLoading OnRoomFinishedLoadingEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnWasLastRoom OnWasLastRoomEvent;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnNextRoom OnNextRoomEvent;
+
 private:
+	bool bPendingNextRoom = false;
+	bool bIsNextRoomPawnLoaded = false;
+	bool bIsNextRoomManagerLoaded = false;
+	
+	
 	TArray<TSoftObjectPtr<UWorld>> Rooms;
 	UPROPERTY()
 	TArray<ULevelStreamingDynamic*> LoadedRooms;
@@ -32,6 +57,5 @@ private:
 	
 	void LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room, const FVector& Position);
 	void UnloadRoom(ULevelStreamingDynamic* Room);
-	void LoadNextRoom();
 	void UnloadPreviousRoom();
 };

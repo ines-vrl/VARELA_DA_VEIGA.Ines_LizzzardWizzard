@@ -3,73 +3,55 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TrapsInput.h"
 #include "GameFramework/Actor.h"
 #include "RogueTrap.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnRogueTrapActivated);
 
-UCLASS(Abstract)
-class ROGUEBOYARD_API ARogueTrap : public AActor
+UCLASS()
+class ROGUEBOYARD_API ARogueTrap : public AActor, public ITrapsInput
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
+	
 	ARogueTrap();
 
 protected:
-	// Called when the game starts or when spawned
+	
 	virtual void BeginPlay() override;
-	
-	UPROPERTY(BlueprintReadWrite,EditAnywhere, Category = "Trap")
-	bool bReusable;
-	
-	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
-	FVector InputAxisDebug;
-
-	UPROPERTY(BlueprintReadWrite,EditAnywhere,Category="Trap|Debug")
-	bool bInputDownDebug;
 	
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	bool bCanRotate;
 
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float ValueMinimalRotationJoystick;
+	
+	/**
+	 * In degrees per second
+	 */
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	float MaxRotationSpeed;
 	
-	virtual void InputJoystick(float DeltaTime, FVector InputAxis);
-	
-	virtual void InputButtonDown();
-	
-	virtual void InputButtonUp();
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float Friction;
 
-	void RotateTrap(const float DeltaTime,const FVector& InputRotation);
+	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
+	float Acceleration;
+	
+	void RotateTrap(float DeltaTime);
+
+	virtual void Trigger_Implementation(const FVector& InputAxis) override;
+	
+	FVector JoystickInputAxis;
 	
 public:
 	virtual void Tick(float DeltaTime) override;
 
-	
-
-
-
 private:
-	UPROPERTY()
-	FRotator CurrentRotation;
-
-	UPROPERTY()
+	//Rotation
+	float CurrentRotationSpeed;
+	
 	FRotator NewRotation;
-
-	UPROPERTY()
-	float RotationToApply;
-
-	UPROPERTY()
-	float AngleDifference;
-
-	UPROPERTY()
-	float TargetAngle;
-
-	UPROPERTY()
-	float AngleInRadians;
-
-	UPROPERTY()
-	float CurrentAngle;
 };

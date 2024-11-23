@@ -20,14 +20,22 @@ public:
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable)
-	void Push(TArray<AActor*> Actors);
+	
+	
+	virtual bool Push(TArray<AActor*> Actors, float PushForce) override;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> PushingMontage;
 
-	UPROPERTY(EditAnywhere)
-	float PushForce;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MinForce;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxForce;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float TimeMax;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float TimeMin;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float PushingCoolDown;

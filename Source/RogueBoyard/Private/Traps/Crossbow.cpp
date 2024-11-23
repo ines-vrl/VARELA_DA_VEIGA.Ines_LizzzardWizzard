@@ -18,42 +18,21 @@ void ACrossbow::BeginPlay()
 	
 }
 
-void ACrossbow::InputJoystick(float DeltaTime,FVector InputAxis)
-{
-	Super::InputJoystick(DeltaTime,InputAxis);
-	RotateTrap(DeltaTime,InputAxis);
-}
-
-void ACrossbow::InputButtonDown()
-{
-	Super::InputButtonDown();
-}
-
-void ACrossbow::InputButtonUp()
-{
-	Super::InputButtonUp();
-}
-
 // Called every frame
 void ACrossbow::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	RotateCrossbow(DeltaTime,InputAxisDebug);
 	
 }
 
-void ACrossbow::RotateCrossbow_Implementation(float DeltaTime, const FVector& InputAxis)
-{
-	InputJoystick(DeltaTime,InputAxis);
-}
 
 void ACrossbow::ChargeShot_Implementation()
 {
-	InputButtonDown();
+	
 }
 
 void ACrossbow::ReleaseShot_Implementation()
 {
-	InputButtonUp();
+	
 }
 

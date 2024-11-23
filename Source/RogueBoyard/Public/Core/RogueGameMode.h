@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Room/RogueRoom.h"
+#include "Room/RogueRoomPawn.h"
 #include "RogueGameMode.generated.h"
 
 class ARogueCharacter;
@@ -12,9 +13,13 @@ UCLASS()
 class ROGUEBOYARD_API ARogueGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	virtual void BeginPlay() override;
 
 public:
+	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	ARogueRoom* ActiveRoom;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueRoom*> RoomManagers;
 
@@ -24,5 +29,68 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<ARogueCharacter*> Characters;
 
-	void InitPlayers();
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UMaterialInterface*> Materials;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UDataTable* TextureCharacter;
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StartBattleRoom();
+	virtual void StartBattleRoom_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void EndBattleRoom();
+	virtual void EndBattleRoom_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StartLobbyRoom();
+	virtual void StartLobbyRoom_Implementation();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void EndLobbyRoom();
+	virtual void EndLobbyRoom_Implementation();
+
+	UFUNCTION(BlueprintCallable)
+	TArray<ARogueCharacter*> GetAlivePlayers();
+	
+	void AddRoom(ARogueRoomPawn* Pawn, ARogueRoom* Manager);
+	void AddRoomPawn(ARogueRoomPawn* Pawn);
+	void AddRoomManager(ARogueRoom* Manager);
+	
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsLastRoom = false;
+	
+private:
+	bool bIsFirstRoomLoaded = false;
+	
+	virtual void InitPlayers();
+	virtual void InitCharacters();
+	virtual void InitFirstRoom();
+	void InitStatSubsystem();
+	
+
+	UFUNCTION(BlueprintCallable)
+	void GiveRoomRewards(TArray<ARogueCharacter*> Winners);
+
+	UFUNCTION()
+	void OnCharacterDeath();
+
+	UFUNCTION()
+	void OnRoomLoaded();
+
+public:
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "PostLastRoom"))
+	void ReceivePostLastRoom();
+
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "InitCharacter"))
+	void ReceiveInitCharacters(int CharacterIndex);
+
+	UFUNCTION()
+	void LastRoomLoaded();
+	
+	UFUNCTION(BlueprintCallable)
+	void PostLastRoom();
+
+	ARogueCharacter* GetRandomCharacter();
 };

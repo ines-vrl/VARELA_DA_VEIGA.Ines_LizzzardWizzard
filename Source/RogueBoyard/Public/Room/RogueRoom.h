@@ -18,6 +18,17 @@ class ROGUEBOYARD_API ARogueRoom : public AActor
 
 public:
 	ARogueRoom();
+
+	
+	/**
+	 * Only for ChalengeRooms. Amount of coins given to the winning player(s)
+	 */
+	UPROPERTY(EditAnywhere)
+	int RoomRewards;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ACameraActor* RoomCamera = nullptr;
+	
 	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION(BlueprintCallable)
@@ -46,7 +57,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<ARogueDoor> ExitDoor;
 
-private:
 	UFUNCTION(BlueprintCallable)
 	virtual void BeginRoom();
 	
@@ -55,4 +65,11 @@ private:
 
 	UFUNCTION(BlueprintCallable)
 	virtual void RoomExit();
+	
+private:	
+	bool bHasRoomStarted = false;
+	bool bHasRoomEnded = false;
+	
+	UPROPERTY(EditAnywhere)
+	float MaxRoomTime = 120.0f;
 };

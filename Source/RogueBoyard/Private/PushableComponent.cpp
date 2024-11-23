@@ -6,6 +6,7 @@
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateID.h"
 #include "Characters/RogueCharacterStateMachine.h"
+#include "Items/Ballon.h"
 
 
 // Sets default values for this component's properties
@@ -18,8 +19,7 @@ UPushableComponent::UPushableComponent()
 	// ...
 }
 
-
-void UPushableComponent::Push(FVector Dir, float Force) const
+void UPushableComponent::Push(FVector Dir, float Force)
 {
 	if(MyOwner)
 	{
@@ -28,9 +28,18 @@ void UPushableComponent::Push(FVector Dir, float Force) const
 		Impulse.Z = 100.f;
 		if(Character == nullptr)
 		{
+			ABallon* Ballon = Cast<ABallon>(MyOwner);
+			if(Ballon != nullptr)
+			{
+				Impulse.Z = 0;
+				Ballon->bIsPushed = true;
+				Ballon->AddImpulse(Impulse, false);
+				return;
+			}
 			UPrimitiveComponent* PrimitiveComponent = Cast<UPrimitiveComponent>(MyOwner->GetRootComponent());
 			if(PrimitiveComponent != nullptr)
 			{
+				Impulse.Z = 0;;
 				if(!PrimitiveComponent->IsSimulatingPhysics()) PrimitiveComponent->SetSimulatePhysics(true);
 				
 				ECollisionEnabled::Type CollisionEnabled = PrimitiveComponent->GetCollisionEnabled();
@@ -42,12 +51,15 @@ void UPushableComponent::Push(FVector Dir, float Force) const
 				
 				PrimitiveComponent->AddImpulse(Impulse, NAME_None, true);
 				PrimitiveComponent->SetCollisionEnabled(CollisionEnabled);
+				bIsPushed = true;
 			}
 		}
 		else
 		{
-			Character->StateMachine->ChangeState(ERogueCharacterStateID::Pushed);
-			Character->LaunchCharacter(Impulse, false, false);
+				Character->LaunchCharacter(Impulse, false, false);
+				GEngine->AddOnScreenDebugMessage(1,5.0f, FColor::Red,
+					"Pushed");
+				Character->StateMachine->ChangeState(ERogueCharacterStateID::Pushed);
 		}
 
 			

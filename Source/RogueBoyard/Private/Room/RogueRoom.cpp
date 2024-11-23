@@ -24,6 +24,16 @@ ARogueRoom::ARogueRoom()
 void ARogueRoom::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if(bHasRoomStarted)
+	{
+		MaxRoomTime -= DeltaTime;
+		if(MaxRoomTime <= 0 && !bHasRoomEnded)
+		{
+			EndRoom();
+			bHasRoomEnded = true;
+		}
+	}
 }
 
 void ARogueRoom::RoomEnter()
@@ -50,6 +60,7 @@ void ARogueRoom::PlacePlayers(TArray<ACharacter*> Players)
 
 void ARogueRoom::PlacePlayer(ARogueCharacter* Player, const int Index)
 {
+	//TODO Guard Pour Index
 	Player->SetActorTransform(SpawnPoints[Index]->GetComponentTransform());
 }
 
@@ -58,8 +69,10 @@ void ARogueRoom::BeginPlay()
 	Super::BeginPlay();
 	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
 	{
-		GameMode->RoomManagers.Add(this);
+		GameMode->AddRoomManager(this);
 	}
+	URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
+	RoomSubsystem->RoomLoadedCallback(ERoomLoaded::Manager);
 }
 
 void ARogueRoom::BeginRoom()
@@ -69,6 +82,7 @@ void ARogueRoom::BeginRoom()
 		EnterDoor->Close();
 	}
 	DEBUG("Room Begun");
+	bHasRoomStarted = true;
 	OnRoomBeginEvent.Broadcast();
 }
 

@@ -16,8 +16,6 @@ ERogueCharacterStateID URogueCharacterStatePushing::GetStateID()
 void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, FString::Printf(
-			TEXT("Enter Pushing")));
 	bPushing = true;
 	Character->GetMesh()->PlayAnimation(PushingMontage, false);
 	if(PushingMontage) PushAnimTimeRemaining = PushingMontage->GetPlayLength();
@@ -46,7 +44,7 @@ void URogueCharacterStatePushing::StateTick(float DeltaTime)
 	}
 }
 
-void URogueCharacterStatePushing::Push(TArray<AActor*> Actors)
+bool URogueCharacterStatePushing::Push(TArray<AActor*> Actors , float PushForce)
 {
 	for (AActor* Actor : Actors)
 	{
@@ -55,5 +53,6 @@ void URogueCharacterStatePushing::Push(TArray<AActor*> Actors)
 		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
 		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
 	}
+	return true;
 }
 

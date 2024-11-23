@@ -19,18 +19,9 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-	virtual void InputJoystick(float DeltaTime,FVector InputAxis) override;
-
-	virtual void InputButtonDown() override;
-
-	virtual void InputButtonUp() override;
-
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
-	void RotateCrossbow(float DeltaTime, const FVector& InputAxis);
 
 	UFUNCTION(BLueprintNativeEvent, BlueprintCallable)
 	void ChargeShot();
