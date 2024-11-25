@@ -25,7 +25,11 @@ public:
 	virtual bool Push(TArray<AActor*> Actors, float PushForce) override;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimationAsset> PushingMontage;
+	TObjectPtr<UAnimationAsset> StartAttack;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimationAsset> ChargingAttack;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimationAsset> Attacking;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float MinForce;
@@ -44,5 +48,5 @@ public:
 	bool bPushing;
 	
 private:
-	float PushAnimTimeRemaining;
+	float StartAnimTimeRemaining;
 };
