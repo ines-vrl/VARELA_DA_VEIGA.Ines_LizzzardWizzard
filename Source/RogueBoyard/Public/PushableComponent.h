@@ -15,8 +15,11 @@ class ROGUEBOYARD_API UPushableComponent : public UActorComponent
 public:
 	// Sets default values for this component's properties
 	UPushableComponent();
-	UFUNCTION()
-	void Push(FVector Dir, float Force) const;
+	UFUNCTION(BlueprintCallable)
+	void Push(FVector Dir, float Force);
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsPushed = false;
 
 protected:
 	// Called when the game starts

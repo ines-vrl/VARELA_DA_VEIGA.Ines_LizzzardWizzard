@@ -17,8 +17,8 @@ void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStat
 {
 	Super::StateEnter(PreviousStateID);
 	bPushing = true;
-	Character->GetMesh()->PlayAnimation(PushingMontage, false);
-	if(PushingMontage) PushAnimTimeRemaining = PushingMontage->GetPlayLength();
+	Character->GetMesh()->PlayAnimation(StartAttack, false);
+	if(StartAttack) StartAnimTimeRemaining = StartAttack->GetPlayLength();
 }
 
 void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
@@ -30,21 +30,22 @@ void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
 void URogueCharacterStatePushing::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
-	PushAnimTimeRemaining -= DeltaTime;
-	if(PushAnimTimeRemaining <= 0)
+	StartAnimTimeRemaining -= DeltaTime;
+	if(StartAnimTimeRemaining <= 0)
 	{
-		if(StateMachine->Sticks.Length() != 0)
-		{
-			StateMachine->ChangeState(ERogueCharacterStateID::Run);
-		}
-		else
-		{
-			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
-		}
+		Character->GetMesh()->PlayAnimation(ChargingAttack, true);
+		//if(StateMachine->Sticks.Length() != 0)
+		//{
+		//	StateMachine->ChangeState(ERogueCharacterStateID::Run);
+		//}
+		//else
+		//{
+		//	StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+		//}
 	}
 }
 
-bool URogueCharacterStatePushing::Push(TArray<AActor*> Actors)
+bool URogueCharacterStatePushing::Push(TArray<AActor*> Actors , float PushForce)
 {
 	for (AActor* Actor : Actors)
 	{
@@ -53,6 +54,7 @@ bool URogueCharacterStatePushing::Push(TArray<AActor*> Actors)
 		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
 		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
 	}
+	Character->GetMesh()->PlayAnimation(Attacking, false);
 	return true;
 }
 

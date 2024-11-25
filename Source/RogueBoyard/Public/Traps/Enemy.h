@@ -27,6 +27,9 @@ protected:
 	UPROPERTY(EditAnywhere,Blueprintable, Category = "Enemy")
 	int LifeSpan;
 
+	UPROPERTY(EditAnywhere,Blueprintable, Category = "Enemy")
+	float MoveSpeed = 1;
+
 	UPROPERTY(EditAnywhere,Blueprintable, Category="Enemy|SearchMovement")
 	float MoveAmplitudeX = 500.0f;
 
@@ -34,7 +37,7 @@ protected:
 	float MoveAmplitudeY = 300.0f;
 
 	UPROPERTY(EditAnywhere,Blueprintable, Category="Enemy|SearchMovement")
-	float MoveSpeed;
+	float SearchMoveSpeed;
 
 public:
 	// Called every frame
@@ -48,6 +51,17 @@ private :
 
 	UFUNCTION(BlueprintCallable)
 	void SearchMovement(float DeltaTime);
+
+	UFUNCTION(BlueprintCallable)
+	void MoveToPlayer(AActor* Player,float DeltaTime);
+
+	FVector CurrentLocation;
+
+	FVector Direction;
+
+	FVector NewLocation;
+
+	FVector TargetLocation;
 	
 	FVector NewPosition;
 

@@ -21,6 +21,8 @@ class ROGUEBOYARD_API ARogueCharacter : public ACharacter
 	UBoxComponent* Box;
 	UPROPERTY(BlueprintCallable, BlueprintAssignable)
 	FOnCharacterDeath OnCharacterDeathEvent;
+	UPROPERTY(BlueprintReadOnly)
+	FVector ForwardVector;
 	
 #pragma region Unreal Default
 public:
@@ -48,6 +50,12 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<URogueCharacterStateMachine> StateMachine;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float SpeedNerf;
+
+	UPROPERTY(BlueprintReadWrite)
+	float speedNerfPrivate;
 #pragma endregion
 #pragma region Life
 public:

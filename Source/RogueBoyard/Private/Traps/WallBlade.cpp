@@ -3,12 +3,17 @@
 
 #include "Traps/WallBlade.h"
 
+#include "LevelInstance/LevelInstanceTypes.h"
+
 
 // Sets default values
 AWallBlade::AWallBlade()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	USceneComponent* Root = CreateDefaultSubobject<USceneComponent>("Root");
+	Blade = CreateDefaultSubobject<UStaticMeshComponent>("Blade");
+	Blade->SetupAttachment(Root);
 
 }
 
@@ -16,8 +21,7 @@ AWallBlade::AWallBlade()
 void AWallBlade::BeginPlay()
 {
 	Super::BeginPlay();
-	OriginalPosition = GetActorLocation();
-	
+	StartPosition = GetActorLocation();
 }
 
 // Called every frame
@@ -29,15 +33,22 @@ void AWallBlade::Tick(float DeltaTime)
 
 void AWallBlade::MoveOnOneAxis(const float& DeltaTime)
 {
-	DistanceToMove = JoystickInputAxis.X * MovementSpeed * DeltaTime;
-	ActorRotation = GetActorRotation();
-	ForwardDirection = ActorRotation.RotateVector(FVector(1, 0, 0));
-	NewLocation = GetActorLocation() + ForwardDirection * DistanceToMove;
-	if (FMath::Abs(NewLocation.X - OriginalPosition.X) > MaxDistance)
+	RightVector = GetActorRightVector();
+	Direction = RightVector * JoystickInputAxis.X; 
+	MovementDelta = Direction * MovementSpeed * DeltaTime;
+	NewLocation	= Blade->GetComponentLocation() + MovementDelta;
+	//NewLocation = GetActorLocation() + MovementDelta;
+	DistanceFromStart = FVector::Dist(StartPosition, NewLocation);
+	if (DistanceFromStart <= MaxDistance)
 	{
-		ClampedDistance = FMath::Sign(DistanceToMove) * MaxDistance;
-		NewLocation.X = OriginalPosition.X + ClampedDistance;
+		Blade->SetWorldLocation(NewLocation);
+		//SetActorLocation(NewLocation);
 	}
-	SetActorLocation(NewLocation);
+	else
+	{
+		ClampedLocation = StartPosition + RightVector * MaxDistance * FMath::Sign(JoystickInputAxis.X);
+		Blade->SetWorldLocation(ClampedLocation);
+		//SetActorLocation(ClampedLocation);
+	}
+	DistanceTravelled = FVector::Dist(StartPosition, Blade->GetComponentLocation());
 }
-

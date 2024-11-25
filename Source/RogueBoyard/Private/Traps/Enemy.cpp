@@ -2,7 +2,6 @@
 
 
 #include "Traps/Enemy.h"
-
 #include "Kismet/KismetMathLibrary.h"
 
 
@@ -31,7 +30,7 @@ void AEnemy::Push(TArray<AActor*> Actors)
 {
 	for (AActor* Actor : Actors)
 	{
-		FVector Dir = Actor->GetActorLocation() - Actor->GetActorLocation();
+		FVector Dir = Actor->GetActorLocation() - GetActorLocation();
 		Dir.Normalize();
 		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
 		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
@@ -40,11 +39,22 @@ void AEnemy::Push(TArray<AActor*> Actors)
 
 void AEnemy::SearchMovement(float DeltaTime)
 {
-	CurrentTime += DeltaTime * MoveSpeed;
+	CurrentTime += DeltaTime * SearchMoveSpeed;
 	NewPosition = InitialPosition;
 	NewPosition.X += InitialPosition.X + MoveAmplitudeX * FMath::Sin(CurrentTime);
 	NewPosition.Y += InitialPosition.Y + MoveAmplitudeY * FMath::Sin(2 * CurrentTime);
 	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), NewPosition));
 	SetActorLocation(NewPosition);
+}
+
+void AEnemy::MoveToPlayer(AActor* Player,float DeltaTime)
+{
+	CurrentLocation = GetActorLocation();
+	TargetLocation = Player->GetActorLocation();
+	Direction = TargetLocation - CurrentLocation;
+	Direction.Normalize();
+	NewLocation = CurrentLocation + Direction * MoveSpeed * DeltaTime;
+	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), FVector(NewLocation.X,NewLocation.Y,GetActorLocation().Z)));
+	SetActorLocation(FVector(NewLocation.X,NewLocation.Y,GetActorLocation().Z));
 }
 

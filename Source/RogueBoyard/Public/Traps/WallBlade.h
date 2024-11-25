@@ -19,29 +19,42 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere,Blueprintable , Category = "Trap|WallBlade")
+	float MovementSpeed;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite , Category = "Trap|WallBlade")
+	float MaxDistance;
+
+	UPROPERTY(EditAnywhere , Blueprintable, Category = "Trap|WallBlade")
+	float MoveJoystick;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 private:
-
-	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
-	float MovementSpeed;
-
-	UPROPERTY(EditAnywhere, Category = "Trap|WallBlade")
-	float MaxDistance;
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* Blade; 
 	
-	float DistanceToMove;
+	float DistanceFromStart;
 
-	float ClampedDistance;
-	
+	FVector ClampedLocation;
+
+	FVector StartPosition;
+
+	float DistanceTravelled;
+
+	FVector MoveDirection;
+
+	FVector MovementDelta;
+
+	FVector DirectionToStart;
+
+	FVector RightVector;
+
+	FVector Direction;
+
 	FVector NewLocation;
-
-	FVector OriginalPosition;
-
-	FVector ForwardDirection;
-	
-	FRotator ActorRotation;
 	
 	void MoveOnOneAxis(const float& DeltaTime);
 };
