@@ -14,15 +14,18 @@ void ARogueTimedRoom::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ARogueTimedRoom::EndRoom()
-{
-	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndBattleRoom();
-	Super::EndRoom();
-}
 
 void ARogueTimedRoom::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ARogueTimedRoom::EndRoom()
+{
+	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
+		GameMode->EndBattleRoom();
+	}
+	Super::EndRoom();
 }
 
