@@ -11,9 +11,6 @@ AWallBlade::AWallBlade()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	USceneComponent* Root = CreateDefaultSubobject<USceneComponent>("Root");
-	Blade = CreateDefaultSubobject<UStaticMeshComponent>("Blade");
-	Blade->SetupAttachment(Root);
 
 }
 
@@ -36,19 +33,16 @@ void AWallBlade::MoveOnOneAxis(const float& DeltaTime)
 	RightVector = GetActorRightVector();
 	Direction = RightVector * JoystickInputAxis.X; 
 	MovementDelta = Direction * MovementSpeed * DeltaTime;
-	NewLocation	= Blade->GetComponentLocation() + MovementDelta;
-	//NewLocation = GetActorLocation() + MovementDelta;
+	NewLocation = GetActorLocation() + MovementDelta;
 	DistanceFromStart = FVector::Dist(StartPosition, NewLocation);
 	if (DistanceFromStart <= MaxDistance)
 	{
-		Blade->SetWorldLocation(NewLocation);
-		//SetActorLocation(NewLocation);
+		SetActorLocation(NewLocation);
 	}
 	else
 	{
 		ClampedLocation = StartPosition + RightVector * MaxDistance * FMath::Sign(JoystickInputAxis.X);
-		Blade->SetWorldLocation(ClampedLocation);
-		//SetActorLocation(ClampedLocation);
+		SetActorLocation(ClampedLocation);
 	}
-	DistanceTravelled = FVector::Dist(StartPosition, Blade->GetComponentLocation());
+	DistanceTravelled = FVector::Dist(StartPosition, GetActorLocation());
 }

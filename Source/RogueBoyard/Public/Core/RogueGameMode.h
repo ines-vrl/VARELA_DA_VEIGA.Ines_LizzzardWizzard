@@ -83,14 +83,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "PostLastRoom"))
 	void ReceivePostLastRoom();
 
-	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "InitCharacter"))
-	void ReceiveInitCharacters(int CharacterIndex);
-
 	UFUNCTION()
 	void LastRoomLoaded();
 	
 	UFUNCTION(BlueprintCallable)
 	void PostLastRoom();
-
-	ARogueCharacter* GetRandomCharacter();
 };

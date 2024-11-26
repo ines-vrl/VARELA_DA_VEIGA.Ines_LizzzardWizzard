@@ -23,5 +23,4 @@ protected:
 	 * Super à mettre à la fin;
 	 */
 	virtual void EndRoom() override;
-
 };

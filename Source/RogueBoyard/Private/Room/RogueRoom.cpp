@@ -27,7 +27,7 @@ void ARogueRoom::Tick(float DeltaTime)
 
 	if(bHasRoomStarted)
 	{
-		MaxRoomTime -= DeltaTime;
+		MaxRoomTime-= DeltaTime;
 		if(MaxRoomTime <= 0 && !bHasRoomEnded)
 		{
 			EndRoom();
