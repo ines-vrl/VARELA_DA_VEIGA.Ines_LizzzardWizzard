@@ -31,7 +31,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	virtual TArray<AActor*> Interact();
 	UFUNCTION(BlueprintCallable)
-	virtual bool Push(TArray<AActor*> Actors, float PushForce);
+	virtual void Push();
 	UFUNCTION(BlueprintCallable)
 	virtual void Resurrect();
 	
