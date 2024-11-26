@@ -99,4 +99,9 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly)
 	int PlayerIndex = -1;
+
+	bool operator==(const ARogueCharacter& other) const
+	{
+		return other.PlayerIndex == PlayerIndex;
+	}
 };
