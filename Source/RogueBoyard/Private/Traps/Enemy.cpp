@@ -41,8 +41,8 @@ void AEnemy::SearchMovement(float DeltaTime)
 {
 	CurrentTime += DeltaTime * SearchMoveSpeed;
 	NewPosition = InitialPosition;
-	NewPosition.X += InitialPosition.X + MoveAmplitudeX * FMath::Sin(CurrentTime);
-	NewPosition.Y += InitialPosition.Y + MoveAmplitudeY * FMath::Sin(2 * CurrentTime);
+	NewPosition.X += MoveAmplitudeX * FMath::Sin(CurrentTime);
+	NewPosition.Y += MoveAmplitudeY * FMath::Sin(2 * CurrentTime);
 	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), NewPosition));
 	SetActorLocation(NewPosition);
 }

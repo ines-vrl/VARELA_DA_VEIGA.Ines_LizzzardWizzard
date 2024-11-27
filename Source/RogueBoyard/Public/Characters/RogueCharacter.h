@@ -50,6 +50,12 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<URogueCharacterStateMachine> StateMachine;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float SpeedNerf;
+
+	UPROPERTY(BlueprintReadWrite)
+	float speedNerfPrivate;
 #pragma endregion
 #pragma region Life
 public:
@@ -93,4 +99,9 @@ public:
 	
 	UPROPERTY(BlueprintReadOnly)
 	int PlayerIndex = -1;
+
+	bool operator==(const ARogueCharacter& other) const
+	{
+		return other.PlayerIndex == PlayerIndex;
+	}
 };

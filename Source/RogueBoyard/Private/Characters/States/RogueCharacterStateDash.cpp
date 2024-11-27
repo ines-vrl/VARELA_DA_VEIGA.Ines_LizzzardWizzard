@@ -6,6 +6,7 @@
 #include "Camera/CameraActor.h"
 #include "Characters/RogueCharacterStateMachine.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Items/Ballon.h"
 #include "RogueBoyard/Public/Characters/RogueCharacter.h"
 
 #define printFString(text, fstring) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Magenta, FString::Printf(TEXT(text), fstring))
@@ -18,14 +19,17 @@ ERogueCharacterStateID URogueCharacterStateDash::GetStateID()
 void URogueCharacterStateDash::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	Capsule = Cast<UCapsuleComponent>(Character->GetRootComponent());
 	Sticks = StateMachine->Sticks;
 	Sticks.Y = -Sticks.Y;
 	FRotator CameraRotation = Character->GetCamera()->GetActorRotation();
 	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString::SanitizeFloat(CameraRotation.Yaw));
 	const FVector Dir = Sticks.RotateAngleAxis(CameraRotation.Yaw + 90, FVector::UpVector);
 	Character->LaunchCharacter(Dir * ForceImpulse, true, false);
+	DirPushBall = Dir * ForcePushBall;
+	if(Capsule != nullptr) Capsule->OnComponentBeginOverlap.AddDynamic(this, &URogueCharacterStateDash::OverlapBegin);
 	//Character->GetMesh()->PlayAnimation(DashMontage, false);
-	//if(DashMontage) DashAnimTimeRemaining = DashMontage->GetPlayLength();
+	if(DashMontage) DashAnimTimeRemaining = DashMontage->GetPlayLength();
 }
 
 void URogueCharacterStateDash::StateExit(ERogueCharacterStateID NextStateID)
@@ -50,7 +54,7 @@ void URogueCharacterStateDash::StateTick(float DeltaTime)
 	TEXT("tick dash")
 	);
 	Sticks = StateMachine->Sticks;
-	if(DashAnimTimeRemaining <= 0)
+	if(DashAnimTimeRemaining <= 0.1f)
 	{
 		if(Sticks.Length() != 0)
 		{
@@ -60,5 +64,17 @@ void URogueCharacterStateDash::StateTick(float DeltaTime)
 		{
 			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 		}
+	}
+}
+
+
+void URogueCharacterStateDash::OverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+	bool bFromSweep, const FHitResult& SweepResult)
+{
+	ABallon* ball = Cast<ABallon>(OtherActor);
+	if(ball != nullptr)
+	{
+		ball->bIsPushed = true;
+		ball->AddImpulse(DirPushBall, false);
 	}
 }

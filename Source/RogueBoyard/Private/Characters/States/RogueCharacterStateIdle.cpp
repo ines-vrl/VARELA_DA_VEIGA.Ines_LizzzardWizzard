@@ -18,6 +18,11 @@ ERogueCharacterStateID URogueCharacterStateIdle::GetStateID()
 void URogueCharacterStateIdle::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	GEngine->AddOnScreenDebugMessage(
+	-1,
+	2.f,
+	FColor::Green,
+	TEXT("Enter Idle"));
 	Character->GetMesh()->PlayAnimation(IdleMontage, true);
 }
 
@@ -35,6 +40,12 @@ void URogueCharacterStateIdle::StateExit(ERogueCharacterStateID NextStateID)
 void URogueCharacterStateIdle::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
+	FVector Pos = Character->GetActorLocation();
+	if(!GetWorld()->LineTraceSingleByChannel(HitResult, Pos,FVector(Pos.X,Pos.Y,-1000),
+	ECC_Visibility))
+	{
+		StateMachine->ChangeState(ERogueCharacterStateID::Fall);
+	}
 }
 
 void URogueCharacterStateIdle::Movement(float X, float Y)
@@ -81,11 +92,11 @@ TArray<AActor*> URogueCharacterStateIdle::Interact()
 	return OverlappingActors;
 }
 
-bool URogueCharacterStateIdle::Push(TArray<AActor*> Actors, float PushForce)
+void URogueCharacterStateIdle::Push()
 {
-	Super::Push(Actors, PushForce);
+	Super::Push();
 	StateMachine->ChangeState(ERogueCharacterStateID::Pushing);
-	return StateMachine->CurrentState->Push(Actors, PushForce);
+	return StateMachine->CurrentState->Push();
 }
 
 

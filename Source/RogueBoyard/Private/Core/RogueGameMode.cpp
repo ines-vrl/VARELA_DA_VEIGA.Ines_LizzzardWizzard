@@ -44,9 +44,8 @@ void ARogueGameMode::InitCharacters()
 		ARogueCharacter* Character = Cast<ARogueCharacter>(CharPawn);
 		Characters[i] = Character;
 		Character->PlayerIndex = i;
-		Character->GetMesh()->SetMaterial(0, Materials[i]);
 		Character->OnCharacterDeathEvent.AddDynamic(this, &ARogueGameMode::OnCharacterDeath);
-		//TODO Characters Init
+		ReceiveInitCharacters(i);
 	}
 }
 
@@ -100,6 +99,10 @@ void ARogueGameMode::LastRoomLoaded() {
 void ARogueGameMode::PostLastRoom() {
 	
 	ReceivePostLastRoom();
+}
+
+ARogueCharacter* ARogueGameMode::GetRandomCharacter() {
+	return Characters[FMath::RandRange(0,3)];
 }
 
 void ARogueGameMode::StartBattleRoom_Implementation()

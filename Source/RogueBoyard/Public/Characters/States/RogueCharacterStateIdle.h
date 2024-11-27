@@ -22,8 +22,11 @@ public:
 	virtual void Movement(float X, float Y) override;
 	virtual bool Dash(float X, float Y) override;
 	virtual TArray<AActor*> Interact() override;
-	virtual bool Push(TArray<AActor*> Actors, float PushForce) override;
+	virtual void Push() override;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> IdleMontage;
+
+private:
+	FHitResult HitResult;
 };
