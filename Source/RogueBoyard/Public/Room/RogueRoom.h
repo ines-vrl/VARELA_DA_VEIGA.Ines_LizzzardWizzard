@@ -33,6 +33,23 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	virtual void RoomEnter();
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="RoomEnter"))
+	void ReceiveRoomEnter();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void BeginRoom();
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="BeginRoom"))
+	void ReceiveBeginRoom();
+	
+	UFUNCTION(BlueprintCallable)
+	virtual void EndRoom();
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="EndRoom"))
+	void ReceiveEndRoom();
+	
+	UFUNCTION(BlueprintCallable)
+	virtual void RoomExit();
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="RoomExit"))
+	void ReceiveRoomExit();
 
 	UFUNCTION(BlueprintCallable)
 	void PlacePlayers(TArray<ACharacter*> Players);
@@ -56,17 +73,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<ARogueDoor> ExitDoor;
-
-	UFUNCTION(BlueprintCallable)
-	virtual void BeginRoom();
-	
-	UFUNCTION(BlueprintCallable)
-	virtual void EndRoom();
-
-	UFUNCTION(BlueprintCallable)
-	virtual void RoomExit();
 	
 private:	
+	
 	bool bHasRoomStarted = false;
 	bool bHasRoomEnded = false;
 	
