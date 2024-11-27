@@ -30,6 +30,12 @@ void URogueCharacterStateRun::StateExit(ERogueCharacterStateID NextStateID)
 void URogueCharacterStateRun::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
+	FVector Pos = Character->GetActorLocation();
+	if(!GetWorld()->LineTraceSingleByChannel(HitResult, Pos,FVector(Pos.X,Pos.Y,-1000),
+	ECC_Visibility))
+	{
+		StateMachine->ChangeState(ERogueCharacterStateID::Fall);
+	}
 	if(StateMachine->Sticks.X == 0 && StateMachine->Sticks.Y == 0)
 	{
 		StateMachine->ChangeState(ERogueCharacterStateID::Idle);
