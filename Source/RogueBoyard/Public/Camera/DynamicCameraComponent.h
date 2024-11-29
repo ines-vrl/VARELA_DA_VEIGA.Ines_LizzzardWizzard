@@ -9,11 +9,12 @@
 /**
  * 
  */
-UCLASS()
-class ROGUEBOYARD_API UDynamicCameraComponent : public UCameraComponent
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+class ROGUEBOYARD_API UDynamicCameraComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:
-	void UpdateCameraPosition();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FVector2f DeltaRotationYZ = FVector2f(20, 5);
 };

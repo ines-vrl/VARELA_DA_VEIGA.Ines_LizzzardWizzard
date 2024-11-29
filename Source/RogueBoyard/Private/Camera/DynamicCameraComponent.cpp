@@ -3,7 +3,3 @@
 
 #include "Camera/DynamicCameraComponent.h"
 
-void UDynamicCameraComponent::UpdateCameraPosition()
-{
-	
-}

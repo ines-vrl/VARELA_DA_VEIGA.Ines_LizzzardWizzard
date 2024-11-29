@@ -17,6 +17,10 @@ class ROGUEBOYARD_API UCameraWorldSubsystem : public UTickableWorldSubsystem
 	GENERATED_BODY()
 
 	public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxDist = 1000.f;
+	
 	virtual void PostInitialize() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual TStatId GetStatId() const override {return TStatId(); };
@@ -30,14 +34,19 @@ class ROGUEBOYARD_API UCameraWorldSubsystem : public UTickableWorldSubsystem
 	UFUNCTION(BlueprintCallable)
 	void ClearFollowTarget();
 	
-	UPROPERTY(BlueprintReadWrite)
-	TObjectPtr<ACameraActor> CurrentCamera;
+	UFUNCTION(BlueprintCallable)
+	void SetCamera(ACameraActor* NewCamera);
 
 	protected:
 	UPROPERTY()
 	TArray<ARogueCharacter*> FollowTargets;
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<ACameraActor> CurrentCamera;
 	
-
+	float CameraDist;
+	float DeltaRotationY, DeltaRotationZ;
+	FRotator DefaultRotator;
+	
 	void TickUpdateCameraPosition(float DeltaTime);
 
 	FVector CalculateAveragePositionBetweenTargets();
