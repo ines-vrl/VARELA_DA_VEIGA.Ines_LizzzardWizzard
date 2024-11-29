@@ -19,7 +19,7 @@ ERogueCharacterStateID URogueCharacterStateRun::GetStateID()
 void URogueCharacterStateRun::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	Character->GetMesh()->PlayAnimation(RunMontage, true);
+	Character->PlayAnimMontage(RunMontage);
 }
 
 void URogueCharacterStateRun::StateExit(ERogueCharacterStateID NextStateID)
