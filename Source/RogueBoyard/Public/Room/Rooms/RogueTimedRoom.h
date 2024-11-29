@@ -12,12 +12,12 @@ class ROGUEBOYARD_API ARogueTimedRoom : public ARogueRoom
 public:
 	ARogueTimedRoom();
 	virtual void Tick(float DeltaTime) override;
-	virtual void EndRoom() override;
 	
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float ElapsedTime = 0;
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndRoom() override;
 	
 };

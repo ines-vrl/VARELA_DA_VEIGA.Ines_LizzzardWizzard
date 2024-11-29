@@ -12,7 +12,7 @@ URogueCharacterState::URogueCharacterState()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
@@ -60,9 +60,8 @@ TArray<AActor*> URogueCharacterState::Interact()
 	return TArray<AActor*>();
 }
 
-bool URogueCharacterState::Push(TArray<AActor*> Actors, float PushForce)
+void URogueCharacterState::Push()
 {
-	return false;
 }
 
 void URogueCharacterState::Resurrect()

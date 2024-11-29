@@ -69,4 +69,5 @@ public:
 	
 protected:
 	virtual void BeginPlay() override;
+ virtual void EndRoom() override;
 };

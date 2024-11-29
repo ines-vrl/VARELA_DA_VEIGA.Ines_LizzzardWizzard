@@ -19,13 +19,19 @@ public:
 	virtual void StateEnter(ERogueCharacterStateID PreviousStateID) override;
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
+	virtual void Push() override;
+	virtual void Movement(float X, float Y) override;
 
 	
-	
-	virtual bool Push(TArray<AActor*> Actors, float PushForce) override;
+	UFUNCTION(BlueprintCallable)
+	bool Pushing(TArray<AActor*> Actors, float PushForce);
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimationAsset> PushingMontage;
+	TObjectPtr<UAnimSequenceBase> StartAttack;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimSequenceBase> ChargingAttack;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimSequenceBase> Attacking;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float MinForce;
@@ -44,5 +50,7 @@ public:
 	bool bPushing;
 	
 private:
-	float PushAnimTimeRemaining;
+	float StartAnimTimeRemaining;
+	bool bCharging = false;
+	bool bPushed = false;
 };

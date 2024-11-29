@@ -27,7 +27,7 @@ void ARogueRoom::Tick(float DeltaTime)
 
 	if(bHasRoomStarted)
 	{
-		MaxRoomTime-= DeltaTime;
+		MaxRoomTime -= DeltaTime;
 		if(MaxRoomTime <= 0 && !bHasRoomEnded)
 		{
 			EndRoom();
@@ -47,6 +47,7 @@ void ARogueRoom::RoomEnter()
 		GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "EnterDoor Not Set");
 	}
 	DEBUG("Room Entered");
+	ReceiveRoomEnter();
 	OnRoomEnterEvent.Broadcast();
 }
 
@@ -83,6 +84,7 @@ void ARogueRoom::BeginRoom()
 	}
 	DEBUG("Room Begun");
 	bHasRoomStarted = true;
+	ReceiveBeginRoom();
 	OnRoomBeginEvent.Broadcast();
 }
 
@@ -97,6 +99,7 @@ void ARogueRoom::EndRoom()
 		GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "ExitDoor Not Set");
 	}
 	DEBUG("Room Ended");
+	ReceiveEndRoom();
 	OnRoomEndEvent.Broadcast();
 }
 
@@ -107,6 +110,7 @@ void ARogueRoom::RoomExit()
 		ExitDoor->Close();
 	}
 	DEBUG("Room Exited");
+	ReceiveRoomExit();
 	OnRoomExitEvent.Broadcast();
 }
 
