@@ -2,7 +2,7 @@
 
 
 #include "Wall_P.h"
-#include "NavMesh/RecastNavMesh.h"
+
 
 // Sets default values
 AWall_P::AWall_P()

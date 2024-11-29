@@ -10,7 +10,14 @@ ARogueRiddleRoom::ARogueRiddleRoom()
 void ARogueRiddleRoom::BeginPlay()
 {
 	Super::BeginPlay();
-	
+}
+
+void ARogueRiddleRoom::EndRoom()
+{
+	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
+		GameMode->EndBattleRoom();
+	}
+	Super::EndRoom();
 }
 
 void ARogueRiddleRoom::Tick(float DeltaTime)

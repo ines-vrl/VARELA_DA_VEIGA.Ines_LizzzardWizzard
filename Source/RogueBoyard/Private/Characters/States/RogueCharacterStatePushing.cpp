@@ -6,6 +6,7 @@
 #include "PushableComponent.h"
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateMachine.h"
+#include "Camera/CameraActor.h"
 
 
 ERogueCharacterStateID URogueCharacterStatePushing::GetStateID()
@@ -17,42 +18,79 @@ void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStat
 {
 	Super::StateEnter(PreviousStateID);
 	bPushing = true;
-	Character->GetMesh()->PlayAnimation(PushingMontage, false);
-	if(PushingMontage) PushAnimTimeRemaining = PushingMontage->GetPlayLength();
+	Character->GetMesh()->PlayAnimation(StartAttack, false);
+	float Rate = StartAttack->RateScale;
+	if( Rate == 0) Rate = 1;
+	StartAnimTimeRemaining = StartAttack->GetPlayLength() / Rate;
 }
 
 void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
 	bPushing = false;
+	bCharging = false;
+	bPushed = false;
 }
 
 void URogueCharacterStatePushing::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
-	PushAnimTimeRemaining -= DeltaTime;
-	if(PushAnimTimeRemaining <= 0)
+	StartAnimTimeRemaining -= DeltaTime;
+	if( !bPushed &&StartAnimTimeRemaining <= 0 && !bCharging)
 	{
-		if(StateMachine->Sticks.Length() != 0)
+		Character->GetMesh()->PlayAnimation(ChargingAttack, true);
+		bCharging = true;
+	}
+	else if (bPushed)
+	{
+		StartAnimTimeRemaining -= DeltaTime;
+		if(StartAnimTimeRemaining <= 0)
 		{
-			StateMachine->ChangeState(ERogueCharacterStateID::Run);
-		}
-		else
-		{
-			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+			bPushed = false;
+			if(StateMachine->Sticks.Length() != 0)
+			{
+				StateMachine->ChangeState(ERogueCharacterStateID::Run);
+			}
+			else
+			{
+				StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+			}
 		}
 	}
 }
 
-bool URogueCharacterStatePushing::Push(TArray<AActor*> Actors , float PushForce)
+void URogueCharacterStatePushing::Push()
 {
+	Super::Push();
+}
+
+void URogueCharacterStatePushing::Movement(float X, float Y)
+{
+	Super::Movement(X, Y);
+	const FVector XAxisRelativeToCamera = Character->GetCamera()->GetActorRightVector();
+	const FVector YAxisRelativeToCamera = Character->GetCamera()->GetActorForwardVector().RotateAngleAxis(Character->GetCamera()->GetActorRotation().Pitch , XAxisRelativeToCamera);
+	Character->ForwardVector = YAxisRelativeToCamera * Y + XAxisRelativeToCamera * X;
+	Character->AddMovementInput(Character->GetCamera()->GetActorRightVector(), X);
+	Character->AddMovementInput(YAxisRelativeToCamera, Y);
+}
+
+bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushForce)
+{
+	bCharging = false;
 	for (AActor* Actor : Actors)
 	{
+		if(Cast<ARogueCharacter>(Actor) == this->Character) continue;
 		FVector Dir = Actor->GetActorLocation() - Character->GetActorLocation();
 		Dir.Normalize();
 		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
 		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
 	}
+	UE_LOG(LogTemp, Warning, TEXT("Attacking"));
+	Character->GetMesh()->PlayAnimation(Attacking, false);
+	float Rate = Attacking->RateScale;
+	if( Rate == 0) Rate = 1;
+	StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
+	bPushed = true;
 	return true;
-}
+}	
 
