@@ -25,4 +25,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> RunMontage;
+
+private:
+	FHitResult HitResult;
 };

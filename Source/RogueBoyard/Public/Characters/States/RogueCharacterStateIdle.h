@@ -26,4 +26,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimationAsset> IdleMontage;
+
+private:
+	FHitResult HitResult;
 };
