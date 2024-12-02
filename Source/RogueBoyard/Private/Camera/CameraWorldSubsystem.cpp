@@ -98,8 +98,8 @@ void UCameraWorldSubsystem::TickUpdateCameraZoom(float DeltaTime)
 		GreatestDistanceBetweenTargets),
 		0.f, 1.f);
 
-	FVector NewLocation = FMath::Lerp(CameraZoomMin->GetActorLocation(),
-		CameraZoomMax->GetActorLocation(),
+	FVector NewLocation = FMath::Lerp(CameraZoomMax->GetActorLocation(),
+		CameraZoomMin->GetActorLocation(),
 		ZoomPercent);
 	UE_LOG(LogTemp, Warning, TEXT("NewPosition is : %s"), *NewLocation.ToString());
 	CurrentCamera->SetActorLocation(NewLocation);
