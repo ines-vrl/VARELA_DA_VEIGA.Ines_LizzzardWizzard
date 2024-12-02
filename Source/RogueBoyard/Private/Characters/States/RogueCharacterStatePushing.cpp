@@ -108,7 +108,6 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
 	else
 	{
 		Character->PlayAnimMontage(Attacking);
-		Character->PlayAnimMontage(Attacking);
 		float Rate = Attacking->RateScale;
 		if( Rate == 0) Rate = 1;
 		StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
