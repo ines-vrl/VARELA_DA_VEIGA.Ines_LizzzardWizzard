@@ -18,10 +18,22 @@ void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStat
 {
 	Super::StateEnter(PreviousStateID);
 	bPushing = true;
-	Character->GetMesh()->PlayAnimation(StartAttack, false);
-	float Rate = StartAttack->RateScale;
-	if( Rate == 0) Rate = 1;
-	StartAnimTimeRemaining = StartAttack->GetPlayLength() / Rate;
+	if(Character->StateMachine->Sticks.Length() != 0)
+	{
+		Character->PlayAnimMontage(RunStartAttack);
+		float Rate = RunStartAttack->RateScale;
+		if( Rate == 0) Rate = 1;
+		StartAnimTimeRemaining = RunStartAttack->GetPlayLength() / Rate;
+	}
+	else
+	{
+		Character->PlayAnimMontage(StartAttack);
+		float Rate = StartAttack->RateScale;
+		if( Rate == 0) Rate = 1;
+		StartAnimTimeRemaining = StartAttack->GetPlayLength() / Rate;
+	}
+
+
 }
 
 void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
@@ -36,9 +48,9 @@ void URogueCharacterStatePushing::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
 	StartAnimTimeRemaining -= DeltaTime;
-	if( !bPushed &&StartAnimTimeRemaining <= 0 && !bCharging)
+	if( !bPushed &&StartAnimTimeRemaining <= 0.5f && !bCharging && StateMachine->Sticks.Length() != 0)
 	{
-		Character->GetMesh()->PlayAnimation(ChargingAttack, true);
+		Character->PlayAnimMontage(RunChargingAttack);
 		bCharging = true;
 	}
 	else if (bPushed)
@@ -86,10 +98,20 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
 		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Attacking"));
-	Character->GetMesh()->PlayAnimation(Attacking, false);
-	float Rate = Attacking->RateScale;
-	if( Rate == 0) Rate = 1;
-	StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
+	if(Character->StateMachine->Sticks.Length() != 0)
+	{
+		Character->PlayAnimMontage(RunAttacking);
+		float Rate = RunAttacking->RateScale;
+		if( Rate == 0) Rate = 1;
+		StartAnimTimeRemaining = RunAttacking->GetPlayLength() / Rate;
+	}
+	else
+	{
+		Character->PlayAnimMontage(Attacking);
+		float Rate = Attacking->RateScale;
+		if( Rate == 0) Rate = 1;
+		StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
+	}	
 	bPushed = true;
 	return true;
 }	

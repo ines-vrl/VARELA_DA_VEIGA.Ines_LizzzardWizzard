@@ -23,7 +23,7 @@ void URogueCharacterStateIdle::StateEnter(ERogueCharacterStateID PreviousStateID
 	2.f,
 	FColor::Green,
 	TEXT("Enter Idle"));
-	Character->GetMesh()->PlayAnimation(IdleMontage, true);
+	Character->PlayAnimMontage(IdleMontage);
 }
 
 void URogueCharacterStateIdle::StateExit(ERogueCharacterStateID NextStateID)
