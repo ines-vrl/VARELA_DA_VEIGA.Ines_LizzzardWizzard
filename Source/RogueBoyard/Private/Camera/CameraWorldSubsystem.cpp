@@ -17,7 +17,11 @@ void UCameraWorldSubsystem::PostInitialize()
 void UCameraWorldSubsystem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if(CurrentCamera != nullptr) TickUpdateCameraPosition(DeltaTime);
+	if(CurrentCamera != nullptr && !noDynamic)
+	{
+		if(!noZoom)		TickUpdateCameraZoom(DeltaTime);
+		TickUpdateCameraPosition(DeltaTime);
+	}
 }
 
 void UCameraWorldSubsystem::AddFollowTarget(ARogueCharacter* FollowTarget)
@@ -35,18 +39,35 @@ void UCameraWorldSubsystem::ClearFollowTarget()
 	FollowTargets.Empty();
 }
 
-void UCameraWorldSubsystem::InitCameraZoomParameters()
+void UCameraWorldSubsystem::InitCameraZoomParameters(ACameraActor* CameraZoomMaxIn, ACameraActor* CameraZoomMinIn)
 {
-	TArray<AActor*> OutActors;
-	UGameplayStatics::GetAllActorsWithTag(GetWorld(), "Max", OutActors);
+	CameraZoomMax = CameraZoomMaxIn;
+	//CameraZoomMax->GetActorLocation() = CurrentCamera->GetActorLocation();
+	CameraZoomMax->GetActorRotation() = CurrentCamera->GetActorRotation();
+	CameraZoomMin = CameraZoomMinIn;
+	//CameraZoomMin->GetActorLocation() = CurrentCamera->GetActorLocation();
+	CameraZoomMin->GetActorRotation() = CurrentCamera->GetActorRotation();
 }
 
-void UCameraWorldSubsystem::SetCamera(ACameraActor* NewCamera)
+void UCameraWorldSubsystem::SetCamera(ACameraActor* NewCamera,ACameraActor* CameraZoomMaxIn = nullptr, ACameraActor* CameraZoomMinIn = nullptr)
 {
 	CurrentCamera = NewCamera;
 	DefaultRotator = CurrentCamera->GetActorRotation();
+	if(NewCamera->FindComponentByClass<UDynamicCameraComponent>() == nullptr)
+	{
+		noDynamic = true;
+		return;
+	}
+	noDynamic = false;
 	DeltaRotationY = NewCamera->FindComponentByClass<UDynamicCameraComponent>()->DeltaRotationYZ.X;
 	DeltaRotationZ = NewCamera->FindComponentByClass<UDynamicCameraComponent>()->DeltaRotationYZ.Y;
+	if(CameraZoomMaxIn == nullptr ||CameraZoomMinIn == nullptr)
+	{
+		noZoom = true;
+		return;
+	}
+	noZoom = false;
+	InitCameraZoomParameters(CameraZoomMaxIn, CameraZoomMinIn);
 }
 
 void UCameraWorldSubsystem::TickUpdateCameraPosition(float DeltaTime)
@@ -64,6 +85,24 @@ void UCameraWorldSubsystem::TickUpdateCameraPosition(float DeltaTime)
 
 void UCameraWorldSubsystem::TickUpdateCameraZoom(float DeltaTime)
 {
+	if(CurrentCamera == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PasDeCamFrero"));
+		return;
+	}
+	float GreatestDistanceBetweenTargets = CalculateGreatestDistanceBetweenTargets();
+
+	float ZoomPercent = FMath::Clamp(FMath::GetMappedRangeValueClamped(
+		FVector2D(ZoomDistanceBetweenTargetsMin, ZoomDistanceBetweenTargetsMax),
+		FVector2D(0.f, 1.f),
+		GreatestDistanceBetweenTargets),
+		0.f, 1.f);
+
+	FVector NewLocation = FMath::Lerp(CameraZoomMin->GetActorLocation(),
+		CameraZoomMax->GetActorLocation(),
+		ZoomPercent);
+	UE_LOG(LogTemp, Warning, TEXT("NewPosition is : %s"), *NewLocation.ToString());
+	CurrentCamera->SetActorLocation(NewLocation);
 	
 }
 
@@ -80,5 +119,19 @@ FVector UCameraWorldSubsystem::CalculateAveragePositionBetweenTargets()
 
 float UCameraWorldSubsystem::CalculateGreatestDistanceBetweenTargets()
 {
-	return 0.f;
+	float GreatestDistance = 0.f;
+
+	for(int i = 0; i < FollowTargets.Num() ; i++)
+	{
+		for(int j = i + 1; i < FollowTargets.Num(); i++)
+		{
+			if(FollowTargets[i] != nullptr && FollowTargets[j] != nullptr)
+			{
+				float Distance = FVector::Dist(FollowTargets[i]->GetActorLocation(), FollowTargets[j]->GetActorLocation());
+				GreatestDistance += Distance;
+			}
+		}
+	}
+	//UE_LOG(LogTemp, Warning, TEXT("GreatestDistance: %f"), GreatestDistance);
+	return GreatestDistance/= FollowTargets.Num();
 }
