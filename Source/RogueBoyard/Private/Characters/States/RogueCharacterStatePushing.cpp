@@ -89,13 +89,18 @@ void URogueCharacterStatePushing::Movement(float X, float Y)
 bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushForce)
 {
 	bCharging = false;
+	int i = 0;
 	for (AActor* Actor : Actors)
 	{
 		if(Cast<ARogueCharacter>(Actor) == this->Character) continue;
 		FVector Dir = Actor->GetActorLocation() - Character->GetActorLocation();
 		Dir.Normalize();
 		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
-		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
+		if(pushComp != nullptr)
+		{
+			pushComp->Push(Dir, PushForce);
+			i++;
+		}
 	}
 	UE_LOG(LogTemp, Warning, TEXT("Attacking"));
 	if(Character->StateMachine->Sticks.Length() != 0)
@@ -113,6 +118,6 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
 		StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
 	}	
 	bPushed = true;
-	return true;
+	return i > 0;
 }	
 
