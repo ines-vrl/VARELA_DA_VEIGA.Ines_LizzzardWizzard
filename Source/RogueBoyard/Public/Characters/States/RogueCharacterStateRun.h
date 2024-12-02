@@ -24,7 +24,7 @@ public:
 	virtual void Push() override;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimationAsset> RunMontage;
+	TObjectPtr<UAnimMontage> RunMontage;
 
 private:
 	FHitResult HitResult;

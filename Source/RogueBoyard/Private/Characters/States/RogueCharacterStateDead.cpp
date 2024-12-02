@@ -49,5 +49,5 @@ void URogueCharacterStateDead::StateTick(float DeltaTime)
 void URogueCharacterStateDead::Resurrect()
 {
 	Super::Resurrect();
-	Character->GetMesh()->PlayAnimation(DeadMontage, false);
+	Character->PlayAnimMontage(DeadMontage);
 }
