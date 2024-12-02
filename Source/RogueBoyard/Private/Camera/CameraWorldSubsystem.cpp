@@ -6,6 +6,7 @@
 #include "Camera/CameraActor.h"
 #include "Characters/RogueCharacterStateID.h"
 #include "Characters/RogueCharacterStateMachine.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
 void UCameraWorldSubsystem::PostInitialize()
@@ -34,6 +35,12 @@ void UCameraWorldSubsystem::ClearFollowTarget()
 	FollowTargets.Empty();
 }
 
+void UCameraWorldSubsystem::InitCameraZoomParameters()
+{
+	TArray<AActor*> OutActors;
+	UGameplayStatics::GetAllActorsWithTag(GetWorld(), "Max", OutActors);
+}
+
 void UCameraWorldSubsystem::SetCamera(ACameraActor* NewCamera)
 {
 	CurrentCamera = NewCamera;
@@ -55,6 +62,11 @@ void UCameraWorldSubsystem::TickUpdateCameraPosition(float DeltaTime)
 	//DrawDebugPoint(GetWorld(),TargetViewPoint,20, FColor::Red);
 }
 
+void UCameraWorldSubsystem::TickUpdateCameraZoom(float DeltaTime)
+{
+	
+}
+
 FVector UCameraWorldSubsystem::CalculateAveragePositionBetweenTargets()
 {
 	FVector AveragePos = FVector::Zero();
@@ -64,4 +76,9 @@ FVector UCameraWorldSubsystem::CalculateAveragePositionBetweenTargets()
 			AveragePos += Object->GetActorLocation();
 	}
 	return 	AveragePos /= FollowTargets.Num();;
+}
+
+float UCameraWorldSubsystem::CalculateGreatestDistanceBetweenTargets()
+{
+	return 0.f;
 }

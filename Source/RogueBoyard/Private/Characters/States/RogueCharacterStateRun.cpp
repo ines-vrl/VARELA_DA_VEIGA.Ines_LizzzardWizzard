@@ -45,11 +45,19 @@ void URogueCharacterStateRun::StateTick(float DeltaTime)
 void URogueCharacterStateRun::Movement(float X, float Y)
 {
 	Super::Movement(X, Y);
-	const FVector XAxisRelativeToCamera = Character->GetCamera()->GetActorRightVector();
-	const FVector YAxisRelativeToCamera = Character->GetCamera()->GetActorForwardVector().RotateAngleAxis(Character->GetCamera()->GetActorRotation().Pitch , XAxisRelativeToCamera);
-	Character->ForwardVector = YAxisRelativeToCamera * Y + XAxisRelativeToCamera * X;
-	Character->AddMovementInput(Character->GetCamera()->GetActorRightVector(), X);
-	Character->AddMovementInput(YAxisRelativeToCamera, Y);
+	ACameraActor* Cam = Character->GetCamera();
+	if(Cam != nullptr)
+	{
+		const FVector XAxisRelativeToCamera = Cam->GetActorRightVector();
+		const FVector YAxisRelativeToCamera = Cam->GetActorForwardVector().RotateAngleAxis(Character->GetCamera()->GetActorRotation().Pitch , XAxisRelativeToCamera);
+		Character->ForwardVector = YAxisRelativeToCamera * Y + XAxisRelativeToCamera * X;
+		Character->AddMovementInput(Character->GetCamera()->GetActorRightVector(), X);
+		Character->AddMovementInput(YAxisRelativeToCamera, Y);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Movement failed, no Camera Found"));
+	}
 }
 
 bool URogueCharacterStateRun::Dash(float X, float Y)
