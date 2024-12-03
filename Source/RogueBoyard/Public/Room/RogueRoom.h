@@ -29,6 +29,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ACameraActor* RoomCamera = nullptr;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ACameraActor* RoomCameraZoomMax = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	ACameraActor* RoomCameraZoomMin = nullptr;
+	
 	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION(BlueprintCallable)

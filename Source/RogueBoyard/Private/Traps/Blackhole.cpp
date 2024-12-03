@@ -15,7 +15,6 @@ ABlackhole::ABlackhole()
 void ABlackhole::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -23,4 +22,3 @@ void ABlackhole::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-

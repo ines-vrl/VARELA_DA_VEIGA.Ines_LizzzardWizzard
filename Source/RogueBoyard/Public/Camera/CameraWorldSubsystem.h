@@ -22,15 +22,10 @@ class ROGUEBOYARD_API UCameraWorldSubsystem : public UTickableWorldSubsystem
 	float MaxDist = 1000.f;
 
 	UPROPERTY(BlueprintReadWrite)
-	float ZoomMin = 0.f;
-	UPROPERTY(BlueprintReadWrite)
-	float ZoomMax = 0.f;
-
-	UPROPERTY(BlueprintReadWrite)
 	float ZoomDistanceBetweenTargetsMin = 300.f;
 
 	UPROPERTY(BlueprintReadWrite)
-	float ZoomDistanceBetweenTargetsMax = 300.f;
+	float ZoomDistanceBetweenTargetsMax = 1500.f;
 	
 	virtual void PostInitialize() override;
 	virtual void Tick(float DeltaTime) override;
@@ -45,11 +40,11 @@ class ROGUEBOYARD_API UCameraWorldSubsystem : public UTickableWorldSubsystem
 	UFUNCTION(BlueprintCallable)
 	void ClearFollowTarget();
 
-	UFUNCTION(BlueprintCallable)
-	void InitCameraZoomParameters();
+	UFUNCTION()
+	void InitCameraZoomParameters(ACameraActor* CameraZoomMax, ACameraActor* CameraZoomMin);
 	
 	UFUNCTION(BlueprintCallable)
-	void SetCamera(ACameraActor* NewCamera);
+	void SetCamera(ACameraActor* NewCamera, ACameraActor* CameraZoomMaxIn, ACameraActor* CameraZoomMinIn);
 
 	protected:
 	UPROPERTY()
@@ -64,6 +59,8 @@ class ROGUEBOYARD_API UCameraWorldSubsystem : public UTickableWorldSubsystem
 	float CameraDist;
 	float DeltaRotationY, DeltaRotationZ;
 	FRotator DefaultRotator;
+	bool noDynamic = false;
+	bool noZoom = false;
 	
 	void TickUpdateCameraPosition(float DeltaTime);
 	void TickUpdateCameraZoom(float DeltaTime);
