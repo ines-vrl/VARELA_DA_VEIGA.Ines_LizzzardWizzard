@@ -21,6 +21,19 @@ public:
 protected:
 	
 	virtual void BeginPlay() override;
+
+#pragma region CoolDown
+	UFUNCTION(BlueprintCallable)
+	virtual void CoolDown(float TimeCooldown);
+
+	UFUNCTION()
+	virtual void CoolDownDelegate();
+	
+	float TimeCooldown;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool canUse = true;
+#pragma endregion CoolDown	
 	
 	UPROPERTY(EditAnywhere, Category = "Trap|Rotation")
 	bool bCanRotate;
