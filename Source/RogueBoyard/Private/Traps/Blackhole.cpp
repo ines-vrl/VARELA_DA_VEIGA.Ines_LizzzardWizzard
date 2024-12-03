@@ -22,3 +22,12 @@ void ABlackhole::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
+
+void ABlackhole::AttractPlayers(float Attraction, ARogueCharacter* Player)
+{
+	Attraction += 1;
+	Attraction *= AttractionForce;
+	FVector Dir = GetActorLocation() - Player->GetActorLocation();
+	Dir.Normalize();
+	Player->LaunchCharacter(Dir * Attraction, false, false);
+}
