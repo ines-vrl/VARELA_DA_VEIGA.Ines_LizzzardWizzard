@@ -40,7 +40,7 @@ void AEnemy::Push(TArray<AActor*> Actors)
 void AEnemy::SearchMovement(float DeltaTime)
 {
 	CurrentTime += DeltaTime * SearchMoveSpeed;
-	NewPosition = InitialPosition;
+	FVector NewPosition = InitialPosition;
 	NewPosition.X += MoveAmplitudeX * FMath::Sin(CurrentTime);
 	NewPosition.Y += MoveAmplitudeY * FMath::Sin(2 * CurrentTime);
 	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), NewPosition));
@@ -49,11 +49,11 @@ void AEnemy::SearchMovement(float DeltaTime)
 
 void AEnemy::MoveToPlayer(AActor* Player,float DeltaTime)
 {
-	CurrentLocation = GetActorLocation();
-	TargetLocation = Player->GetActorLocation();
-	Direction = TargetLocation - CurrentLocation;
+	FVector CurrentLocation = GetActorLocation();
+	FVector TargetLocation = Player->GetActorLocation();
+	FVector Direction = TargetLocation - CurrentLocation;
 	Direction.Normalize();
-	NewLocation = CurrentLocation + Direction * MoveSpeed * DeltaTime;
+	FVector NewLocation = CurrentLocation + Direction * MoveSpeed * DeltaTime;
 	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), FVector(NewLocation.X,NewLocation.Y,GetActorLocation().Z)));
 	SetActorLocation(FVector(NewLocation.X,NewLocation.Y,GetActorLocation().Z));
 }
