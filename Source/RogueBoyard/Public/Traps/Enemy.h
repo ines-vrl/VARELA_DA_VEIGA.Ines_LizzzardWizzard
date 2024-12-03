@@ -37,7 +37,7 @@ protected:
 	float MoveAmplitudeY = 300.0f;
 
 	UPROPERTY(EditAnywhere,Blueprintable, Category="Enemy|SearchMovement")
-	float SearchMoveSpeed;
+	float SearchMoveSpeed = 2.0f;
 
 public:
 	// Called every frame
@@ -55,17 +55,6 @@ private :
 	UFUNCTION(BlueprintCallable)
 	void MoveToPlayer(AActor* Player,float DeltaTime);
 
-	FVector CurrentLocation;
-
-	FVector Direction;
-
-	FVector NewLocation;
-
-	FVector TargetLocation;
-	
-	FVector NewPosition;
-
 	FVector InitialPosition;
-
 	float CurrentTime;
 };
