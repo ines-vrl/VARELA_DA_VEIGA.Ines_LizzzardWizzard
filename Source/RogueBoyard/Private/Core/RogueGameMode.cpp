@@ -80,7 +80,7 @@ void ARogueGameMode::OnCharacterDeath()
 	}
 	if(NbDeadPlayers >= 3)
 	{
-		EndBattleRoom();
+		ActiveRoom->EndRoom();
 	}
 }
 
