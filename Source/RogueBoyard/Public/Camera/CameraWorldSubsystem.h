@@ -59,6 +59,7 @@ class ROGUEBOYARD_API UCameraWorldSubsystem : public UTickableWorldSubsystem
 	float CameraDist;
 	float DeltaRotationY, DeltaRotationZ;
 	FRotator DefaultRotator;
+	FVector DefaultTranslation;
 	bool noDynamic = false;
 	bool noZoom = false;
 	
