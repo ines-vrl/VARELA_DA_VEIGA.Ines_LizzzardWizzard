@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{5A371232-DA91-4D94-AE90-16FE8E6C0F44}",
     "Language": "SFX",
-    "Hash": "{5CFC6E3B-998B-A8C1-B327-7D81EAF1FEF3}",
+    "Hash": "{E27F92E6-86D2-9084-E37B-104B0778FEC1}",
     "ObjectPath": "Play_SFX_Trap_Grindstone_LP",
     "ShortName": "Play_SFX_Trap_Grindstone_LP",
     "Path": "Event/Play_SFX_Trap_Grindstone_LP.bnk",
@@ -22,7 +22,7 @@
       "Location": "Loose",
       "ShortName": "SFX_Trap_Grindstone_LP.wav",
       "Path": "Media/111986707.wem",
-      "CachePath": "27/{2718B608-DC3C-5974-06C0-1A6B93EA06C2}.wem"
+      "CachePath": "49/{49554628-E0D8-B3E2-206D-12DBAEE186D7}.wem"
      }
     ],
     "Events": [
@@ -41,6 +41,6 @@
     ]
    }
   ],
-  "FileHash": "{9D680407-913F-31EA-BE6F-EF779D149A69}"
+  "FileHash": "{F8D853F8-3025-82EA-1B38-332C1DF78440}"
  }
 }
