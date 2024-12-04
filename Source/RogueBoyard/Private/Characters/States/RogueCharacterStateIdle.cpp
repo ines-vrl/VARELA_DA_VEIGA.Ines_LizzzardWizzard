@@ -47,11 +47,21 @@ void URogueCharacterStateIdle::StateTick(float DeltaTime)
 	{
 		StateMachine->ChangeState(ERogueCharacterStateID::Fall);
 	}
+	if(InteractAnimTime >= 0)
+	{
+		InteractAnimTime -= DeltaTime;
+		if(InteractAnimTime <= 0)
+		{
+			float playRate = FMath::RandRange(0.8f, 1.2f);
+			Character->PlayAnimMontage(IdleMontage, playRate);
+		}
+	}
 }
 
 void URogueCharacterStateIdle::Movement(float X, float Y)
 {
 	Super::Movement(X, Y);
+	if(InteractAnimTime > 0)
 	GEngine->AddOnScreenDebugMessage(
 	-1,
 	2.f,
@@ -82,6 +92,8 @@ bool URogueCharacterStateIdle::Dash(float X, float Y)
 TArray<AActor*> URogueCharacterStateIdle::Interact()
 {
 	Super::Interact();
+	InteractAnimTime = InteractMontage->GetPlayLength();
+	Character->PlayAnimMontage(InteractMontage);
 	TArray<AActor*> OverlappingActors;
 	Character->Box->GetOverlappingActors(OverlappingActors);
 	GEngine->AddOnScreenDebugMessage(
