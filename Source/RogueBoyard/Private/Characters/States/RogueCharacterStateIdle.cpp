@@ -23,7 +23,8 @@ void URogueCharacterStateIdle::StateEnter(ERogueCharacterStateID PreviousStateID
 	2.f,
 	FColor::Green,
 	TEXT("Enter Idle"));
-	Character->PlayAnimMontage(IdleMontage);
+	float playRate = FMath::RandRange(0.8f, 1.2f);
+	Character->PlayAnimMontage(IdleMontage, playRate);
 }
 
 void URogueCharacterStateIdle::StateExit(ERogueCharacterStateID NextStateID)

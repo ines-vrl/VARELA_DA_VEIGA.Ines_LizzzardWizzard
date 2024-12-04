@@ -1,6 +1,8 @@
 ﻿#include "Room/RogueRoom.h"
 
 #include "Characters/RogueCharacter.h"
+#include "Characters/RogueCharacterStateID.h"
+#include "Characters/RogueCharacterStateMachine.h"
 #include "Core/RogueGameMode.h"
 #include "GameFramework/Character.h"
 #include "Room/RogueRoomSubsystem.h"
@@ -86,6 +88,13 @@ void ARogueRoom::BeginRoom()
 	bHasRoomStarted = true;
 	ReceiveBeginRoom();
 	OnRoomBeginEvent.Broadcast();
+	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		for (ARogueCharacter* Character : GameMode->Characters)
+		{
+			Character->StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+		}
+	}
 }
 
 void ARogueRoom::EndRoom()

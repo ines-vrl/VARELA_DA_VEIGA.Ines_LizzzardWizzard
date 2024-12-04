@@ -15,7 +15,7 @@ ERogueCharacterStateID URogueCharacterStateDead::GetStateID()
 void URogueCharacterStateDead::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	Character->GetMesh()->PlayAnimation(DeadMontage, false);
+	Character->PlayAnimMontage(DeadMontage, false);
 	if(ResurectMontage) ResurectAnimTimeRemaining = ResurectMontage->GetPlayLength();
 	Character->OnCharacterDeathEvent.Broadcast();
 }
@@ -36,13 +36,14 @@ void URogueCharacterStateDead::StateTick(float DeltaTime)
 		{
 			Character->SetActorLocation(RespawnTransform.GetLocation(), false);
 			bRespawned = true;
+			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 		}
 
 		ResurectAnimTimeRemaining -= DeltaTime;
-		if(ResurectAnimTimeRemaining <= 0)
-		{
-			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
-		}
+		//if(ResurectAnimTimeRemaining <= 0)
+		//{
+		//	StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+		//}
 	}
 }
 
