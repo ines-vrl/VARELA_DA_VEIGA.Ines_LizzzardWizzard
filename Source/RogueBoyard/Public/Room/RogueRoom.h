@@ -82,9 +82,11 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float MaxRoomTime = 120.0f;
+
+	bool bBeginThePlay = true;
 	
-private:	
-	
+private:
+
 	bool bHasRoomStarted = false;
 	bool bHasRoomEnded = false;
 	

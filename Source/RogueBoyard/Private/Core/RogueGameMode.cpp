@@ -88,8 +88,13 @@ void ARogueGameMode::OnRoomLoaded()
 {
 	if(!bIsFirstRoomLoaded)
 	{
+		bIsFirstRoomLoaded = true;
 		StartLobbyRoom();
 	}
+}
+
+void ARogueGameMode::GameEnd() {
+	ReceiveGameEnd();
 }
 
 void ARogueGameMode::LastRoomLoaded() {

@@ -70,12 +70,15 @@ void ARogueRoom::PlacePlayer(ARogueCharacter* Player, const int Index)
 void ARogueRoom::BeginPlay()
 {
 	Super::BeginPlay();
-	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
-	{
-		GameMode->AddRoomManager(this);
+	if(bBeginThePlay) {
+		if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+        {
+        	GameMode->AddRoomManager(this);
+        }
+        URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
+        RoomSubsystem->RoomLoadedCallback(ERoomLoaded::Manager);
 	}
-	URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
-	RoomSubsystem->RoomLoadedCallback(ERoomLoaded::Manager);
+	
 }
 
 void ARogueRoom::BeginRoom()

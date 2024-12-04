@@ -3,6 +3,7 @@
 
 #include "Characters/States/RogueCharacterStateDead.h"
 
+#include "Camera/CameraWorldSubsystem.h"
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateMachine.h"
 
@@ -15,6 +16,7 @@ ERogueCharacterStateID URogueCharacterStateDead::GetStateID()
 void URogueCharacterStateDead::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	GetWorld()->GetSubsystem<UCameraWorldSubsystem>()->RemoveFollowTarget(Character);
 	Character->PlayAnimMontage(DeadMontage, false);
 	if(ResurectMontage) ResurectAnimTimeRemaining = ResurectMontage->GetPlayLength();
 	Character->OnCharacterDeathEvent.Broadcast();
@@ -35,6 +37,7 @@ void URogueCharacterStateDead::StateTick(float DeltaTime)
 		if(!bRespawned)
 		{
 			Character->SetActorLocation(RespawnTransform.GetLocation(), false);
+			GetWorld()->GetSubsystem<UCameraWorldSubsystem>()->AddFollowTarget(Character);
 			bRespawned = true;
 			StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 		}
