@@ -62,6 +62,12 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+	virtual void Init();
+	
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="Init"))
+	void ReceiveInit();
+
 private:
 	//Rotation
 	float CurrentRotationSpeed;

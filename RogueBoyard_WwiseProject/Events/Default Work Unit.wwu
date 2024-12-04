@@ -97,6 +97,39 @@
 								</Action>
 							</ChildrenList>
 						</Event>
+						<Event Name="GrimoireLoop" ID="{6F99B3F0-BB49-4E04-9074-DEB6BA458A10}">
+							<ChildrenList>
+								<Action Name="" ID="{23D923A9-2887-4A73-93CB-53DBC5854EEC}" ShortID="1056166828">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_Item_Grimoire_LP_01" ID="{7824828C-471B-4DAD-B1F1-06093E0B4C09}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Grimoire_Lose" ID="{B28D7861-B0F8-47B4-9C8E-0FAB176B8301}">
+							<ChildrenList>
+								<Action Name="" ID="{5F50757F-0B56-42DD-84BC-3175B725F7AE}" ShortID="198423085">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Lose" ID="{460F4477-B73E-4763-9A1A-5C63DADDEC3E}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Grimoire_Take" ID="{FC34869F-3AD9-4F93-95A3-3BD28F7E0C28}">
+							<ChildrenList>
+								<Action Name="" ID="{024746C9-4F55-4408-A8F7-AA6DC8D7F2AD}" ShortID="443389710">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Take" ID="{01884796-19BA-452C-8766-71F394E94D36}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Player" ID="{F24FA1C9-6D7F-4C2A-9239-4C55C3FB640F}" ShortID="697510535">
@@ -416,6 +449,43 @@
 											<ReferenceList>
 												<Reference Name="Target">
 													<ObjectRef Name="SFX_Trap_Grindstone_LP" ID="{54FD3FE2-1FA8-4E50-931C-FFE350FE4860}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Lightning" ID="{591F9035-9CED-43B3-8F81-76A8D8F218C0}" ShortID="329920871">
+							<ChildrenList>
+								<Event Name="Thunder_Hit" ID="{2C5C3770-7A52-4169-AD1C-A5D77D26403E}">
+									<ChildrenList>
+										<Action Name="" ID="{37110034-3FE6-4632-ACC7-9748AEF6B6E3}" ShortID="288345399">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Hit" ID="{FFF4A445-F20C-4090-9052-80997AAF6CAA}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Thunder_Loop" ID="{87BE622C-9976-46BD-B9B8-7BC8A3A7B6B0}">
+									<ChildrenList>
+										<Action Name="" ID="{5A53F3A0-4D1B-4FBD-9AC2-8373CA44FA93}" ShortID="102386245">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Loop" ID="{7F505925-74B4-4A04-905D-8544D5C4635C}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Thunder_Take" ID="{5233D1B7-1A59-4F88-A66C-E950CAB97880}">
+									<ChildrenList>
+										<Action Name="" ID="{A7912DF4-DBD1-489C-93A0-BA02D63E0234}" ShortID="493958888">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Take" ID="{7143B2F1-B6C7-47B0-951A-61A0201D6C51}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
 												</Reference>
 											</ReferenceList>
 										</Action>

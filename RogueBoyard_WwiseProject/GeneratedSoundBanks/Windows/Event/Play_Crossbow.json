@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{BD24F637-F2A4-4468-96C0-24F8E270D4CF}",
     "Language": "SFX",
-    "Hash": "{6EC08DA4-FF14-23ED-9864-FBBF4BF89962}",
+    "Hash": "{B6050955-0291-3140-942D-2FD33D61719C}",
     "ObjectPath": "Play_Crossbow",
     "ShortName": "Play_Crossbow",
     "Path": "Event/Play_Crossbow.bnk",
@@ -59,8 +59,8 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Traps\\Crossbow\\Play_Crossbow",
       "GUID": "{BD24F637-F2A4-4468-96C0-24F8E270D4CF}",
       "DurationType": "OneShot",
-      "DurationMin": "0.676",
-      "DurationMax": "0.676",
+      "DurationMin": "0.63805896",
+      "DurationMax": "0.7161971",
       "MediaRefs": [
        {
         "Id": "312793435"
@@ -79,6 +79,6 @@
     ]
    }
   ],
-  "FileHash": "{EF1EE171-D2A0-C93F-1DCE-524A5653CFED}"
+  "FileHash": "{C1E095C4-DA2C-516D-D7F9-265EEFB88A7A}"
  }
 }
