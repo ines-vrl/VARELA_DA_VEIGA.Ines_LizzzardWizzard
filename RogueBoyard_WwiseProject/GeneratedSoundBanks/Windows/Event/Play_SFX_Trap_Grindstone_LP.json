@@ -1,0 +1,46 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "3322503038",
+    "Type": "Event",
+    "GUID": "{5A371232-DA91-4D94-AE90-16FE8E6C0F44}",
+    "Language": "SFX",
+    "Hash": "{5CFC6E3B-998B-A8C1-B327-7D81EAF1FEF3}",
+    "ObjectPath": "Play_SFX_Trap_Grindstone_LP",
+    "ShortName": "Play_SFX_Trap_Grindstone_LP",
+    "Path": "Event/Play_SFX_Trap_Grindstone_LP.bnk",
+    "Media": [
+     {
+      "Id": "111986707",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "SFX_Trap_Grindstone_LP.wav",
+      "Path": "Media/111986707.wem",
+      "CachePath": "27/{2718B608-DC3C-5974-06C0-1A6B93EA06C2}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "3322503038",
+      "Name": "Play_SFX_Trap_Grindstone_LP",
+      "ObjectPath": "\\Events\\Default Work Unit\\Traps\\GrindStone\\Play_SFX_Trap_Grindstone_LP",
+      "GUID": "{5A371232-DA91-4D94-AE90-16FE8E6C0F44}",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "111986707"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{9D680407-913F-31EA-BE6F-EF779D149A69}"
+ }
+}
