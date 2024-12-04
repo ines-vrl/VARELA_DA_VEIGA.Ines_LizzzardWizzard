@@ -65,6 +65,7 @@ void ARogueCharacter::TickStateMachine(float DeltaTime) const
 
 void ARogueCharacter::TakeDamage(int Damage)
 {
+	if(bIsInvincible) return;
 	CurrentLives -= Damage;
 	if(CurrentLives <= 0) Die();
 }
