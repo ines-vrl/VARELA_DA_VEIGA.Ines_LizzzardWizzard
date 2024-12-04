@@ -53,6 +53,20 @@ void URogueCharacterStatePushing::StateTick(float DeltaTime)
 		Character->PlayAnimMontage(RunChargingAttack);
 		bCharging = true;
 	}
+	else if(!bPushed &&StartAnimTimeRemaining <= 0.5f && !bCharging && StateMachine->Sticks.Length() == 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("IdleCHarging"));
+		Character->PlayAnimMontage(ChargingAttack);
+		bCharging = true;
+	}
+	else if(!bPushed && Character->GetMesh()->GetAnimInstance()->Montage_IsPlaying(ChargingAttack) && bCharging && StateMachine->Sticks.Length() != 0)
+	{
+		Character->PlayAnimMontage(RunChargingAttack);
+	}
+	else if(!bPushed && Character->GetMesh()->GetAnimInstance()->Montage_IsPlaying(RunChargingAttack) && bCharging && StateMachine->Sticks.Length() == 0)
+	{
+		Character->PlayAnimMontage(ChargingAttack);
+	}
 	else if (bPushed)
 	{
 		StartAnimTimeRemaining -= DeltaTime;
@@ -90,6 +104,22 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
 {
 	bCharging = false;
 	int i = 0;
+	//UE_LOG(LogTemp, Warning, TEXT("Attacking"));
+    if(Character->StateMachine->Sticks.Length() != 0)
+    {
+    	Character->PlayAnimMontage(RunAttacking);
+    	float Rate = RunAttacking->RateScale;
+    	if( Rate == 0) Rate = 1;
+    	StartAnimTimeRemaining = RunAttacking->GetPlayLength() / Rate;
+    }
+    else
+    {
+    	Character->PlayAnimMontage(Attacking);
+    	float Rate = Attacking->RateScale;
+    	if( Rate == 0) Rate = 1;
+    	StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
+    	UE_LOG(LogTemp, Warning, TEXT("Idle Attack"));
+    }	
 	for (AActor* Actor : Actors)
 	{
 		if(Cast<ARogueCharacter>(Actor) == this->Character) continue;
@@ -102,21 +132,7 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
 			i++;
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Attacking"));
-	if(Character->StateMachine->Sticks.Length() != 0)
-	{
-		Character->PlayAnimMontage(RunAttacking);
-		float Rate = RunAttacking->RateScale;
-		if( Rate == 0) Rate = 1;
-		StartAnimTimeRemaining = RunAttacking->GetPlayLength() / Rate;
-	}
-	else
-	{
-		Character->PlayAnimMontage(Attacking);
-		float Rate = Attacking->RateScale;
-		if( Rate == 0) Rate = 1;
-		StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
-	}	
+
 	bPushed = true;
 	return i > 0;
 }	
