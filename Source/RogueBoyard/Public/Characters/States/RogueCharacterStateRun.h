@@ -25,7 +25,10 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimMontage> RunMontage;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimMontage> InteractMontage;
 
 private:
 	FHitResult HitResult;
+	float InteractAnimTime;
 };

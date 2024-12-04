@@ -14,7 +14,7 @@ ERogueCharacterStateID URogueCharacterStateFall::GetStateID()
 void URogueCharacterStateFall::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	Character->GetMesh()->PlayAnimation(FallMontage, true);
+	Character->PlayAnimMontage(FallMontage, true);
 	Character->GetMesh()->SetWorldRotation(FRotator(0, 0, -90));
 }
 
@@ -24,3 +24,4 @@ void URogueCharacterStateFall::StateExit(ERogueCharacterStateID NextStateID)
 	FRotator rotator = Character->GetMesh()->GetRelativeRotation();
 	Character->GetMesh()->SetWorldRotation(FRotator(0, 0, 0));
 }
+
