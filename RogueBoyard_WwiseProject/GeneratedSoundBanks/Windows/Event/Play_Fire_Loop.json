@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{DA6D946A-1FF2-408A-8FE1-A4E3C4C7471C}",
     "Language": "SFX",
-    "Hash": "{B53C61F1-7637-D3EA-EA4B-CC464C53327D}",
+    "Hash": "{C51688FE-7DAE-B760-08D2-35A4D163E118}",
     "ObjectPath": "Play_Fire_Loop",
     "ShortName": "Play_Fire_Loop",
     "Path": "Event/Play_Fire_Loop.bnk",
@@ -77,6 +77,6 @@
     ]
    }
   ],
-  "FileHash": "{BFF2568D-396A-75AA-9384-A8CF3C06B757}"
+  "FileHash": "{B0EBBC86-AA40-F50B-85A9-D00AC25A4552}"
  }
 }

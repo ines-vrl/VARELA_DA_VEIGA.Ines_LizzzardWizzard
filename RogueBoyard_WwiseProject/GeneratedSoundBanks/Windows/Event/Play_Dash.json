@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{9E439D35-01EC-4298-93D6-141B593A65CA}",
     "Language": "SFX",
-    "Hash": "{B14E2801-99AD-D3FC-0350-6A5D68660E0B}",
+    "Hash": "{1FBCE804-4A5D-678B-1BBD-A624090714B5}",
     "ObjectPath": "Play_Dash",
     "ShortName": "Play_Dash",
     "Path": "Event/Play_Dash.bnk",
@@ -139,6 +139,6 @@
     ]
    }
   ],
-  "FileHash": "{7EE3E178-33AF-585F-FB0C-14CB8DECEE52}"
+  "FileHash": "{2938CBFD-AA08-67A0-B4C9-407C95EBE30F}"
  }
 }

@@ -6,6 +6,13 @@
 				<Folder Name="Foley" ID="{03E34937-DB19-4D5A-95DF-42FAC723250B}" ShortID="780788261">
 					<ChildrenList>
 						<RandomSequenceContainer Name="Dash" ID="{AA463CE3-8CE5-49C9-B209-8D1E2D6CF80F}" ShortID="552877513">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>
@@ -865,12 +872,19 @@
 							</GroupingInfo>
 						</SwitchContainer>
 						<SwitchContainer Name="Run" ID="{F0E5A199-9E96-4281-A178-A4D767FF0E4E}" ShortID="486319334">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-8</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>
 								</Reference>
 								<Reference Name="DefaultSwitchOrState">
-									<ObjectRef Name="Stone" ID="{03102C2F-213E-40E5-A557-636FF68BEBD7}" WorkUnitID="{48D176BA-1BBA-4791-B4F5-72A39E80643A}"/>
+									<ObjectRef Name="Wood" ID="{F0F89FCA-6C44-466F-8DD5-5BCE8DE6182B}" WorkUnitID="{48D176BA-1BBA-4791-B4F5-72A39E80643A}"/>
 								</Reference>
 								<Reference Name="OutputBus">
 									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{BED00DCE-76EA-4167-A7F0-C4708A653D19}"/>
@@ -1526,6 +1540,21 @@
 											</ActiveSourceList>
 										</Sound>
 										<Sound Name="SFX_Item_Coins_Get" ID="{2FF79903-5811-4B33-827B-31C25BB64108}" ShortID="877695076">
+											<PropertyList>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{4EBEC88E-517F-4E1A-AD8B-F7BD318F5E8B}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="50"/>
+																	<Property Name="Min" Type="Real64" Value="-50"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>
@@ -4088,6 +4117,13 @@
 								<Folder Name="Flamethrower" ID="{FDA64B57-469C-44BD-B950-B7FBABC28695}" ShortID="949885344">
 									<ChildrenList>
 										<RandomSequenceContainer Name="Fire Loop" ID="{F66A0B2C-38F2-4E8B-AA8E-694B3EACFD67}" ShortID="48213465">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-12</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>
@@ -5281,6 +5317,11 @@
 						<Sound Name="AMB_Ambiance_LP" ID="{4B3C45B5-715A-4957-BAC8-2213FDCD38DA}" ShortID="141402050">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-12</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">

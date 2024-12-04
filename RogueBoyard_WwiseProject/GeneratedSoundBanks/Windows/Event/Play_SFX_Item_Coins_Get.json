@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{1BDC845E-14DD-410E-A155-8E7947F95C35}",
     "Language": "SFX",
-    "Hash": "{5B0FE1CB-2D19-97A5-8107-1954542E5563}",
+    "Hash": "{F0F2F18D-CCBD-C132-50AB-66ED100EB90E}",
     "ObjectPath": "Play_SFX_Item_Coins_Get",
     "ShortName": "Play_SFX_Item_Coins_Get",
     "Path": "Event/Play_SFX_Item_Coins_Get.bnk",
@@ -32,8 +32,8 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Items\\Coin\\Play_SFX_Item_Coins_Get",
       "GUID": "{1BDC845E-14DD-410E-A155-8E7947F95C35}",
       "DurationType": "OneShot",
-      "DurationMin": "0.6333333",
-      "DurationMax": "0.6333333",
+      "DurationMin": "0.6153036",
+      "DurationMax": "0.6518914",
       "MediaRefs": [
        {
         "Id": "8393808"
@@ -43,6 +43,6 @@
     ]
    }
   ],
-  "FileHash": "{170F1AC2-782A-7749-6529-DFBF9F8A07C4}"
+  "FileHash": "{DBCDEACC-0A95-E504-85C3-E765CF479A21}"
  }
 }

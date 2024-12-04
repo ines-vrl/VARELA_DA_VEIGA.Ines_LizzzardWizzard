@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{35269C77-068E-438C-BE7F-FD5F35893B2F}",
     "Language": "SFX",
-    "Hash": "{307A8152-98DA-8E67-7750-02C7CF3C4E72}",
+    "Hash": "{8A17C040-827C-0DB8-AF10-E8154A53B1C1}",
     "ObjectPath": "Play_AMB_Ambiance_LP",
     "ShortName": "Play_AMB_Ambiance_LP",
     "Path": "Event/Play_AMB_Ambiance_LP.bnk",
@@ -41,6 +41,6 @@
     ]
    }
   ],
-  "FileHash": "{9B85BCBF-7A7C-FED8-1654-2ABE67497F60}"
+  "FileHash": "{E8F88BBC-7B46-C364-AC2C-6D3C502E0F78}"
  }
 }

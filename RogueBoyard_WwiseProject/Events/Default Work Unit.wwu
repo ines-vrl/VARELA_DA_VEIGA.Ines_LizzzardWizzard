@@ -413,6 +413,50 @@
 										</Action>
 									</ChildrenList>
 								</Event>
+								<Event Name="Stop_Flamethrower_Loop" ID="{C4FDF37F-4098-4060-B86C-C62DAA518364}">
+									<ChildrenList>
+										<Action Name="" ID="{7486949D-0309-4331-BCD2-005BD86CAAAB}" ShortID="365236189">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Flamethrower_LP_01" ID="{42F1D2F6-AB13-439F-B833-C929415FC63B}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{192AB23B-BF12-4512-8A56-195C760ABB5F}" ShortID="252149603">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Flamethrower_LP_02" ID="{501F7BFE-00B0-48B1-9ECE-4DB75663C738}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{0DD76E00-DAA8-4D14-9B16-7896FF30426C}" ShortID="298066635">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Flamethrower_LP_03" ID="{6AB876BE-BC51-41BB-8AF0-015F65319DF2}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{4CFD2B05-562B-4A20-8DA1-17BCC7B60B11}" ShortID="489997609">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Flamethrower_LP_04" ID="{2B7085AD-AE05-414B-A8AB-638AF6459B50}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="MonsterSpawn" ID="{A6174033-8F02-4866-B163-0800EDD16231}" ShortID="24350664">

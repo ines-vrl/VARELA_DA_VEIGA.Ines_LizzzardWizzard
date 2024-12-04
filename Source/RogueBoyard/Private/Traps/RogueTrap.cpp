@@ -50,6 +50,10 @@ void ARogueTrap::Init() {
 		ReceiveInit();
 }
 
+void ARogueTrap::End() {
+	ReceiveEnd();
+}
+
 void ARogueTrap::RotateTrap(float DeltaTime)
 {
 	if (bCanRotate)

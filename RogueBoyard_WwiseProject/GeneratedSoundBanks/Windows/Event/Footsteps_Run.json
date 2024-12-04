@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{F96834CF-B57D-48DE-8116-EA17963214DA}",
     "Language": "SFX",
-    "Hash": "{EDCDAE4B-BBC2-0FE6-57B0-4DFC16B0367C}",
+    "Hash": "{D270ED65-25E7-516B-7127-1DFA67A46718}",
     "ObjectPath": "Footsteps_Run",
     "ShortName": "Footsteps_Run",
     "Path": "Event/Footsteps_Run.bnk",
@@ -247,8 +247,7 @@
          "GroupType": "Switch",
          "GroupId": "2000241759",
          "Id": "1216965916",
-         "GUID": "{03102C2F-213E-40E5-A557-636FF68BEBD7}",
-         "Default": "true"
+         "GUID": "{03102C2F-213E-40E5-A557-636FF68BEBD7}"
         },
         "MediaRefs": [
          {
@@ -316,7 +315,8 @@
          "GroupType": "Switch",
          "GroupId": "2000241759",
          "Id": "2058049674",
-         "GUID": "{F0F89FCA-6C44-466F-8DD5-5BCE8DE6182B}"
+         "GUID": "{F0F89FCA-6C44-466F-8DD5-5BCE8DE6182B}",
+         "Default": "true"
         },
         "MediaRefs": [
          {
@@ -378,6 +378,6 @@
     ]
    }
   ],
-  "FileHash": "{5A98DA5B-CF85-D535-E524-E2696F29421D}"
+  "FileHash": "{6C0B0D97-E45E-5EF3-B224-B7B9A77EB6F5}"
  }
 }
