@@ -5092,6 +5092,9 @@
 						<Folder Name="Grimoire" ID="{0E375003-87A2-465A-A1B3-A7B0E00162D4}" ShortID="295053804">
 							<ChildrenList>
 								<Sound Name="SFX_Item_Grimoire_LP_01" ID="{7824828C-471B-4DAD-B1F1-06093E0B4C09}" ShortID="556747490">
+									<PropertyList>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>
