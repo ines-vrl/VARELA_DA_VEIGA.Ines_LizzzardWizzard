@@ -1,5 +1,7 @@
 ﻿#include "Room/Rooms/RogueFinalRoom.h"
 
+#include "Core/RogueGameMode.h"
+
 
 ARogueFinalRoom::ARogueFinalRoom() {
 	PrimaryActorTick.bCanEverTick = true;
@@ -12,6 +14,9 @@ void ARogueFinalRoom::BeginPlay() {
 
 void ARogueFinalRoom::EndRoom() {
 	Super::EndRoom();
+	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
+		GameMode->GameEnd();
+	}
 }
 
 void ARogueFinalRoom::Tick(float DeltaTime) {
