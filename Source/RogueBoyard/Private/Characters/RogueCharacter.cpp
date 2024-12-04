@@ -95,8 +95,7 @@ void ARogueCharacter::SetCamera()
 {
 	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
 	{
-		int ActiveRoom = GetWorld()->GetSubsystem<URogueRoomSubsystem>()->ActiveRoomId;
-		Camera = GameMode->RoomManagers[ActiveRoom]->RoomCamera;
+		Camera = GameMode->ActiveRoom->RoomCamera;
 	}
 }
 
