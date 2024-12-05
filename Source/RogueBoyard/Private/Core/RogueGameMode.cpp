@@ -70,12 +70,13 @@ void ARogueGameMode::GiveRoomRewards(TArray<ARogueCharacter*> Winners) {
 
 void ARogueGameMode::OnCharacterDeath()
 {
-	int NbDeadPlayers = 0;
+
 	for (const ARogueCharacter* Character : Characters)
 	{
 		if( Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Dead)
 		{
 			NbDeadPlayers++;
+			UE_LOG(LogTemp, Warning, TEXT("DeadCharacter, total : %d"), NbDeadPlayers)
 		}
 	}
 	if(NbDeadPlayers >= 3)
