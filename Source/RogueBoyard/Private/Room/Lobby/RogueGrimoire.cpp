@@ -10,6 +10,10 @@ ARogueGrimoire::ARogueGrimoire()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
+void ARogueGrimoire::Init() {
+	ReceiveInit();
+}
+
 void ARogueGrimoire::BeginPlay()
 {
 	Super::BeginPlay();
