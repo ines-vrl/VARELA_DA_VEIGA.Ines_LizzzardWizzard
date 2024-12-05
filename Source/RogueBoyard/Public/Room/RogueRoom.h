@@ -80,11 +80,15 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<ARogueDoor> ExitDoor;
 	
-private:	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float MaxRoomTime = 120.0f;
+
+	bool bBeginThePlay = true;
 	
+private:
+
 	bool bHasRoomStarted = false;
 	bool bHasRoomEnded = false;
 	
-	UPROPERTY(EditAnywhere)
-	float MaxRoomTime = 120.0f;
+
 };

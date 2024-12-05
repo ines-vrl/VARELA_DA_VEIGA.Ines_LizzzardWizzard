@@ -32,19 +32,29 @@ void URogueCharacterStateRun::StateTick(float DeltaTime)
 	Super::StateTick(DeltaTime);
 	FVector Pos = Character->GetActorLocation();
 	if(!GetWorld()->LineTraceSingleByChannel(HitResult, Pos,FVector(Pos.X,Pos.Y,-1000),
-	ECC_Visibility))
+	ECC_Visibility) && Character->GetCharacterMovement()->Velocity.Z < -100.f)
 	{
+		//UE_LOG(LogTemp, Warning, TEXT("Z: %f"),Character->GetCharacterMovement()->Velocity.Z );
 		StateMachine->ChangeState(ERogueCharacterStateID::Fall);
 	}
 	if(StateMachine->Sticks.X == 0 && StateMachine->Sticks.Y == 0)
 	{
 		StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 	}
+	if(InteractAnimTime >= 0)
+	{
+		InteractAnimTime -= DeltaTime;
+		if(InteractAnimTime <= 0)
+		{
+			Character->PlayAnimMontage(RunMontage);
+		}
+	}
 }
 
 void URogueCharacterStateRun::Movement(float X, float Y)
 {
 	Super::Movement(X, Y);
+	if(InteractAnimTime > 0) return;
 	ACameraActor* Cam = Character->GetCamera();
 	if(Cam != nullptr)
 	{
@@ -81,6 +91,8 @@ bool URogueCharacterStateRun::Dash(float X, float Y)
 TArray<AActor*> URogueCharacterStateRun::Interact()
 {
 	Super::Interact();
+	InteractAnimTime = InteractMontage->GetPlayLength();
+	Character->PlayAnimMontage(InteractMontage);
 	TArray<AActor*> OverlappingActors;
 	Character->Box->GetOverlappingActors(OverlappingActors);
 	GEngine->AddOnScreenDebugMessage(

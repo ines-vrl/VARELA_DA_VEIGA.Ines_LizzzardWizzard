@@ -19,7 +19,12 @@ void UCameraWorldSubsystem::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if(CurrentCamera != nullptr && !noDynamic)
 	{
-		if(!noZoom)		TickUpdateCameraZoom(DeltaTime);
+		if(FollowTargets.IsEmpty())
+		{
+			CurrentCamera->SetActorRotation(DefaultRotator);
+			return;
+		}
+		if(!noZoom)	TickUpdateCameraZoom(DeltaTime);
 		TickUpdateCameraPosition(DeltaTime);
 	}
 }
@@ -51,8 +56,10 @@ void UCameraWorldSubsystem::InitCameraZoomParameters(ACameraActor* CameraZoomMax
 
 void UCameraWorldSubsystem::SetCamera(ACameraActor* NewCamera,ACameraActor* CameraZoomMaxIn = nullptr, ACameraActor* CameraZoomMinIn = nullptr)
 {
+	if(NewCamera == nullptr) return;
 	CurrentCamera = NewCamera;
 	DefaultRotator = CurrentCamera->GetActorRotation();
+	DefaultTranslation = CurrentCamera->GetActorLocation();
 	if(NewCamera->FindComponentByClass<UDynamicCameraComponent>() == nullptr)
 	{
 		noDynamic = true;
@@ -87,11 +94,15 @@ void UCameraWorldSubsystem::TickUpdateCameraZoom(float DeltaTime)
 {
 	if(CurrentCamera == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PasDeCamFrero"));
+		//UE_LOG(LogTemp, Warning, TEXT("PasDeCamFrero"));
 		return;
 	}
 	float GreatestDistanceBetweenTargets = CalculateGreatestDistanceBetweenTargets();
-
+	if(GreatestDistanceBetweenTargets == -1000.f)
+	{
+		CurrentCamera->SetActorLocation(DefaultTranslation);
+		return;
+	}
 	float ZoomPercent = FMath::Clamp(FMath::GetMappedRangeValueClamped(
 		FVector2D(ZoomDistanceBetweenTargetsMin, ZoomDistanceBetweenTargetsMax),
 		FVector2D(0.f, 1.f),
@@ -101,7 +112,7 @@ void UCameraWorldSubsystem::TickUpdateCameraZoom(float DeltaTime)
 	FVector NewLocation = FMath::Lerp(CameraZoomMax->GetActorLocation(),
 		CameraZoomMin->GetActorLocation(),
 		ZoomPercent);
-	UE_LOG(LogTemp, Warning, TEXT("NewPosition is : %s"), *NewLocation.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("NewPosition is : %s"), *NewLocation.ToString());
 	CurrentCamera->SetActorLocation(NewLocation);
 	
 }
@@ -121,6 +132,10 @@ float UCameraWorldSubsystem::CalculateGreatestDistanceBetweenTargets()
 {
 	float GreatestDistance = 0.f;
 
+	if(FollowTargets.Num() == 1)
+	{
+		return -1000.f;
+	}
 	for(int i = 0; i < FollowTargets.Num() ; i++)
 	{
 		for(int j = i + 1; i < FollowTargets.Num(); i++)
