@@ -86,6 +86,11 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "InitCharacter"))
 	void ReceiveInitCharacters(int CharacterIndex);
 
+	void GameEnd();
+	
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "GameEnd"))
+	void ReceiveGameEnd();
+
 	UFUNCTION()
 	void LastRoomLoaded();
 	

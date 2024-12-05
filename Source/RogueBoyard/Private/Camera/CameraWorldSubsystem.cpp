@@ -51,6 +51,7 @@ void UCameraWorldSubsystem::InitCameraZoomParameters(ACameraActor* CameraZoomMax
 
 void UCameraWorldSubsystem::SetCamera(ACameraActor* NewCamera,ACameraActor* CameraZoomMaxIn = nullptr, ACameraActor* CameraZoomMinIn = nullptr)
 {
+	if(NewCamera == nullptr) return;
 	CurrentCamera = NewCamera;
 	DefaultRotator = CurrentCamera->GetActorRotation();
 	if(NewCamera->FindComponentByClass<UDynamicCameraComponent>() == nullptr)

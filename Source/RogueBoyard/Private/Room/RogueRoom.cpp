@@ -1,6 +1,8 @@
 ﻿#include "Room/RogueRoom.h"
 
 #include "Characters/RogueCharacter.h"
+#include "Characters/RogueCharacterStateID.h"
+#include "Characters/RogueCharacterStateMachine.h"
 #include "Core/RogueGameMode.h"
 #include "GameFramework/Character.h"
 #include "Room/RogueRoomSubsystem.h"
@@ -68,12 +70,15 @@ void ARogueRoom::PlacePlayer(ARogueCharacter* Player, const int Index)
 void ARogueRoom::BeginPlay()
 {
 	Super::BeginPlay();
-	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
-	{
-		GameMode->AddRoomManager(this);
+	if(bBeginThePlay) {
+		if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+        {
+        	GameMode->AddRoomManager(this);
+        }
+        URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
+        RoomSubsystem->RoomLoadedCallback(ERoomLoaded::Manager);
 	}
-	URogueRoomSubsystem* RoomSubsystem =  GetWorld()->GetSubsystem<URogueRoomSubsystem>();
-	RoomSubsystem->RoomLoadedCallback(ERoomLoaded::Manager);
+	
 }
 
 void ARogueRoom::BeginRoom()
@@ -86,6 +91,13 @@ void ARogueRoom::BeginRoom()
 	bHasRoomStarted = true;
 	ReceiveBeginRoom();
 	OnRoomBeginEvent.Broadcast();
+	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		for (ARogueCharacter* Character : GameMode->Characters)
+		{
+			Character->StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+		}
+	}
 }
 
 void ARogueRoom::EndRoom()

@@ -80,7 +80,7 @@ void ARogueGameMode::OnCharacterDeath()
 	}
 	if(NbDeadPlayers >= 3)
 	{
-		EndBattleRoom();
+		ActiveRoom->EndRoom();
 	}
 }
 
@@ -88,8 +88,13 @@ void ARogueGameMode::OnRoomLoaded()
 {
 	if(!bIsFirstRoomLoaded)
 	{
+		bIsFirstRoomLoaded = true;
 		StartLobbyRoom();
 	}
+}
+
+void ARogueGameMode::GameEnd() {
+	ReceiveGameEnd();
 }
 
 void ARogueGameMode::LastRoomLoaded() {
