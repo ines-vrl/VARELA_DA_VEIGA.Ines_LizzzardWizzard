@@ -7,6 +7,8 @@
 #include "RogueCharacterStateStun.generated.h"
 
 
+class UAkAudioEvent;
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROGUEBOYARD_API URogueCharacterStateStun : public URogueCharacterState
 {
@@ -20,8 +22,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Paralysis(float ParalysisTime);
 
-		UPROPERTY(EditAnywhere)
-    	TObjectPtr<UAnimMontage> StunMontage;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAnimMontage> StunMontage;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UAkAudioEvent> VoiceEvent;
 
 private:
 	float ParalTime;
