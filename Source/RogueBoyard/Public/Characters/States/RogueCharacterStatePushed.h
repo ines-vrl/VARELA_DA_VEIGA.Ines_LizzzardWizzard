@@ -18,7 +18,7 @@ public:
 	virtual void StateTick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimationAsset> PushedMontage;
+	TObjectPtr<UAnimMontage> PushedMontage;
 
 private:
 	FHitResult HitResult;

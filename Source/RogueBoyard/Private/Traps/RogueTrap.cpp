@@ -46,6 +46,12 @@ void ARogueTrap::Tick(float DeltaTime)
 	RotateTrap(DeltaTime);
 }
 
+void ARogueTrap::ActiveTrap()
+{
+	isActivated = true;
+	ReceiveActiveTrap();
+}
+
 void ARogueTrap::RotateTrap(float DeltaTime)
 {
 	if (bCanRotate)
