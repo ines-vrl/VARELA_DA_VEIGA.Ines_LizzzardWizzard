@@ -70,7 +70,7 @@ void ARogueGameMode::GiveRoomRewards(TArray<ARogueCharacter*> Winners) {
 
 void ARogueGameMode::OnCharacterDeath()
 {
-
+	int NbDeadPlayers = 0;
 	for (const ARogueCharacter* Character : Characters)
 	{
 		if( Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Dead)

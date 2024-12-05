@@ -62,7 +62,7 @@ public:
 	bool bIsLastRoom = false;
 	
 private:
-	int NbDeadPlayers = 0;
+
 	bool bIsFirstRoomLoaded = false;
 	
 	virtual void InitPlayers();
