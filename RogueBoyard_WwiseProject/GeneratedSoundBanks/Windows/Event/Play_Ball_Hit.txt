@@ -1,3 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	1514399455	Play_Ball_Hit			\Default Work Unit\Items\Ball\Play_Ball_Hit	
-

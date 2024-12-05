@@ -6,6 +6,7 @@
 ARogueGrimoireLobby::ARogueGrimoireLobby()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	GrimoireSpawnPoint = CreateDefaultSubobject<USceneComponent>("GrimoireSpawnPoint");
 }
 
 void ARogueGrimoireLobby::BeginPlay()
@@ -20,6 +21,7 @@ void ARogueGrimoireLobby::Tick(float DeltaTime)
 
 void ARogueGrimoireLobby::BeginRoom()
 {
+	Grimoire->SetActorLocation(GrimoireSpawnPoint->GetComponentLocation());
 	Super::BeginRoom();
 }
 

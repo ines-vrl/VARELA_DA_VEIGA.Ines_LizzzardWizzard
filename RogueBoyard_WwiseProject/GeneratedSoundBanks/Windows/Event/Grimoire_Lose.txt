@@ -1,3 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	3660042237	Grimoire_Lose			\Default Work Unit\Interactables\Grimoire_Lose	
-

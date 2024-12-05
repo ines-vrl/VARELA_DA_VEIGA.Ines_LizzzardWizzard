@@ -7,8 +7,6 @@
 #include "RogueCharacterStatePushed.generated.h"
 
 
-class UAkAudioEvent;
-
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROGUEBOYARD_API URogueCharacterStatePushed : public URogueCharacterState
 {
@@ -21,9 +19,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimMontage> PushedMontage;
-
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAkAudioEvent> VoiceEvent;
 
 private:
 	FHitResult HitResult;

@@ -1,3 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	2348088332	Play_Despawn			\Default Work Unit\Player\Play_Despawn	
-

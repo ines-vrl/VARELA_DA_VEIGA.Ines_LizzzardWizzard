@@ -29,12 +29,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	bool bGrounded = true;
-
-	UFUNCTION(BlueprintCallable)
-	void Init();
-
-	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="Init"))
-	void ReceiveInit();
 	
 protected:
 	virtual void BeginPlay() override;

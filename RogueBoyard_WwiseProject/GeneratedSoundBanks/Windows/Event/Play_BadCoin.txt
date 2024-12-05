@@ -1,3 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	2678795488	Play_BadCoin			\Default Work Unit\Traps\BadCoin\Play_BadCoin	
-

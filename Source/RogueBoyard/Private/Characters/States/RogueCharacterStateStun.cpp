@@ -2,7 +2,7 @@
 
 
 #include "Characters/States/RogueCharacterStateStun.h"
-#include "AkGameplayStatics.h"
+
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateMachine.h"
 
@@ -16,13 +16,6 @@ void URogueCharacterStateStun::StateEnter(ERogueCharacterStateID PreviousStateID
 {
 	Super::StateEnter(PreviousStateID);
 	Character->PlayAnimMontage(StunMontage, true);
-	const FOnAkPostEventCallback NullCallBack;
-	UAkGameplayStatics::PostEvent(
-		VoiceEvent,
-		nullptr,
-		0,
-		NullCallBack,
-		false);
 }
 
 void URogueCharacterStateStun::StateExit(ERogueCharacterStateID NextStateID)
