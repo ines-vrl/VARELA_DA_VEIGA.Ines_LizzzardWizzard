@@ -40,6 +40,9 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName = "OnDie"))
+	void ReceiveDie();
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="Enemy|SearchMovement")
 	EEnemyType EnemyType = EEnemyType::Kill;
@@ -55,6 +58,9 @@ public:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Enemy")
 	float MoveSpeed = 1;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Enemy")
+	int nCoins = 1;
 	
 
 private :
