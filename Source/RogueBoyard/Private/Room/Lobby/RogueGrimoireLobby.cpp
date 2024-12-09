@@ -23,6 +23,7 @@ void ARogueGrimoireLobby::BeginRoom()
 {
 	Super::BeginRoom();
 	Grimoire->LastInputPos = Grimoire->GetActorLocation();
+	Grimoire->DefaultPos = Grimoire->GetActorLocation();
 }
 
 void ARogueGrimoireLobby::EndRoom()

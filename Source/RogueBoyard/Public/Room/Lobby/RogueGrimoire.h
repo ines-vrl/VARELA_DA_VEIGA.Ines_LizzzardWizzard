@@ -36,6 +36,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="Init"))
 	void ReceiveInit();
 	FVector LastInputPos;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    FVector DefaultPos;
 	
 protected:
 	virtual void BeginPlay() override;
