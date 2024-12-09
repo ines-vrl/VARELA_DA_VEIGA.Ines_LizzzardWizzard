@@ -9,7 +9,11 @@ public class RogueBoyard : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "LocalMultiplayer", "DeveloperSettings", "ProceduralMeshComponent",  "AkAudio" });
+=======
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "LocalMultiplayer", "DeveloperSettings", "LevelEditor", "ProceduralMeshComponent", "UnrealEd", "AkAudio" });
+>>>>>>> parent of 181a4d06 (OUUUUUUUUUUUUUUAIIIIIIIIIIS LE COMMIT QUI FACHE POUR BUILD OUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUAIIIIIIIIIIIIIIIIIIIIIIIIS)
 =======
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "LocalMultiplayer", "DeveloperSettings", "LevelEditor", "ProceduralMeshComponent", "UnrealEd", "AkAudio" });
 >>>>>>> parent of 181a4d06 (OUUUUUUUUUUUUUUAIIIIIIIIIIS LE COMMIT QUI FACHE POUR BUILD OUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUAIIIIIIIIIIIIIIIIIIIIIIIIS)
