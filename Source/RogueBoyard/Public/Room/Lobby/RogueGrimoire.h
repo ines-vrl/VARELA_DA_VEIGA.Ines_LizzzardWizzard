@@ -35,6 +35,10 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="Init"))
 	void ReceiveInit();
+	FVector LastInputPos;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    FVector DefaultPos;
 	
 protected:
 	virtual void BeginPlay() override;
@@ -55,7 +59,7 @@ private:
 
 	FVector Velocity;
 
-	FVector LastInputPos;
+	
 	float K1, K2, K3;
 	void ComputeConstants();
 };
