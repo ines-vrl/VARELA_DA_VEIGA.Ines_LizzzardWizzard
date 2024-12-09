@@ -8,6 +8,14 @@
 #include "GameFramework/Actor.h"
 #include "Enemy.generated.h"
 
+UENUM(BlueprintType, Blueprintable)
+enum class EEnemyType : uint8
+{
+	None = 0,
+	Kill,
+	Stun,
+	Push
+};
 UCLASS()
 class ROGUEBOYARD_API AEnemy : public AActor
 {
@@ -21,33 +29,40 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere,Blueprintable, Category="Enemy")
-	float PushForce;
-	
-	UPROPERTY(EditAnywhere,Blueprintable, Category = "Enemy")
-	int LifeSpan;
-
-	UPROPERTY(EditAnywhere,Blueprintable, Category = "Enemy")
-	float MoveSpeed = 1;
-
 	UPROPERTY(EditAnywhere,Blueprintable, Category="Enemy|SearchMovement")
 	float MoveAmplitudeX = 500.0f;
 
 	UPROPERTY(EditAnywhere,Blueprintable, Category="Enemy|SearchMovement")
 	float MoveAmplitudeY = 300.0f;
 
-	UPROPERTY(EditAnywhere,Blueprintable, Category="Enemy|SearchMovement")
-	float SearchMoveSpeed = 2.0f;
+
 
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="Enemy|SearchMovement")
+	EEnemyType EnemyType = EEnemyType::Kill;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="Enemy|SearchMovement")
+	float SearchMoveSpeed = 2.0f;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="Enemy")
+	float PushForce;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Enemy")
+	int LifeSpan;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Enemy")
+	float MoveSpeed = 1;
 	
 
 private :
 	UFUNCTION(BlueprintCallable)
-	void Push(TArray<AActor*> Actors);
+	void Push(TArray<AActor*> Players);
+	
+	UFUNCTION(BlueprintCallable)
+	void Kill(ARogueCharacter* Character);
 
 	UFUNCTION(BlueprintCallable)
 	void SearchMovement(float DeltaTime);
