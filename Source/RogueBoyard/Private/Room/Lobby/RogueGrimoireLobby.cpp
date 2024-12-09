@@ -22,6 +22,7 @@ void ARogueGrimoireLobby::Tick(float DeltaTime)
 void ARogueGrimoireLobby::BeginRoom()
 {
 	Super::BeginRoom();
+	Grimoire->LastInputPos = Grimoire->GetActorLocation();
 }
 
 void ARogueGrimoireLobby::EndRoom()
