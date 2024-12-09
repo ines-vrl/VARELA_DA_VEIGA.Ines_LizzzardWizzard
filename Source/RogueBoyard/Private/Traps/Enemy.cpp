@@ -21,7 +21,7 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	InitialPosition = GetActorLocation();
-	SetLifeSpan(LifeSpan);
+	SetLifeSpan(LifeSpanDUEUHSPECTRE);
 }
 
 // Called every frame
