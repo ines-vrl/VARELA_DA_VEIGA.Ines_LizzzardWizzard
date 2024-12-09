@@ -48,6 +48,7 @@ void ARogueRoom::RoomEnter()
 	{
 		GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "EnterDoor Not Set");
 	}
+	
 	DEBUG("Room Entered");
 	ReceiveRoomEnter();
 	OnRoomEnterEvent.Broadcast();

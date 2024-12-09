@@ -1,6 +1,7 @@
 ﻿#include "Room/Lobby/RogueGrimoireLobby.h"
 
 #include "Characters/RogueCharacter.h"
+#include "Core/RogueGameMode.h"
 #include "Room/Lobby/RogueGrimoire.h"
 
 ARogueGrimoireLobby::ARogueGrimoireLobby()
@@ -26,6 +27,10 @@ void ARogueGrimoireLobby::BeginRoom()
 void ARogueGrimoireLobby::EndRoom()
 {
 	ChosenPlayer = 	Grimoire->GetCurrentOwner()->PlayerIndex;
+	if(!ChosenPlayer)
+	{
+		ChosenPlayer = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->GetRandomCharacter()->PlayerIndex;
+	}
 
 	Super::EndRoom();
 }

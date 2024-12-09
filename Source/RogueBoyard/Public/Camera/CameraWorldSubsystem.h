@@ -55,10 +55,20 @@ class ROGUEBOYARD_API UCameraWorldSubsystem : public UTickableWorldSubsystem
 	TObjectPtr<ACameraActor> CameraZoomMax;
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<ACameraActor> CameraZoomMin;
+
+	TObjectPtr<UDynamicCameraComponent> CurrentCameraComp;
+
+	FVector TargetLocation;
+	FRotator x, xp, xd, y , yd;
+	float xV, xpV, xdV, yV , ydV;
+	float k1, k2, k3;
+	
+	void SecondOrderDynamics();
 	
 	float CameraDist;
 	float DeltaRotationY, DeltaRotationZ;
 	FRotator DefaultRotator;
+	FVector DefaultTranslation;
 	bool noDynamic = false;
 	bool noZoom = false;
 	
