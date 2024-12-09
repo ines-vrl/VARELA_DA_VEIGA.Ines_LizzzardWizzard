@@ -54,7 +54,7 @@ public:
 	float PushForce;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Enemy")
-	int LifeSpan;
+	int LifeSpanDUEUHSPECTRE;
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Enemy")
 	float MoveSpeed = 1;
