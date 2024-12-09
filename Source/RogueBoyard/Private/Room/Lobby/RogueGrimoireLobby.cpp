@@ -28,12 +28,14 @@ void ARogueGrimoireLobby::BeginRoom()
 
 void ARogueGrimoireLobby::EndRoom()
 {
-	ChosenPlayer = 	Grimoire->GetCurrentOwner()->PlayerIndex;
-	if(!ChosenPlayer)
+	if(!Grimoire->GetCurrentOwner())
 	{
 		ChosenPlayer = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->GetRandomCharacter()->PlayerIndex;
 	}
-
+	else
+	{
+		ChosenPlayer = 	Grimoire->GetCurrentOwner()->PlayerIndex;
+	}
 	Super::EndRoom();
 }
 
