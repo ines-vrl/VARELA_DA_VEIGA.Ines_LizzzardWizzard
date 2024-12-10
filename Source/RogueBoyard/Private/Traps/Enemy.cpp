@@ -2,6 +2,10 @@
 
 
 #include "Traps/Enemy.h"
+
+#include "K2Node_SpawnActorFromClass.h"
+#include "Characters/RogueCharacter.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 
 
@@ -17,7 +21,7 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	InitialPosition = GetActorLocation();
-	SetLifeSpan(LifeSpan);
+	SetLifeSpan(LifeSpanDUEUHSPECTRE);
 }
 
 // Called every frame
@@ -26,15 +30,20 @@ void AEnemy::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AEnemy::Push(TArray<AActor*> Actors)
+void AEnemy::Push(TArray<AActor*> Players)
 {
-	for (AActor* Actor : Actors)
+	for (AActor* Player : Players)
 	{
-		FVector Dir = Actor->GetActorLocation() - GetActorLocation();
+		FVector Dir = Player->GetActorLocation() - GetActorLocation();
 		Dir.Normalize();
-		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
+		UPushableComponent* pushComp = Cast<UPushableComponent>(Player->GetComponentByClass(UPushableComponent::StaticClass()));
 		if(pushComp != nullptr) pushComp->Push(Dir, PushForce);
 	}
+}
+
+void AEnemy::Kill(ARogueCharacter* Character)
+{
+	Character->TakeDamage(1000);
 }
 
 void AEnemy::SearchMovement(float DeltaTime)
@@ -49,11 +58,12 @@ void AEnemy::SearchMovement(float DeltaTime)
 
 void AEnemy::MoveToPlayer(AActor* Player,float DeltaTime)
 {
+	CurrentTime += DeltaTime;
 	FVector CurrentLocation = GetActorLocation();
 	FVector TargetLocation = Player->GetActorLocation();
 	FVector Direction = TargetLocation - CurrentLocation;
 	Direction.Normalize();
-	FVector NewLocation = CurrentLocation + Direction * MoveSpeed * DeltaTime;
+	FVector NewLocation = CurrentLocation + Direction * MoveSpeed * CurrentTime;
 	SetActorRotation(UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), FVector(NewLocation.X,NewLocation.Y,GetActorLocation().Z)));
 	SetActorLocation(FVector(NewLocation.X,NewLocation.Y,GetActorLocation().Z));
 }
