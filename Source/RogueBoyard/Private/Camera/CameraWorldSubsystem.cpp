@@ -62,6 +62,7 @@ void UCameraWorldSubsystem::SetCamera(ACameraActor* NewCamera,ACameraActor* Came
 	if(NewCamera == nullptr) return;
 	CurrentCamera = NewCamera;
 	DefaultRotator = CurrentCamera->GetActorRotation();
+	y = DefaultRotator;
 	DefaultTranslation = CurrentCamera->GetActorLocation();
 	CurrentCameraComp = NewCamera->FindComponentByClass<UDynamicCameraComponent>();
 	if(CurrentCameraComp == nullptr)
@@ -106,7 +107,7 @@ void UCameraWorldSubsystem::TickUpdateCameraPosition(float DeltaTime)
 	xd.Roll /= DeltaTime;
 	xd.Yaw /= DeltaTime;
 	xp = x;
-	y = CurrentCamera->GetActorRotation() + (DeltaTime * yd);
+	y += (DeltaTime * yd);
 	y.Roll =roll;
 	CurrentCamera->SetActorRotation(FRotator(FMath::Clamp(y.Pitch,
 	DefaultRotator.Pitch - CurrentCameraComp->DeltaRotationYZ.X,
@@ -116,7 +117,8 @@ void UCameraWorldSubsystem::TickUpdateCameraPosition(float DeltaTime)
 		DefaultRotator.Yaw + CurrentCameraComp->DeltaRotationYZ.Y ),
 	y.Roll
 		));
-	yd = yd + DeltaTime * (x + k3 * xd - y - k1 * yd)* (1/k2);
+	float betterK2 = FMath::Max(k2, 1.1f * (DeltaTime * DeltaTime / 4 + DeltaTime * k1 / 2));
+	yd = yd + DeltaTime * (x + k3 * xd - y - k1 * yd)* (1/betterK2);
 }
 
 void UCameraWorldSubsystem::TickUpdateCameraZoom(float DeltaTime)

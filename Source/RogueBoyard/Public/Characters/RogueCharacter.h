@@ -64,6 +64,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void Resurrect();
+
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="Resurrect"))
+	void ReceiveResurrect();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int LivesMAX = 3;

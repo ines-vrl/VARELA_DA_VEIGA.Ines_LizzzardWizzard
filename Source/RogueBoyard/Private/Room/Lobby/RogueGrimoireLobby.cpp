@@ -22,16 +22,20 @@ void ARogueGrimoireLobby::Tick(float DeltaTime)
 void ARogueGrimoireLobby::BeginRoom()
 {
 	Super::BeginRoom();
+	Grimoire->LastInputPos = Grimoire->GetActorLocation();
+	Grimoire->DefaultPos = Grimoire->GetActorLocation();
 }
 
 void ARogueGrimoireLobby::EndRoom()
 {
-	ChosenPlayer = 	Grimoire->GetCurrentOwner()->PlayerIndex;
-	if(!ChosenPlayer)
+	if(!Grimoire->GetCurrentOwner())
 	{
 		ChosenPlayer = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->GetRandomCharacter()->PlayerIndex;
 	}
-
+	else
+	{
+		ChosenPlayer = 	Grimoire->GetCurrentOwner()->PlayerIndex;
+	}
 	Super::EndRoom();
 }
 

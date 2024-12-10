@@ -7,6 +7,7 @@
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateMachine.h"
 #include "Camera/CameraActor.h"
+#include "Traps/Enemy.h"
 
 
 ERogueCharacterStateID URogueCharacterStatePushing::GetStateID()
@@ -122,6 +123,11 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
     }	
 	for (AActor* Actor : Actors)
 	{
+		AEnemy* Enemy = Cast<AEnemy>(Actor);
+		if(Enemy)
+		{
+			Enemy->ReceiveDie();
+		}
 		if(Cast<ARogueCharacter>(Actor) == this->Character) continue;
 		FVector Dir = Actor->GetActorLocation() - Character->GetActorLocation();
 		Dir.Normalize();
