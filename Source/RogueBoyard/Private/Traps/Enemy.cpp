@@ -2,8 +2,6 @@
 
 
 #include "Traps/Enemy.h"
-
-#include "K2Node_SpawnActorFromClass.h"
 #include "Characters/RogueCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"

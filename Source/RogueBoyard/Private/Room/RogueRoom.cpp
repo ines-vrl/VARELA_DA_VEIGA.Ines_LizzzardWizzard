@@ -103,6 +103,13 @@ void ARogueRoom::BeginRoom()
 
 void ARogueRoom::EndRoom()
 {
+	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		for (ARogueCharacter* Character : GameMode->Characters)
+		{
+			Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
+		}
+	}
 	if (ExitDoor)
 	{
 		ExitDoor->Open();
