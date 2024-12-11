@@ -35,6 +35,8 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	ARogueVoteZone* VoteZone;
+
+	bool bHasVoted = false;
 	
 	UFUNCTION()
 	void PlayerEnteredVoteZone();
