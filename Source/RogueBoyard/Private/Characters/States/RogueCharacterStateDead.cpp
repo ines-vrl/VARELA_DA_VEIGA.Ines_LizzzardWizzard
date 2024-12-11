@@ -17,7 +17,7 @@ void URogueCharacterStateDead::StateEnter(ERogueCharacterStateID PreviousStateID
 {
 	Super::StateEnter(PreviousStateID);
 	GetWorld()->GetSubsystem<UCameraWorldSubsystem>()->RemoveFollowTarget(Character);
-	Character->PlayAnimMontage(DeadMontage, false);
+	Character->PlayAnimMontage(DeadMontage);
 	if(ResurectMontage) ResurectAnimTimeRemaining = ResurectMontage->GetPlayLength();
 	Character->OnCharacterDeathEvent.Broadcast();
 }

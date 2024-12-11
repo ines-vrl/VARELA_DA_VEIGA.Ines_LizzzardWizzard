@@ -73,6 +73,7 @@ void ARogueCharacter::TakeDamage(int Damage)
 void ARogueCharacter::Resurrect() {
 	if(StateMachine->CurrentStateID == ERogueCharacterStateID::Dead) {
 		StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+		ReceiveResurrect();
 	}
 }
 
