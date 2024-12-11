@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "RogueBoyard/Private/Characters/RogueCharacterState.h"
-#include "RogueCharacterStateRun.generated.h"
+#include "Characters/RogueCharacterState.h"
+#include "RogueCharacterStateInteract.generated.h"
 
 
-UCLASS(ClassGroup=(RogueCharacterState), meta=(BlueprintSpawnableComponent))
-class ROGUEBOYARD_API URogueCharacterStateRun : public URogueCharacterState
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+class ROGUEBOYARD_API URogueCharacterStateInteract : public URogueCharacterState
 {
 	GENERATED_BODY()
 
@@ -17,15 +17,12 @@ public:
 	virtual void StateEnter(ERogueCharacterStateID PreviousStateID) override;
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
-
-	virtual void Movement(float X, float Y) override;
-	virtual bool Dash(float X, float Y) override;
 	virtual TArray<AActor*> Interact() override;
-	virtual void Push() override;
-
+	
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimMontage> RunMontage;
+	TObjectPtr<UAnimMontage> InteractMontage;
 
-private:
-	FHitResult HitResult;
+private:	
+	float InteractAnimTime;
+	bool bInteracted = false;
 };
