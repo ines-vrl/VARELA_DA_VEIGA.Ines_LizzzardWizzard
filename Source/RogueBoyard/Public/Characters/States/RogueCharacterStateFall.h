@@ -15,7 +15,6 @@ public:
 	virtual ERogueCharacterStateID GetStateID() override;
 	virtual void StateEnter(ERogueCharacterStateID PreviousStateID) override;
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
-	virtual void StateTick(float DeltaTime) override;
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimMontage> FallMontage;
 
