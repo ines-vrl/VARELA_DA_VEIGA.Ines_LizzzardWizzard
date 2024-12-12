@@ -17,6 +17,7 @@ public:
 	virtual void StateEnter(ERogueCharacterStateID PreviousStateID) override;
 	virtual void StateExit(ERogueCharacterStateID NextStateID) override;
 	virtual void StateTick(float DeltaTime) override;
+	virtual void Push() override;
 	virtual TArray<AActor*> Interact() override;
 	
 	UPROPERTY(EditAnywhere)

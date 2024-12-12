@@ -46,6 +46,11 @@ void URogueCharacterStateInteract::StateTick(float DeltaTime)
 	}
 }
 
+void URogueCharacterStateInteract::Push()
+{
+	Super::Push();
+}
+
 TArray<AActor*> URogueCharacterStateInteract::Interact()
 {
 	Super::Interact();
