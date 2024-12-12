@@ -6,7 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "LocalMultiplayerSubSystem.generated.h"
 
-enum class ELocalMultiplayerInputMappingType;
+enum class ELocalMultiplayerInputMappingType : uint8;
 /**
  * 
  */
@@ -14,8 +14,16 @@ UCLASS()
 class LOCALMULTIPLAYER_API ULocalMultiplayerSubSystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnNewPlayerJoined, int, PlayerIndex);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnAllPlayersJoined);
+public:
 
-	public:
+	UPROPERTY(BlueprintAssignable)
+	FOnNewPlayerJoined OnNewPlayerJoinedEvent;
+	UPROPERTY(BlueprintAssignable)
+	FOnAllPlayersJoined OnAllPlayersJoined;
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsInMenuSelection = false;
 	UFUNCTION(BlueprintCallable)
 	void CreateAndInitPlayers(ELocalMultiplayerInputMappingType MappingType);
 
