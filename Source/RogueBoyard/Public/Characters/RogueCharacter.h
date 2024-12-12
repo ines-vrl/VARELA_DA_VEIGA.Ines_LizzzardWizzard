@@ -86,6 +86,8 @@ private:
 #pragma endregion
 #pragma region Camera
 public:
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="InvincibilityAfterParalysis"))
+	void ReceiveInvincibilityAfterParalysis();
 	UFUNCTION(BlueprintCallable)
 	ACameraActor* GetCamera();
 	UFUNCTION(BlueprintCallable)

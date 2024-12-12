@@ -15,6 +15,7 @@ ERogueCharacterStateID URogueCharacterStateStun::GetStateID()
 void URogueCharacterStateStun::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	if(bParalized) StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 	Character->PlayAnimMontage(StunMontage, true);
 	const FOnAkPostEventCallback NullCallBack;
 	UAkGameplayStatics::PostEvent(
@@ -28,6 +29,7 @@ void URogueCharacterStateStun::StateEnter(ERogueCharacterStateID PreviousStateID
 void URogueCharacterStateStun::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+	Character->ReceiveInvincibilityAfterParalysis();
 }
 
 void URogueCharacterStateStun::StateTick(float DeltaTime)
@@ -52,5 +54,9 @@ void URogueCharacterStateStun::StateTick(float DeltaTime)
 
 void URogueCharacterStateStun::Paralysis(float ParalysisTime)
 {
-	ParalTime = ParalysisTime;
+	if(!bParalized)
+	{
+		ParalTime = ParalysisTime;
+		bParalized = true;
+	}
 }
