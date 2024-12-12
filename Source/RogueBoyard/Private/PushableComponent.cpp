@@ -59,6 +59,7 @@ void UPushableComponent::Push(FVector Dir, float Force)
 				Character->LaunchCharacter(Impulse, false, false);
 				GEngine->AddOnScreenDebugMessage(1,5.0f, FColor::Red,
 					"Pushed");
+			if(Character->StateMachine->CurrentStateID != ERogueCharacterStateID::Dead && Character->StateMachine->CurrentStateID != ERogueCharacterStateID::Pushed)
 				Character->StateMachine->ChangeState(ERogueCharacterStateID::Pushed);
 		}
 

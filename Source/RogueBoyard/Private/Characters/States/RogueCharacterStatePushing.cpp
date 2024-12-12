@@ -18,6 +18,7 @@ ERogueCharacterStateID URogueCharacterStatePushing::GetStateID()
 void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	UE_LOG(LogTemp, Warning, TEXT("Enter Pushing"));
 	bPushing = true;
 	if(Character->StateMachine->Sticks.Length() != 0)
 	{
@@ -43,6 +44,7 @@ void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
 	bPushing = false;
 	bCharging = false;
 	bPushed = false;
+	UE_LOG(LogTemp, Warning, TEXT("Exit Pushing"));
 }
 
 void URogueCharacterStatePushing::StateTick(float DeltaTime)
