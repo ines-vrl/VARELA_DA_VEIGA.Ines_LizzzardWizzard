@@ -29,7 +29,9 @@ void URogueCharacterStateStun::StateEnter(ERogueCharacterStateID PreviousStateID
 void URogueCharacterStateStun::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+	ParalTime = 0;
 	Character->ReceiveInvincibilityAfterParalysis();
+	UE_LOG(LogTemp, Warning, TEXT("Stun EXit"));
 }
 
 void URogueCharacterStateStun::StateTick(float DeltaTime)
