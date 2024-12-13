@@ -29,7 +29,6 @@ void URogueCharacterStateDash::StateEnter(ERogueCharacterStateID PreviousStateID
 	DirPushBall = Dir * ForcePushBall;
 	if(Capsule != nullptr) Capsule->OnComponentBeginOverlap.AddDynamic(this, &URogueCharacterStateDash::OverlapBegin);
 	//Character->GetMesh()->PlayAnimation(DashMontage, false);
-	if(DashMontage) DashAnimTimeRemaining = DashMontage->GetPlayLength();
 }
 
 void URogueCharacterStateDash::StateExit(ERogueCharacterStateID NextStateID)

@@ -39,7 +39,7 @@ void ABallon::MovingOnSin()
 		Rotator.Pitch = 0.0f;
 		Rotator.Roll = 0.0f;
 		UStaticMeshComponent* StaticMesh = Cast<UStaticMeshComponent>(GetComponentByClass(UStaticMeshComponent::StaticClass()));
-		if(StaticMesh) StaticMesh->SetRelativeRotation(Rotator);
+		if(StaticMesh != nullptr) StaticMesh->SetRelativeRotation(Rotator);
 	}
 	
 	SetActorLocation(Floating, true); 
