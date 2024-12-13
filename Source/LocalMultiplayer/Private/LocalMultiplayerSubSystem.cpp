@@ -40,7 +40,9 @@ int ULocalMultiplayerSubSystem::AssignNewPlayerToKeyboardProfile(int KeyboardPro
 	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red,
 	//	"lol" + FString::SanitizeFloat(LastAssignedPlayerIndex));
 	PlayerIndexFromKeyboardProfileIndex.Add(KeyboardProfileIndex, LastAssignedPlayerIndex);
-
+	
+	OnNewPlayerJoinedEvent.Broadcast(LastAssignedPlayerIndex);
+	if(LastAssignedPlayerIndex == 3) OnAllPlayersJoined.Broadcast(); 
 	return LastAssignedPlayerIndex;
 }
 
@@ -90,6 +92,8 @@ int ULocalMultiplayerSubSystem::AssignNewPlayerToGamepadDeviceID(int DeviceID)
 	//FColor::Yellow,
 	//FString::Printf(TEXT("Index: %i"),LastAssignedPlayerIndex));
 	PlayerIndexFromGamepadProfileIndex.Add(DeviceID, LastAssignedPlayerIndex);
+	OnNewPlayerJoinedEvent.Broadcast(LastAssignedPlayerIndex);
+	if(LastAssignedPlayerIndex == 3) OnAllPlayersJoined.Broadcast(); 
 	return LastAssignedPlayerIndex;
 }
 
