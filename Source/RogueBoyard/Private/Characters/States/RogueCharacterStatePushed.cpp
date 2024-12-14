@@ -30,6 +30,8 @@ void URogueCharacterStatePushed::StateEnter(ERogueCharacterStateID PreviousState
 void URogueCharacterStatePushed::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+	GEngine->AddOnScreenDebugMessage(
+		-1, 3.0f, FColor::Red, TEXT("Exit Pushed"));
 }
 
 void URogueCharacterStatePushed::StateTick(float DeltaTime)
