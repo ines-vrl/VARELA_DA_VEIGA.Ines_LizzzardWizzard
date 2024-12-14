@@ -18,11 +18,11 @@ ERogueCharacterStateID URogueCharacterStateIdle::GetStateID()
 void URogueCharacterStateIdle::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	//GEngine->AddOnScreenDebugMessage(
-	//-1,
-	//2.f,
-	//FColor::Green,
-	//TEXT("Enter Idle"));
+	GEngine->AddOnScreenDebugMessage(
+	-1,
+	2.f,
+	FColor::Green,
+	TEXT("Enter Idle"));
 	float playRate = FMath::RandRange(0.8f, 1.2f);
 	Character->PlayAnimMontage(IdleMontage, playRate);
 }
