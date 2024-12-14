@@ -105,6 +105,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UnPossessCharacter(ARogueRoomPawn* Room);
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
+	void CancelPushing_Implementation();
+
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;
 	
