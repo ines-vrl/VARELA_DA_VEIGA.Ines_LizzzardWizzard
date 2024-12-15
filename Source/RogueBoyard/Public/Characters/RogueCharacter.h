@@ -86,6 +86,8 @@ private:
 #pragma endregion
 #pragma region Camera
 public:
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="InvincibilityAfterParalysis"))
+	void ReceiveInvincibilityAfterParalysis();
 	UFUNCTION(BlueprintCallable)
 	ACameraActor* GetCamera();
 	UFUNCTION(BlueprintCallable)
@@ -102,6 +104,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void UnPossessCharacter(ARogueRoomPawn* Room);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
+	void CancelPushing_Implementation();
 
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;

@@ -56,6 +56,7 @@ public:
 	bool bPushing;
 	
 private:
+	bool bCanpush = true;
 	float StartAnimTimeRemaining;
 	bool bCharging = false;
 	bool bPushed = false;

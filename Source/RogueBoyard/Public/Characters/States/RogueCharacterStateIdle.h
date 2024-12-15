@@ -26,10 +26,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimMontage> IdleMontage;
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<UAnimMontage> InteractMontage;
 
 private:
 	FHitResult HitResult;
-	float InteractAnimTime;
 };

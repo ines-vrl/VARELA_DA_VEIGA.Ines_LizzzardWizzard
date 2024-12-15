@@ -15,8 +15,9 @@ void ARogueVoteLobby::Tick(float DeltaTime)
 	{
 		ElapsedTime += DeltaTime;
 	}
-	if (ElapsedTime >= VoteTimer)
+	if (ElapsedTime >= VoteTimer && !bHasVoted)
 	{
+		bHasVoted = true;
 		EndRoom();		
 	}
 }
