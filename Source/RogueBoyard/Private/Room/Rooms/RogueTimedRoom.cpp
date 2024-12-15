@@ -23,9 +23,15 @@ void ARogueTimedRoom::BeginPlay()
 
 void ARogueTimedRoom::EndRoom()
 {
-	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
-		GameMode->EndBattleRoom();
-	}
+	if(MaxRoomTime <= 0) bLizardsHasWon = true;
+
 	Super::EndRoom();
+}
+
+void ARogueTimedRoom::RoomExit() {
+	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
+        GameMode->EndBattleRoom();
+    }
+	Super::RoomExit();
 }
 

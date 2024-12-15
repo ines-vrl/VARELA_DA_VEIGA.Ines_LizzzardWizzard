@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	int RoomRewards;
 
+	UPROPERTY(BlueprintReadOnly)
+	bool bLizardsHasWon = false;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ACameraActor* RoomCamera = nullptr;
 	
