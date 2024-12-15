@@ -76,6 +76,7 @@ void ARogueGameMode::OnCharacterDeath()
 		if( Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Dead)
 		{
 			NbDeadPlayers++;
+			UE_LOG(LogTemp, Warning, TEXT("DeadCharacter, total : %d"), NbDeadPlayers)
 		}
 	}
 	if(NbDeadPlayers >= 3)

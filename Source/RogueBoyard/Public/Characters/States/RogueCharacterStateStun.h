@@ -28,6 +28,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAkAudioEvent> VoiceEvent;
 
+	UPROPERTY(BlueprintreadWrite)
+	bool bParalized = false;
+
 private:
 	float ParalTime;
 };

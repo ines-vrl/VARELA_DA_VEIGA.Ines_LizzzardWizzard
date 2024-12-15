@@ -23,13 +23,12 @@ void URogueCharacterStateDash::StateEnter(ERogueCharacterStateID PreviousStateID
 	Sticks = StateMachine->Sticks;
 	Sticks.Y = -Sticks.Y;
 	FRotator CameraRotation = Character->GetCamera()->GetActorRotation();
-	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString::SanitizeFloat(CameraRotation.Yaw));
+	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, TEXT("Enter Dash"));
 	const FVector Dir = Sticks.RotateAngleAxis(CameraRotation.Yaw + 90, FVector::UpVector);
 	Character->LaunchCharacter(Dir * ForceImpulse, true, false);
 	DirPushBall = Dir * ForcePushBall;
 	if(Capsule != nullptr) Capsule->OnComponentBeginOverlap.AddDynamic(this, &URogueCharacterStateDash::OverlapBegin);
 	//Character->GetMesh()->PlayAnimation(DashMontage, false);
-	if(DashMontage) DashAnimTimeRemaining = DashMontage->GetPlayLength();
 }
 
 void URogueCharacterStateDash::StateExit(ERogueCharacterStateID NextStateID)

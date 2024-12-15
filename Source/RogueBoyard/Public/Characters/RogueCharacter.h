@@ -64,6 +64,9 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void Resurrect();
+
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="Resurrect"))
+	void ReceiveResurrect();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	int LivesMAX = 3;
@@ -83,6 +86,8 @@ private:
 #pragma endregion
 #pragma region Camera
 public:
+	UFUNCTION(BlueprintImplementableEvent, meta=(DisplayName="InvincibilityAfterParalysis"))
+	void ReceiveInvincibilityAfterParalysis();
 	UFUNCTION(BlueprintCallable)
 	ACameraActor* GetCamera();
 	UFUNCTION(BlueprintCallable)
@@ -100,11 +105,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UnPossessCharacter(ARogueRoomPawn* Room);
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
+	void CancelPushing_Implementation();
+
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;
 	
 	UPROPERTY(BlueprintReadOnly)
 	int PlayerIndex = -1;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsInBlackHole = false;
+	UPROPERTY(BlueprintReadWrite)
+	float buffInBlackHole;
 
 	bool operator==(const ARogueCharacter& other) const
 	{

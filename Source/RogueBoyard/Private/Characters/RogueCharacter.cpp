@@ -72,7 +72,9 @@ void ARogueCharacter::TakeDamage(int Damage)
 
 void ARogueCharacter::Resurrect() {
 	if(StateMachine->CurrentStateID == ERogueCharacterStateID::Dead) {
+		GetMesh()->SetVisibility(true);
 		StateMachine->ChangeState(ERogueCharacterStateID::Idle);
+		ReceiveResurrect();
 	}
 }
 

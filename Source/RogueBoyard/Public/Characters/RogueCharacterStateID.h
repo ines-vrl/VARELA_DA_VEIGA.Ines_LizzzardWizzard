@@ -16,5 +16,6 @@ enum class ERogueCharacterStateID : uint8
 	Fall,
 	Waiting,
 	Stun,
+	Interact,
 	Dead
 };

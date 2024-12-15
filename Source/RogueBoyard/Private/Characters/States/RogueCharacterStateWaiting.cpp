@@ -14,10 +14,13 @@ ERogueCharacterStateID URogueCharacterStateWaiting::GetStateID()
 void URogueCharacterStateWaiting::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	Character->PlayAnimMontage(IdleMontage);
+	UE_LOG(LogTemp, Warning, TEXT("Enter Waiting"));
 }
 
 void URogueCharacterStateWaiting::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+	UE_LOG(LogTemp, Warning, TEXT("Exit Waiting"));
 }
 

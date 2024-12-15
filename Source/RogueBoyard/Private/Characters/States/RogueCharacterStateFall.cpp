@@ -15,6 +15,7 @@ ERogueCharacterStateID URogueCharacterStateFall::GetStateID()
 void URogueCharacterStateFall::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, TEXT("Enter Fall"));
 	Character->PlayAnimMontage(FallMontage, true);
 	Character->GetMesh()->SetWorldRotation(FRotator(0, 0, -90));
 	GetWorld()->GetSubsystem<UCameraWorldSubsystem>()->RemoveFollowTarget(Character);

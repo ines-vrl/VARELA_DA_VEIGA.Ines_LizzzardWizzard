@@ -1,4 +1,4 @@
-﻿// Fill out your copyright notice in the Description page of Project Settings.
+﻿ // Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Characters/States/RogueCharacterStateStun.h"
@@ -15,6 +15,7 @@ ERogueCharacterStateID URogueCharacterStateStun::GetStateID()
 void URogueCharacterStateStun::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	if(bParalized) StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 	Character->PlayAnimMontage(StunMontage, true);
 	const FOnAkPostEventCallback NullCallBack;
 	UAkGameplayStatics::PostEvent(
@@ -28,6 +29,9 @@ void URogueCharacterStateStun::StateEnter(ERogueCharacterStateID PreviousStateID
 void URogueCharacterStateStun::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+	ParalTime = 0;
+	Character->ReceiveInvincibilityAfterParalysis();
+	UE_LOG(LogTemp, Warning, TEXT("Stun EXit"));
 }
 
 void URogueCharacterStateStun::StateTick(float DeltaTime)
@@ -52,5 +56,9 @@ void URogueCharacterStateStun::StateTick(float DeltaTime)
 
 void URogueCharacterStateStun::Paralysis(float ParalysisTime)
 {
-	ParalTime = ParalysisTime;
+	if(!bParalized)
+	{
+		ParalTime = ParalysisTime;
+		bParalized = true;
+	}
 }

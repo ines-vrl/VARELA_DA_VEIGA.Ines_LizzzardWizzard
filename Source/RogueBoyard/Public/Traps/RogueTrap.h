@@ -58,9 +58,16 @@ protected:
 	virtual void Trigger_Implementation(const FVector& InputAxis) override;
 	
 	FVector JoystickInputAxis;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool isActivated = false;
 	
 public:
 	virtual void Tick(float DeltaTime) override;
+	void ActiveTrap();
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Active Trap"))
+	void ReceiveActiveTrap();
 
 	UFUNCTION(BlueprintCallable)
 	virtual void Init();

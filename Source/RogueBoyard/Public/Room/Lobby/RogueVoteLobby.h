@@ -18,7 +18,16 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	
+	UPROPERTY(BlueprintReadOnly)
+	float ElapsedTime = 0.0f;
+	
+	UPROPERTY(BlueprintReadOnly)
+    bool bIsVoteActive = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float VoteTimer = 10.0f;
+	
 private:
 	
 	UPROPERTY(EditAnywhere)
@@ -26,17 +35,12 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	ARogueVoteZone* VoteZone;
-	
-	UPROPERTY(EditAnywhere)
-	float VoteTimer = 10.0f;
-	
-	float ElapsedTime = 0.0f;
 
+	bool bHasVoted = false;
+	
 	UFUNCTION()
 	void PlayerEnteredVoteZone();
 
 	UFUNCTION()
 	void AllPlayerExitVoteZone();
-
-	bool bIsVoteActive = false;
 };

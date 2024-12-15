@@ -48,6 +48,7 @@ void ARogueRoom::RoomEnter()
 	{
 		GEngine->AddOnScreenDebugMessage(1,1.0f,FColor::Red, "EnterDoor Not Set");
 	}
+	
 	DEBUG("Room Entered");
 	ReceiveRoomEnter();
 	OnRoomEnterEvent.Broadcast();
@@ -102,6 +103,13 @@ void ARogueRoom::BeginRoom()
 
 void ARogueRoom::EndRoom()
 {
+	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		for (ARogueCharacter* Character : GameMode->Characters)
+		{
+			Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
+		}
+	}
 	if (ExitDoor)
 	{
 		ExitDoor->Open();
