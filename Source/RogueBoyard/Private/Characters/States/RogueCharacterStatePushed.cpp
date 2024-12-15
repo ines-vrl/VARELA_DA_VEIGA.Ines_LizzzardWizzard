@@ -46,7 +46,7 @@ void URogueCharacterStatePushed::StateTick(float DeltaTime)
 		Velocity.X * 0.9f,
 		Velocity.Y * 0.9f,
 		Velocity.Z);
-		if((Velocity.X <= 50 && Velocity.X >= -50) && (Velocity.Y <= 50 && Velocity.Y >= -50))
+		if((Velocity.X <= 50 && Velocity.X >= -50) && (Velocity.Y <= 50 && Velocity.Y >= -50) && Velocity.Z < -200)
 		{
 			StateMachine->ChangeState(ERogueCharacterStateID::Fall);
 		}

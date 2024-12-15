@@ -9,8 +9,8 @@
 
 class UInputMappingContext;
 
-UENUM()
-enum class ELocalMultiplayerInputMappingType
+UENUM(Blueprintable)
+enum class ELocalMultiplayerInputMappingType : uint8
 {
 	InGame,
 	Menu

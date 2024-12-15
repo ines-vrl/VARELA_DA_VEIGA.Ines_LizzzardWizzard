@@ -2,6 +2,7 @@
 
 
 #include "LocalMultiplayerGameViewportClient.h"
+
 #include "LocalMultiplayerSettings.h"
 #include "LocalMultiplayerSubSystem.h"
 #include "GameFramework/PlayerInput.h"
@@ -24,10 +25,13 @@ bool ULocalMultiplayerGameViewportClient::InputKey(const FInputKeyEventArgs& Eve
         GEngine->AddOnScreenDebugMessage(1,5.0f, FColor::Red, "GamepadInput");
         if(Multiplayer->GetAssignedPlayerIndexFromGamepadDeviceID(EventArgs.InputDevice.GetId()) < 0)
         {
-            PlayerIndex = Multiplayer->AssignNewPlayerToGamepadDeviceID(EventArgs.InputDevice.GetId());
-            Multiplayer->AssignGamepadInputMapping(
-                PlayerIndex,
-                ELocalMultiplayerInputMappingType::InGame);
+        	if(Multiplayer->bIsInMenuSelection)
+        	{
+        		PlayerIndex = Multiplayer->AssignNewPlayerToGamepadDeviceID(EventArgs.InputDevice.GetId());
+        		Multiplayer->AssignGamepadInputMapping(
+					PlayerIndex,
+					ELocalMultiplayerInputMappingType::InGame);
+        	}
         }
         else
         {
@@ -42,11 +46,14 @@ bool ULocalMultiplayerGameViewportClient::InputKey(const FInputKeyEventArgs& Eve
             //GEngine->AddOnScreenDebugMessage(1, 0.5f, FColor::Red, "Key not assigned");
         } else if (Multiplayer->GetAssignedPlayerIndexFromKeyboardProfileIndex(KeyboardProfileIndex) < 0)
         {
-            PlayerIndex = Multiplayer->AssignNewPlayerToKeyboardProfile(KeyboardProfileIndex);
-            Multiplayer->AssignKeyboardMapping(
-                PlayerIndex,
-                KeyboardProfileIndex,
-                ELocalMultiplayerInputMappingType::InGame);
+        	if(Multiplayer->bIsInMenuSelection)
+        	{
+        		PlayerIndex = Multiplayer->AssignNewPlayerToKeyboardProfile(KeyboardProfileIndex);
+        		Multiplayer->AssignKeyboardMapping(
+					PlayerIndex,
+					KeyboardProfileIndex,
+					ELocalMultiplayerInputMappingType::InGame);
+        	}
         }
         else
         {
@@ -75,10 +82,13 @@ bool ULocalMultiplayerGameViewportClient::InputAxis(FViewport* InViewPort, FInpu
 
 		if(Multiplayer->GetAssignedPlayerIndexFromGamepadDeviceID(InputDevice.GetId()) < 0)
 		{
-			PlayerIndex = Multiplayer->AssignNewPlayerToGamepadDeviceID(InputDevice.GetId());
-			Multiplayer->AssignGamepadInputMapping(
-				PlayerIndex,
-				ELocalMultiplayerInputMappingType::InGame);
+			if(Multiplayer->bIsInMenuSelection)
+			{
+				PlayerIndex = Multiplayer->AssignNewPlayerToGamepadDeviceID(InputDevice.GetId());
+				Multiplayer->AssignGamepadInputMapping(
+					PlayerIndex,
+					ELocalMultiplayerInputMappingType::InGame);
+			}
 		}
 		else
 		{
@@ -93,11 +103,15 @@ bool ULocalMultiplayerGameViewportClient::InputAxis(FViewport* InViewPort, FInpu
 			//GEngine->AddOnScreenDebugMessage(1, 0.5f, FColor::Red, "Key not assigned");
 		} else if (Multiplayer->GetAssignedPlayerIndexFromKeyboardProfileIndex(KeyboardProfileIndex) < 0)
 		{
-			PlayerIndex = Multiplayer->AssignNewPlayerToKeyboardProfile(KeyboardProfileIndex);
-			Multiplayer->AssignKeyboardMapping(
-				PlayerIndex,
-				KeyboardProfileIndex,
-				ELocalMultiplayerInputMappingType::InGame);
+			if(Multiplayer->bIsInMenuSelection)
+			{
+				PlayerIndex = Multiplayer->AssignNewPlayerToKeyboardProfile(KeyboardProfileIndex);
+				Multiplayer->AssignKeyboardMapping(
+					PlayerIndex,
+					KeyboardProfileIndex,
+					ELocalMultiplayerInputMappingType::InGame);
+			}
+
 		}
 		else
 		{

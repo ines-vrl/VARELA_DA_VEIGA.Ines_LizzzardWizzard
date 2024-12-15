@@ -105,11 +105,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UnPossessCharacter(ARogueRoomPawn* Room);
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
+	void CancelPushing_Implementation();
+
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;
 	
 	UPROPERTY(BlueprintReadOnly)
 	int PlayerIndex = -1;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsInBlackHole = false;
+	UPROPERTY(BlueprintReadWrite)
+	float buffInBlackHole;
 
 	bool operator==(const ARogueCharacter& other) const
 	{

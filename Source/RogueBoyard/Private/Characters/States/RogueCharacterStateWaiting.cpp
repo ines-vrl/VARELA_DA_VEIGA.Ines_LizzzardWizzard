@@ -14,6 +14,7 @@ ERogueCharacterStateID URogueCharacterStateWaiting::GetStateID()
 void URogueCharacterStateWaiting::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
+	Character->PlayAnimMontage(IdleMontage);
 	UE_LOG(LogTemp, Warning, TEXT("Enter Waiting"));
 }
 

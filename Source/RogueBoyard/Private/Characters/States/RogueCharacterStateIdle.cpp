@@ -18,11 +18,11 @@ ERogueCharacterStateID URogueCharacterStateIdle::GetStateID()
 void URogueCharacterStateIdle::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
-	//GEngine->AddOnScreenDebugMessage(
-	//-1,
-	//2.f,
-	//FColor::Green,
-	//TEXT("Enter Idle"));
+	GEngine->AddOnScreenDebugMessage(
+	-1,
+	2.f,
+	FColor::Green,
+	TEXT("Enter Idle"));
 	float playRate = FMath::RandRange(0.8f, 1.2f);
 	Character->PlayAnimMontage(IdleMontage, playRate);
 }
@@ -43,7 +43,7 @@ void URogueCharacterStateIdle::StateTick(float DeltaTime)
 	Super::StateTick(DeltaTime);
 	FVector Pos = Character->GetActorLocation();
 	if(!GetWorld()->LineTraceSingleByChannel(HitResult, Pos,FVector(Pos.X,Pos.Y,-1000),
-	ECC_Visibility) && Character->GetCharacterMovement()->Velocity.Z < -100.f)
+	ECC_Visibility) && Character->GetCharacterMovement()->Velocity.Z < -200.f)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Z: %f"),Character->GetCharacterMovement()->Velocity.Z );
 		StateMachine->ChangeState(ERogueCharacterStateID::Fall);
