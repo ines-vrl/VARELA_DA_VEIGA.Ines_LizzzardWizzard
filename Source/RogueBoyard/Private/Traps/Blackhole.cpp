@@ -31,5 +31,5 @@ void ABlackhole::AttractPlayers(float Attraction, ARogueCharacter* Player)
 	Dir.Normalize();
 	UE_LOG(LogTemp, Warning, TEXT("Attraction: %f"), Dir * Attraction);
 	FMathf::Clamp(Attraction, 0, MAXAttractionForce);
-	Player->LaunchCharacter(Dir * Attraction, false, false);
+	Player->LaunchCharacter(FVector( Dir.X * Attraction, Dir.Y * Attraction, 0), false, false);
 }

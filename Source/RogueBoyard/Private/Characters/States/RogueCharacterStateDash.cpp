@@ -23,7 +23,7 @@ void URogueCharacterStateDash::StateEnter(ERogueCharacterStateID PreviousStateID
 	Sticks = StateMachine->Sticks;
 	Sticks.Y = -Sticks.Y;
 	FRotator CameraRotation = Character->GetCamera()->GetActorRotation();
-	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Red, FString::SanitizeFloat(CameraRotation.Yaw));
+	GEngine->AddOnScreenDebugMessage(1, 1.0f, FColor::Green, TEXT("Enter Dash"));
 	const FVector Dir = Sticks.RotateAngleAxis(CameraRotation.Yaw + 90, FVector::UpVector);
 	Character->LaunchCharacter(Dir * ForceImpulse, true, false);
 	DirPushBall = Dir * ForcePushBall;
