@@ -1517,7 +1517,7 @@
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-10</Value>
+										<Value>-13</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -1547,7 +1547,7 @@
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-10</Value>
+										<Value>-13</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -1581,6 +1581,13 @@
 								<Folder Name="Coins" ID="{9D977050-7441-4278-98A8-20659CED98F0}" ShortID="114430465">
 									<ChildrenList>
 										<Sound Name="SFX_Item_Coins_Buying" ID="{BBCB84D9-4AD0-4E7E-9FAD-6E06D9236CCB}" ShortID="617803533">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>2</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>

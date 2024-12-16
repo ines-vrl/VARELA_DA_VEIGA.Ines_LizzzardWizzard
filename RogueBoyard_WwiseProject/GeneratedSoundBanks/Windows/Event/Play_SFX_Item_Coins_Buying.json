@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{A18D1598-52AF-4886-ADFE-93E13178209F}",
     "Language": "SFX",
-    "Hash": "{552BDA0C-3202-074D-46FD-CE2F22F180B8}",
+    "Hash": "{04A5F2DB-05BA-C15D-B2F1-8D14F2B833AF}",
     "ObjectPath": "Play_SFX_Item_Coins_Buying",
     "ShortName": "Play_SFX_Item_Coins_Buying",
     "Path": "Event/Play_SFX_Item_Coins_Buying.bnk",
@@ -43,6 +43,6 @@
     ]
    }
   ],
-  "FileHash": "{1556A209-F1B5-54E7-7DF4-CEB401F45848}"
+  "FileHash": "{A1C2006A-945C-4B9D-E4B6-A448DA36021E}"
  }
 }
