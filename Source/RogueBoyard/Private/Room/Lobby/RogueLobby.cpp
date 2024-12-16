@@ -17,7 +17,6 @@ void ARogueLobby::BeginPlay()
 
 void ARogueLobby::EndRoom()
 {
-	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndLobbyRoom();
 	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
 	{
 		for (ARogueCharacter* Character : GameMode->Characters)
@@ -25,7 +24,14 @@ void ARogueLobby::EndRoom()
 			Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
 		}
 	}
+	Super::EndRoom();
 }
+
+void ARogueLobby::RoomExit() {
+	Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())->EndLobbyRoom();
+	Super::RoomExit();
+}
+
 
 void ARogueLobby::Tick(float DeltaTime)
 {

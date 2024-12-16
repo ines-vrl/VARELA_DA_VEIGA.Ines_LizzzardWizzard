@@ -23,5 +23,6 @@ protected:
 	 * Super à mettre à la fin;
 	 */
 	virtual void EndRoom() override;
+	virtual void RoomExit() override;
 
 };

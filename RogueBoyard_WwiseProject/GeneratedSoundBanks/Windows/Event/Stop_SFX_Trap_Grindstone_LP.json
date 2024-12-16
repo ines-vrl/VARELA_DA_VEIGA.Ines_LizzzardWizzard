@@ -1,0 +1,33 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "724221788",
+    "Type": "Event",
+    "GUID": "{4BC64969-CE84-4701-BDCF-5BACE3D54F13}",
+    "Language": "SFX",
+    "Hash": "{8F321331-B8A8-9E39-ADCB-A8FE07FE1B75}",
+    "ObjectPath": "Stop_SFX_Trap_Grindstone_LP",
+    "ShortName": "Stop_SFX_Trap_Grindstone_LP",
+    "Path": "Event/Stop_SFX_Trap_Grindstone_LP.bnk",
+    "Events": [
+     {
+      "Id": "724221788",
+      "Name": "Stop_SFX_Trap_Grindstone_LP",
+      "ObjectPath": "\\Events\\Default Work Unit\\Traps\\GrindStone\\Stop_SFX_Trap_Grindstone_LP",
+      "GUID": "{4BC64969-CE84-4701-BDCF-5BACE3D54F13}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     }
+    ]
+   }
+  ],
+  "FileHash": "{11A189A0-9E8F-AEE7-52E9-5F29A5BF7405}"
+ }
+}

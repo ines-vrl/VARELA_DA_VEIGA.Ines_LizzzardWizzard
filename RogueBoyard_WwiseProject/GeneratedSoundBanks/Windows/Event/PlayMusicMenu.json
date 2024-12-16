@@ -1,0 +1,46 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "353155825",
+    "Type": "Event",
+    "GUID": "{3192B785-2EA8-47F0-BEBE-A871D85E9AF6}",
+    "Language": "SFX",
+    "Hash": "{5ACCB886-46A1-2C9C-AA76-88A2F750589D}",
+    "ObjectPath": "PlayMusicMenu",
+    "ShortName": "PlayMusicMenu",
+    "Path": "Event/PlayMusicMenu.bnk",
+    "Media": [
+     {
+      "Id": "1066433693",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "Lizzzard_Wizard_-_Menu V2.wav",
+      "Path": "Media/1066433693.wem",
+      "CachePath": "91/{913CE0D1-9C44-2EFE-9D5B-1780F22E9939}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "353155825",
+      "Name": "PlayMusicMenu",
+      "ObjectPath": "\\Events\\Default Work Unit\\PlayMusicMenu",
+      "GUID": "{3192B785-2EA8-47F0-BEBE-A871D85E9AF6}",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "1066433693"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{9ACE642B-48A9-EFDE-6183-5B5896A23B6A}"
+ }
+}
