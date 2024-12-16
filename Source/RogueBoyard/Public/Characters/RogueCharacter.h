@@ -109,6 +109,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
 	void CancelPushing_Implementation(ERogueCharacterStateID StateID);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void TriggerFinishPushed();
+
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;
 	

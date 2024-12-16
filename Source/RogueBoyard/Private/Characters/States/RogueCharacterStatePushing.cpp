@@ -56,6 +56,7 @@ void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
 	{
 		Character->StopAnimMontage(RunAttacking);
 	}
+	ActorsToApplyForce.Empty();
 	//Character->CancelPushing_Implementation(NextStateID);
 	
 }
@@ -137,23 +138,13 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
 			if( Rate == 0) Rate = 1;
 			StartAnimTimeRemaining = Attacking->GetPlayLength() / Rate;
 			UE_LOG(LogTemp, Warning, TEXT("Idle Attack"));
-		}	
+		}
+		ForceToApply = PushForce;
+		ActorsToApplyForce.Empty();
 		for (AActor* Actor : Actors)
 		{
-			AEnemy* Enemy = Cast<AEnemy>(Actor);
-			if(Enemy)
-			{
-				Enemy->ReceiveDie();
-			}
-			if(Cast<ARogueCharacter>(Actor) == this->Character) continue;
-			FVector Dir = Actor->GetActorLocation() - Character->GetActorLocation();
-			Dir.Normalize();
-			UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
-			if(pushComp != nullptr)
-			{
-				pushComp->Push(Dir, PushForce);
-				i++;
-			}
+			ActorsToApplyForce.Add(Actor);
+			i++;
 		}
 		bCanpush = false;
 		bPushed = true;
@@ -161,5 +152,25 @@ bool URogueCharacterStatePushing::Pushing(TArray<AActor*> Actors , float PushFor
 	}
 	return false;
 
+}
+
+void URogueCharacterStatePushing::ApplyPushing(TArray<AActor*> Actors)
+{
+	for (AActor* Actor : Actors)
+	{
+		AEnemy* Enemy = Cast<AEnemy>(Actor);
+		if(Enemy)
+		{
+			Enemy->ReceiveDie();
+		}
+		if(Cast<ARogueCharacter>(Actor) == this->Character) continue;
+		FVector Dir = Actor->GetActorLocation() - Character->GetActorLocation();
+		Dir.Normalize();
+		UPushableComponent* pushComp = Cast<UPushableComponent>(Actor->GetComponentByClass(UPushableComponent::StaticClass()));
+		if(pushComp != nullptr)
+		{
+			pushComp->Push(Dir, ForceToApply);
+		}
+	}
 }	
 
