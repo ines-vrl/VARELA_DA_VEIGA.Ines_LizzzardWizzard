@@ -117,6 +117,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bIsInBlackHole = false;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bDashed = false;
 	UPROPERTY(BlueprintReadWrite)
 	float buffInBlackHole;
 
