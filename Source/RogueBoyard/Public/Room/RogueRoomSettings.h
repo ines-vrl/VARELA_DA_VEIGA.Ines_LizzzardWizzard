@@ -26,4 +26,7 @@ public:
 	UPROPERTY(Config, EditAnywhere, Category="Rooms Settings")
 	TArray<TSoftObjectPtr<UWorld>> Lobbies;
 
+	UPROPERTY(Config, EditAnywhere, Category="Rooms Settings")
+	TSoftObjectPtr<UWorld> TutoRoom;
+
 };

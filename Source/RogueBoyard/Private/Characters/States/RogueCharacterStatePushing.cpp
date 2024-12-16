@@ -56,6 +56,7 @@ void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
 	{
 		Character->StopAnimMontage(RunAttacking);
 	}
+	//Character->CancelPushing_Implementation(NextStateID);
 	
 }
 
