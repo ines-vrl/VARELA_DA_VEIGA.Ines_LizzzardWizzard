@@ -107,15 +107,15 @@ void ARogueRoom::EndRoom()
 	{
 		for (ARogueCharacter* Character : GameMode->Characters)
 		{
-			Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
-			/*if(Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing)
+			//Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
+			if(Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing)
 			{
 				Character->CancelPushing_Implementation(ERogueCharacterStateID::Waiting);
 			}
 			else
 			{
 				Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
-			}*/
+			}
 		}
 	}
 	if (ExitDoor)
