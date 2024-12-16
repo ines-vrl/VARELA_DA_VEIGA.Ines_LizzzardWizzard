@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+enum class ERogueCharacterStateID : uint8;
 class URoguePurse;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterDeath);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterPushed);
@@ -106,7 +107,7 @@ public:
 	void UnPossessCharacter(ARogueRoomPawn* Room);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
-	void CancelPushing_Implementation();
+	void CancelPushing_Implementation(ERogueCharacterStateID StateID);
 
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;
