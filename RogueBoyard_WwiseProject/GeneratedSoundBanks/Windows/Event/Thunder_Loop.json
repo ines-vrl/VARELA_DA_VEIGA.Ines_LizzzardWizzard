@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{87BE622C-9976-46BD-B9B8-7BC8A3A7B6B0}",
     "Language": "SFX",
-    "Hash": "{7A1870C5-64A8-8969-5A84-850FE729F2EF}",
+    "Hash": "{ACB58400-2264-BA5B-2732-85E0E2F76862}",
     "ObjectPath": "Thunder_Loop",
     "ShortName": "Thunder_Loop",
     "Path": "Event/Thunder_Loop.bnk",
@@ -65,6 +65,6 @@
     ]
    }
   ],
-  "FileHash": "{142FC022-C556-372B-0D59-134D5CA8AE01}"
+  "FileHash": "{73C60BBF-C95C-7BC4-3B28-36A93747483D}"
  }
 }

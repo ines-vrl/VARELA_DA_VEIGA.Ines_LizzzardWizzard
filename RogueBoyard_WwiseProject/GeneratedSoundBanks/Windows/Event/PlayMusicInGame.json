@@ -1,0 +1,46 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "2206210347",
+    "Type": "Event",
+    "GUID": "{AF0D6817-1E1A-40C4-BBBC-DB92576D0548}",
+    "Language": "SFX",
+    "Hash": "{F47951EC-0BC6-E999-E0FC-C6D0C7875ED8}",
+    "ObjectPath": "PlayMusicInGame",
+    "ShortName": "PlayMusicInGame",
+    "Path": "Event/PlayMusicInGame.bnk",
+    "Media": [
+     {
+      "Id": "1051890124",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Loose",
+      "ShortName": "Lizzzard_Wizard_-_In Game.wav",
+      "Path": "Media/1051890124.wem",
+      "CachePath": "D4/{D4C533E9-C9D1-FE08-4AF2-0975C71D0650}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "2206210347",
+      "Name": "PlayMusicInGame",
+      "ObjectPath": "\\Events\\Default Work Unit\\PlayMusicInGame",
+      "GUID": "{AF0D6817-1E1A-40C4-BBBC-DB92576D0548}",
+      "DurationType": "Infinite",
+      "MediaRefs": [
+       {
+        "Id": "1051890124"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{2BF161FB-0C4D-9A4F-17BC-6369C34966AB}"
+ }
+}

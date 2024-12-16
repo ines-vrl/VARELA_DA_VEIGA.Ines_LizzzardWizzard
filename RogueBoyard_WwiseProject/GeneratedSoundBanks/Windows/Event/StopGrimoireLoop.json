@@ -1,0 +1,33 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "44481377",
+    "Type": "Event",
+    "GUID": "{AE741D48-4F5B-4884-A5EC-B608B060065A}",
+    "Language": "SFX",
+    "Hash": "{8930C1FA-BB6A-30BB-D46F-9D6DC64EA170}",
+    "ObjectPath": "StopGrimoireLoop",
+    "ShortName": "StopGrimoireLoop",
+    "Path": "Event/StopGrimoireLoop.bnk",
+    "Events": [
+     {
+      "Id": "44481377",
+      "Name": "StopGrimoireLoop",
+      "ObjectPath": "\\Events\\Default Work Unit\\Interactables\\StopGrimoireLoop",
+      "GUID": "{AE741D48-4F5B-4884-A5EC-B608B060065A}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     }
+    ]
+   }
+  ],
+  "FileHash": "{5A2E13E8-A64A-7F5F-CE84-12D3B87B8939}"
+ }
+}

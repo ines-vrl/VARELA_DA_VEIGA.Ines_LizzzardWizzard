@@ -10,7 +10,7 @@
     "Type": "Event",
     "GUID": "{FCE04957-87BD-4452-8DFE-92A666182E51}",
     "Language": "SFX",
-    "Hash": "{A7DE38D9-041C-9750-4C0A-0ED57D4270E3}",
+    "Hash": "{044F91D0-57C2-F21C-2C87-905BB828DE25}",
     "ObjectPath": "Play_Despawn",
     "ShortName": "Play_Despawn",
     "Path": "Event/Play_Despawn.bnk",
@@ -67,6 +67,6 @@
     ]
    }
   ],
-  "FileHash": "{8040357C-91DD-7738-7F4C-346586D4937C}"
+  "FileHash": "{184D2287-B935-93F5-2BB3-7083028B2FFA}"
  }
 }
