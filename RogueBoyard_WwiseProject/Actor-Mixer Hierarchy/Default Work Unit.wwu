@@ -2268,16 +2268,6 @@
 										</Sound>
 									</ChildrenList>
 								</RandomSequenceContainer>
-								<RandomSequenceContainer Name="Respawn" ID="{C849245E-35D6-4ED4-89E0-112F5AEBB17C}" ShortID="1067039398">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{BED00DCE-76EA-4167-A7F0-C4708A653D19}"/>
-										</Reference>
-									</ReferenceList>
-								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="Pushed" ID="{B24EC91D-DAE2-448D-A17C-0AD738B13328}" ShortID="419344679">
 									<ReferenceList>
 										<Reference Name="Conversion">
@@ -3391,6 +3381,13 @@
 									</ChildrenList>
 								</RandomSequenceContainer>
 								<RandomSequenceContainer Name="Despawn" ID="{ADE3126C-21D1-458C-AE18-CC73F8819090}" ShortID="710908212">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-8</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{A88726CC-C147-4A0F-B1AC-1E80B814F8E8}"/>
