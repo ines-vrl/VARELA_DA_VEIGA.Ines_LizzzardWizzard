@@ -1,0 +1,33 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "2746525483",
+    "Type": "Event",
+    "GUID": "{999D1EFB-3F0B-4828-A3AC-AA229BFDE2BD}",
+    "Language": "SFX",
+    "Hash": "{3F62C3DB-40DE-FF8A-A5C5-37C1039D9662}",
+    "ObjectPath": "StopLightningLoop",
+    "ShortName": "StopLightningLoop",
+    "Path": "Event/StopLightningLoop.bnk",
+    "Events": [
+     {
+      "Id": "2746525483",
+      "Name": "StopLightningLoop",
+      "ObjectPath": "\\Events\\Default Work Unit\\Traps\\Lightning\\StopLightningLoop",
+      "GUID": "{999D1EFB-3F0B-4828-A3AC-AA229BFDE2BD}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     }
+    ]
+   }
+  ],
+  "FileHash": "{D226A70E-D65A-D73E-E055-55ED5E582594}"
+ }
+}

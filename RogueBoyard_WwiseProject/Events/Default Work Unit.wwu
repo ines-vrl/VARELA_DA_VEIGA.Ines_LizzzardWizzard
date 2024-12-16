@@ -38,17 +38,6 @@
 								</Action>
 							</ChildrenList>
 						</Event>
-						<Event Name="Play_Respawn" ID="{172AE185-9A4A-4A40-A2B5-1F770F8A2C58}">
-							<ChildrenList>
-								<Action Name="" ID="{8072BEC3-8041-4DF3-B032-FEF0E22AB8D5}" ShortID="947519087">
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Respawn" ID="{C849245E-35D6-4ED4-89E0-112F5AEBB17C}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
 						<Event Name="Play_Sad" ID="{CCA268A2-A6F7-42C4-A867-7617CF10E77C}">
 							<ChildrenList>
 								<Action Name="" ID="{7CE78043-7906-4864-B6AE-F3DD29E8EFDB}" ShortID="352413673">
@@ -125,6 +114,20 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="Take" ID="{01884796-19BA-452C-8766-71F394E94D36}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="StopGrimoireLoop" ID="{AE741D48-4F5B-4884-A5EC-B608B060065A}">
+							<ChildrenList>
+								<Action Name="" ID="{1FC62F29-4FB4-4F68-BBFF-278DCEC0B75D}" ShortID="18306745">
+									<PropertyList>
+										<Property Name="ActionType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="SFX_Item_Grimoire_LP_01" ID="{7824828C-471B-4DAD-B1F1-06093E0B4C09}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -250,17 +253,6 @@
 									<ReferenceList>
 										<Reference Name="Target">
 											<ObjectRef Name="BodyFall" ID="{10928C87-5751-4B49-962D-76B9C0B69BF0}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
-						<Event Name="Play_Player_Respawn" ID="{1250892E-4544-4D4A-ACC9-745820209A30}">
-							<ChildrenList>
-								<Action Name="" ID="{E3A3CE2C-29BE-4B80-B0AE-4FACCA076E88}" ShortID="762674363">
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="Respawn" ID="{898939AC-6C99-4F0C-9577-56F7ADEBA7D7}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
 										</Reference>
 									</ReferenceList>
 								</Action>
@@ -498,6 +490,20 @@
 										</Action>
 									</ChildrenList>
 								</Event>
+								<Event Name="Stop_SFX_Trap_Grindstone_LP" ID="{4BC64969-CE84-4701-BDCF-5BACE3D54F13}">
+									<ChildrenList>
+										<Action Name="" ID="{37A30A26-3621-4691-B96F-6C79FBD8C57C}" ShortID="392203094">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Grindstone_LP" ID="{54FD3FE2-1FA8-4E50-931C-FFE350FE4860}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
 							</ChildrenList>
 						</Folder>
 						<Folder Name="Lightning" ID="{591F9035-9CED-43B3-8F81-76A8D8F218C0}" ShortID="329920871">
@@ -535,6 +541,40 @@
 										</Action>
 									</ChildrenList>
 								</Event>
+								<Event Name="StopLightningLoop" ID="{999D1EFB-3F0B-4828-A3AC-AA229BFDE2BD}">
+									<ChildrenList>
+										<Action Name="" ID="{4FC8A26C-109A-4B14-AF92-B34FAB528D78}" ShortID="836915660">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Lightning_LP_01" ID="{2863F828-533B-45CB-82E0-C9137F6C3B5F}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{E9E6067A-EC6D-4630-9526-DF15D4905CAB}" ShortID="176709843">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Lightning_LP_02" ID="{70D96D58-674A-4205-A43A-851CA543186F}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{1532920C-DCE4-4357-9825-2838AB5D0A2B}" ShortID="1066999838">
+											<PropertyList>
+												<Property Name="ActionType" Type="int16" Value="2"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SFX_Trap_Lightning_LP_03" ID="{BDC3A465-17D0-4F89-B085-3ECFC143E259}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
 							</ChildrenList>
 						</Folder>
 					</ChildrenList>
@@ -556,28 +596,6 @@
 				</Folder>
 				<Folder Name="Items" ID="{A113CF38-BC7A-468C-A2C9-B32135F10DC1}" ShortID="823296277">
 					<ChildrenList>
-						<Event Name="Play_OldPage" ID="{214B18FD-F0F3-4B95-972D-723B26621789}">
-							<ChildrenList>
-								<Action Name="" ID="{33AB8B8A-3E3C-4B4D-9CC7-4C05B4C0DFDB}" ShortID="17276492">
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="OldPage" ID="{6B5F1F1E-ECFD-426E-861B-5E60666CF038}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
-						<Event Name="Play_QuitOrDouble" ID="{64F602AE-38A4-4AEB-AABA-37D3F0AFA89D}">
-							<ChildrenList>
-								<Action Name="" ID="{72D7BC16-0CBA-427A-8690-BDE4D85C6E5A}" ShortID="168718721">
-									<ReferenceList>
-										<Reference Name="Target">
-											<ObjectRef Name="QuitOrDouble" ID="{2FB46800-A93F-4036-A56C-BDB16ADF9CB8}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
-										</Reference>
-									</ReferenceList>
-								</Action>
-							</ChildrenList>
-						</Event>
 						<Folder Name="Coin" ID="{4F2BD4E5-1318-493F-BE88-CD566688FE64}" ShortID="1025441996">
 							<ChildrenList>
 								<Event Name="Play_SFX_Item_Coins_Buying" ID="{A18D1598-52AF-4886-ADFE-93E13178209F}">
@@ -615,9 +633,6 @@
 								</Event>
 							</ChildrenList>
 						</Folder>
-						<Folder Name="Magnet" ID="{CBD0F15D-EC31-4069-AFCF-D943F40EE905}" ShortID="585767842"/>
-						<Folder Name="HernessBoots" ID="{6B9A3D13-C547-4888-B18C-84FCDC7EE0CA}" ShortID="91507294"/>
-						<Folder Name="Shield" ID="{633F09E3-B57E-4045-9175-B6B556EC302A}" ShortID="723467926"/>
 						<Folder Name="Ball" ID="{09505C1F-66DD-4681-BC3F-3ED165F8ADF7}" ShortID="329859496">
 							<ChildrenList>
 								<Event Name="Play_Ball_Hit" ID="{88BD03CA-3FCF-467E-A43B-F8822B437796}">
@@ -657,6 +672,56 @@
 						</Folder>
 					</ChildrenList>
 				</Folder>
+				<Event Name="PlayMusicInGame" ID="{AF0D6817-1E1A-40C4-BBBC-DB92576D0548}">
+					<ChildrenList>
+						<Action Name="" ID="{E0EEA6B5-AC73-4721-B346-37A10ED4A534}" ShortID="967046658">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lizzzard_Wizard_-_In Game" ID="{B7C6FBFC-CAC3-4C79-99B2-A648CA13AC56}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayMusicMenu" ID="{3192B785-2EA8-47F0-BEBE-A871D85E9AF6}">
+					<ChildrenList>
+						<Action Name="" ID="{0D6A8229-868C-473C-95A6-821D55C78D8A}" ShortID="520685845">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lizzzard_Wizard_-_Menu V2" ID="{2418C12A-564D-466B-B80C-6A6A9E1F2BC3}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="StopMusicInGame" ID="{B31E3394-6F8D-483B-9825-BBA2CF262D2C}">
+					<ChildrenList>
+						<Action Name="" ID="{5ECB6646-8E1F-44A5-ACFE-49C0BDBF88CA}" ShortID="392703057">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lizzzard_Wizard_-_In Game" ID="{B7C6FBFC-CAC3-4C79-99B2-A648CA13AC56}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="StopMusicMenu" ID="{7618049A-88BF-4AA2-87F8-578937ED3BD4}">
+					<ChildrenList>
+						<Action Name="" ID="{5BE88C61-DEB0-405B-BDD7-63B2BA0F84B0}" ShortID="873886685">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Lizzzard_Wizard_-_Menu V2" ID="{2418C12A-564D-466B-B80C-6A6A9E1F2BC3}" WorkUnitID="{72380342-DBFD-47B4-A430-375BB83C15C6}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

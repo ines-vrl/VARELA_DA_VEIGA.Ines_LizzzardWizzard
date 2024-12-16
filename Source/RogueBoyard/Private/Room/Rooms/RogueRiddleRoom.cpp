@@ -14,10 +14,14 @@ void ARogueRiddleRoom::BeginPlay()
 
 void ARogueRiddleRoom::EndRoom()
 {
-	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
-		GameMode->EndBattleRoom();
-	}
 	Super::EndRoom();
+}
+
+void ARogueRiddleRoom::RoomExit() {
+	if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
+    	GameMode->EndBattleRoom();
+    }
+	Super::RoomExit();
 }
 
 void ARogueRiddleRoom::Tick(float DeltaTime)
@@ -26,9 +30,8 @@ void ARogueRiddleRoom::Tick(float DeltaTime)
 
 	if(ThingsToValidate <= 0)
 	{
-		if(ARogueGameMode* GameMode = Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode())) {
-			GameMode->EndBattleRoom();
-		}
+		bLizardsHasWon = true;
+		EndRoom();
 	}
 }
 

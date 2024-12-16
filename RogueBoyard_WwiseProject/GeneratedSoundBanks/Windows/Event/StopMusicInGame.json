@@ -1,0 +1,33 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "2300360893",
+    "Type": "Event",
+    "GUID": "{B31E3394-6F8D-483B-9825-BBA2CF262D2C}",
+    "Language": "SFX",
+    "Hash": "{800F60BC-395C-B4A0-977B-F9F4DFCCB831}",
+    "ObjectPath": "StopMusicInGame",
+    "ShortName": "StopMusicInGame",
+    "Path": "Event/StopMusicInGame.bnk",
+    "Events": [
+     {
+      "Id": "2300360893",
+      "Name": "StopMusicInGame",
+      "ObjectPath": "\\Events\\Default Work Unit\\StopMusicInGame",
+      "GUID": "{B31E3394-6F8D-483B-9825-BBA2CF262D2C}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     }
+    ]
+   }
+  ],
+  "FileHash": "{C9F915CF-22FE-37B2-A4B4-A38D80D8467B}"
+ }
+}
