@@ -108,12 +108,15 @@ void ARogueRoom::EndRoom()
 		for (ARogueCharacter* Character : GameMode->Characters)
 		{
 			//Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
-			if(Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing)
+			if(Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing ||
+				Character->StateMachine->PreviousStateID == ERogueCharacterStateID::Pushing)
 			{
+				UE_LOG(LogTemp, Warning, TEXT("Call Cancel Pushing"))
 				Character->CancelPushing_Implementation(ERogueCharacterStateID::Waiting);
 			}
 			else
 			{
+				UE_LOG(LogTemp, Warning, TEXT("PAS Call Cancel Pushing"))
 				Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
 			}
 		}

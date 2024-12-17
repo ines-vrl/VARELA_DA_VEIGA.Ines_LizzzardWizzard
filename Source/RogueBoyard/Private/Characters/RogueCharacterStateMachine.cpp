@@ -64,7 +64,7 @@ void URogueCharacterStateMachine::ChangeState(ERogueCharacterStateID NextStateID
 	if(NextState == nullptr) return;
 	if(CurrentState != nullptr) CurrentState->StateExit(NextStateID);
 
-	ERogueCharacterStateID PreviousStateID = CurrentStateID;
+	PreviousStateID = CurrentStateID;
 	CurrentStateID = NextStateID;
 	CurrentState = NextState;
 
