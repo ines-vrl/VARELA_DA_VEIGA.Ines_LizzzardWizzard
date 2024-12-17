@@ -109,6 +109,10 @@ void ARogueCharacter::SetCamera()
 	}
 }
 
+void ARogueCharacter::SetCameraByParam(ACameraActor* cam) {
+	Camera = cam;
+}
+
 void ARogueCharacter::UnPossessCharacter(ARogueRoomPawn* Room)
 {
 	APlayerController* PC = Cast<APlayerController>(GetController());
