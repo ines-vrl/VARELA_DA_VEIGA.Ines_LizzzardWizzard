@@ -81,6 +81,7 @@ void ARogueGameMode::OnCharacterDeath()
 	}
 	if(NbDeadPlayers >= 3)
 	{
+		ActiveRoom->bLizardsHasWon = false;
 		ActiveRoom->EndRoom();
 	}
 }

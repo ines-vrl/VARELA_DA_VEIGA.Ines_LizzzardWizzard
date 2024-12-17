@@ -65,12 +65,13 @@ void UPushableComponent::Push(FVector Dir, float Force)
 			{
 				if(Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing)
 				{
-					Character->CancelPushing_Implementation();
+					Character->CancelPushing_Implementation(ERogueCharacterStateID::Pushed);
 				}
 				else
 				{
 					Character->StateMachine->ChangeState(ERogueCharacterStateID::Pushed);
 				}
+				//Character->StateMachine->ChangeState(ERogueCharacterStateID::Pushed);
 			}
 
 		}

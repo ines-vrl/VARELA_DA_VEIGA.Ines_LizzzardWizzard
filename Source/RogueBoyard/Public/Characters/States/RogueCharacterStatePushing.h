@@ -13,7 +13,7 @@ UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROGUEBOYARD_API URogueCharacterStatePushing : public URogueCharacterState
 {
 	GENERATED_BODY()
-
+	
 public:
 	virtual ERogueCharacterStateID GetStateID() override;
 	virtual void StateEnter(ERogueCharacterStateID PreviousStateID) override;
@@ -21,10 +21,13 @@ public:
 	virtual void StateTick(float DeltaTime) override;
 	virtual void Push() override;
 	virtual void Movement(float X, float Y) override;
-
+	
 	
 	UFUNCTION(BlueprintCallable)
 	bool Pushing(TArray<AActor*> Actors, float PushForce);
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyPushing(TArray<AActor*> Actors);
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimMontage> StartAttack;
@@ -38,7 +41,7 @@ public:
 	TObjectPtr<UAnimMontage> Attacking;
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimMontage> RunAttacking;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float MinForce;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -54,6 +57,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool bPushing;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<AActor*> ActorsToApplyForce;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float ForceToApply;
 	
 private:
 	bool bCanpush = true;
