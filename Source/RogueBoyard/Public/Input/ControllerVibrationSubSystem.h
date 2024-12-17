@@ -37,6 +37,6 @@ public:
 	void VibrationLightContinuous(APlayerController* PlayerController);
 
 	UFUNCTION(BlueprintCallable)
-	void VibrationLightPulsing(APlayerController* PlayerController);
+	void VibrationPulsing(APlayerController* PlayerController);
 	
 };
