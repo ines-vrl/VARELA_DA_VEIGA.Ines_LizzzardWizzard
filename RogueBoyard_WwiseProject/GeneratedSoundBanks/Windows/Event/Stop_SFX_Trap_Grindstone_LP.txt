@@ -1,0 +1,3 @@
+Event	ID	Name			Wwise Object Path	Notes
+	724221788	Stop_SFX_Trap_Grindstone_LP			\Default Work Unit\Traps\GrindStone\Stop_SFX_Trap_Grindstone_LP	
+

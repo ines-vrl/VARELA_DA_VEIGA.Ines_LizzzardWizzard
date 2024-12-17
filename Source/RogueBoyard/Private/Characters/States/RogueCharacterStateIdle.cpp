@@ -58,6 +58,7 @@ void URogueCharacterStateIdle::Movement(float X, float Y)
 
 bool URogueCharacterStateIdle::Dash(float X, float Y)
 {
+	if(Character->bDashed) return false;
 	Super::Dash(X, Y);
 	StateMachine->ChangeState(ERogueCharacterStateID::Dash);
 	FVector Direction = FVector(X, Y, 0.0f);

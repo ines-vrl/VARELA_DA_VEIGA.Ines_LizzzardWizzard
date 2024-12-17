@@ -81,7 +81,14 @@ void ARogueCharacter::Resurrect() {
 void ARogueCharacter::Die()
 {
 	if(StateMachine == nullptr) return;
-	StateMachine->ChangeState(ERogueCharacterStateID::Dead);
+	if(StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing)
+	{
+		CancelPushing_Implementation(ERogueCharacterStateID::Dead);
+	}
+	else
+	{
+		StateMachine->ChangeState(ERogueCharacterStateID::Dead);
+	}
 }
 
 ACameraActor* ARogueCharacter::GetCamera()

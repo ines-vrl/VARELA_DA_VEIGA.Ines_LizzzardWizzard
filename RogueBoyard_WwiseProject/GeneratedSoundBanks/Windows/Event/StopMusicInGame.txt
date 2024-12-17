@@ -1,0 +1,3 @@
+Event	ID	Name			Wwise Object Path	Notes
+	2300360893	StopMusicInGame			\Default Work Unit\StopMusicInGame	
+

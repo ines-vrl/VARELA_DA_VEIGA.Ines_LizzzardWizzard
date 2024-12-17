@@ -1,3 +1,0 @@
-Event	ID	Name			Wwise Object Path	Notes
-	4238880044	Play_Player_Respawn			\Default Work Unit\Player\Play_Player_Respawn	
-

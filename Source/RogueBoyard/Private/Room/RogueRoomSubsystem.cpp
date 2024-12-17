@@ -28,6 +28,8 @@ void URogueRoomSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		Rooms.Add(Settings->Lobbies[RndIndex]);
 		Rooms.Add(RealRoom);
 	}
+
+	Rooms[0] = Settings->TutoRoom;
 }
 
 void URogueRoomSubsystem::NextRoom() {

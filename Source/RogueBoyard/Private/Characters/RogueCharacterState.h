@@ -13,6 +13,8 @@ UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROGUEBOYARD_API URogueCharacterState : public UActorComponent
 {
 	GENERATED_BODY()
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStartMoving);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FStopMoving);
 
 public:
 	// Sets default values for this component's properties
@@ -40,6 +42,12 @@ public:
 protected:
 	UPROPERTY()
 	TObjectPtr<ARogueCharacter> Character;
+
+	UPROPERTY(BlueprintAssignable)
+	FStartMoving OnStartMoving;
+
+	UPROPERTY(BlueprintAssignable)
+	FStopMoving OnStopMoving;
 
 	UPROPERTY()
 	TObjectPtr<URogueCharacterStateMachine> StateMachine;

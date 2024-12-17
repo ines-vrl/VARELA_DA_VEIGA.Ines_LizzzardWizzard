@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+enum class ERogueCharacterStateID : uint8;
 class URoguePurse;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterDeath);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCharacterPushed);
@@ -106,7 +107,10 @@ public:
 	void UnPossessCharacter(ARogueRoomPawn* Room);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
-	void CancelPushing_Implementation();
+	void CancelPushing_Implementation(ERogueCharacterStateID StateID);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void TriggerFinishPushed();
 
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;
@@ -116,6 +120,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bIsInBlackHole = false;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bDashed = false;
 	UPROPERTY(BlueprintReadWrite)
 	float buffInBlackHole;
 

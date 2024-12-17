@@ -20,11 +20,13 @@ void URogueCharacterStateRun::StateEnter(ERogueCharacterStateID PreviousStateID)
 {
 	Super::StateEnter(PreviousStateID);
 	Character->PlayAnimMontage(RunMontage);
+	OnStartMoving.Broadcast();
 }
 
 void URogueCharacterStateRun::StateExit(ERogueCharacterStateID NextStateID)
 {
 	Super::StateExit(NextStateID);
+	OnStopMoving.Broadcast();
 }
 
 void URogueCharacterStateRun::StateTick(float DeltaTime)
