@@ -27,4 +27,5 @@ public:
 
 private:
 	FHitResult HitResult;
+	float DelayTime = 0.f;
 };

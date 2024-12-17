@@ -109,6 +109,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
 	void CancelPushing_Implementation(ERogueCharacterStateID StateID);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void TriggerFinishPushed();
+
 	UPROPERTY(BlueprintAssignable)
 	FOnCharacterPushed OnCharacterPushedEvent;
 	
@@ -117,6 +120,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bIsInBlackHole = false;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bDashed = false;
 	UPROPERTY(BlueprintReadWrite)
 	float buffInBlackHole;
 

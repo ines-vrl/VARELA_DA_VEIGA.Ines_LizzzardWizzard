@@ -37,6 +37,7 @@ void URogueCharacterStatePushed::StateExit(ERogueCharacterStateID NextStateID)
 void URogueCharacterStatePushed::StateTick(float DeltaTime)
 {
 	Super::StateTick(DeltaTime);
+	DelayTime += DeltaTime;
 	FVector Velocity = Character->GetCharacterMovement()->Velocity;
 	FVector Pos = Character->GetActorLocation();
 	if(!GetWorld()->LineTraceSingleByChannel(HitResult, Pos,FVector(Pos.X,Pos.Y,-1000),
@@ -54,8 +55,10 @@ void URogueCharacterStatePushed::StateTick(float DeltaTime)
 		
 	}
 
-	if(Character->GetVelocity().Length() == 0)
+	if(Character->GetVelocity().Length() == 0 && DelayTime >= 0.3f)
 	{
+		Character->TriggerFinishPushed();
+		DelayTime = 0.f;
 		if(StateMachine->Sticks.Length() != 0)
 		{
 			StateMachine->ChangeState(ERogueCharacterStateID::Run);
