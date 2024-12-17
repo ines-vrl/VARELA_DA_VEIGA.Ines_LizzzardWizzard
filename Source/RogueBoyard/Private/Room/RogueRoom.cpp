@@ -103,24 +103,6 @@ void ARogueRoom::BeginRoom()
 
 void ARogueRoom::EndRoom()
 {
-	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
-	{
-		for (ARogueCharacter* Character : GameMode->Characters)
-		{
-			//Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
-			if(Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing ||
-				Character->StateMachine->PreviousStateID == ERogueCharacterStateID::Pushing)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("Call Cancel Pushing"))
-				Character->CancelPushing_Implementation(ERogueCharacterStateID::Waiting);
-			}
-			else
-			{
-				UE_LOG(LogTemp, Warning, TEXT("PAS Call Cancel Pushing"))
-				Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
-			}
-		}
-	}
 	if (ExitDoor)
 	{
 		ExitDoor->Open();
@@ -136,6 +118,29 @@ void ARogueRoom::EndRoom()
 
 void ARogueRoom::RoomExit()
 {
+	if(ARogueGameMode* GameMode =  Cast<ARogueGameMode>(GetWorld()->GetAuthGameMode()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Gamemode Room Exit"))
+		for (ARogueCharacter* Character : GameMode->Characters)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("ForEach"))
+			if(Character->StateMachine->CurrentStateID != ERogueCharacterStateID::Waiting)
+			{
+				//Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
+				if(Character->StateMachine->CurrentStateID == ERogueCharacterStateID::Pushing ||
+					Character->StateMachine->PreviousStateID == ERogueCharacterStateID::Pushing)
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Call Cancel Pushing"))
+					Character->CancelPushing_Implementation(ERogueCharacterStateID::Waiting);
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("PAS Call Cancel Pushing"))
+					Character->StateMachine->ChangeState(ERogueCharacterStateID::Waiting);
+				}
+			}
+		}
+	}
 	if (ExitDoor)
 	{
 		ExitDoor->Close();

@@ -60,8 +60,10 @@ void URogueCharacterStateMachine::InitStates()
 
 void URogueCharacterStateMachine::ChangeState(ERogueCharacterStateID NextStateID)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Change State"));
 	URogueCharacterState* NextState = GetState(NextStateID);
 	if(NextState == nullptr) return;
+	if(NextStateID == CurrentStateID) return;
 	if(CurrentState != nullptr) CurrentState->StateExit(NextStateID);
 
 	PreviousStateID = CurrentStateID;
