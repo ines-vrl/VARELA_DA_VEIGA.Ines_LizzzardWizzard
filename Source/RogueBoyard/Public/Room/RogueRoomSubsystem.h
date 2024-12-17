@@ -45,6 +45,10 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void UnloadPreviousRoom();
+
+	UFUNCTION(BlueprintCallable)
+	void UnloadAllRooms();
+	
 private:
 	bool bPendingNextRoom = false;
 	bool bIsNextRoomPawnLoaded = false;

@@ -72,6 +72,7 @@ void ARogueCharacter::TakeDamage(int Damage)
 
 void ARogueCharacter::Resurrect() {
 	if(StateMachine->CurrentStateID == ERogueCharacterStateID::Dead) {
+		CurrentLives = LivesMAX;
 		GetMesh()->SetVisibility(true);
 		StateMachine->ChangeState(ERogueCharacterStateID::Idle);
 		ReceiveResurrect();
