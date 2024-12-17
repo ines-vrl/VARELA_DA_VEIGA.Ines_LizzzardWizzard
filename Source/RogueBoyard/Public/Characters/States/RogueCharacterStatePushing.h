@@ -13,7 +13,7 @@ UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ROGUEBOYARD_API URogueCharacterStatePushing : public URogueCharacterState
 {
 	GENERATED_BODY()
-
+	
 public:
 	virtual ERogueCharacterStateID GetStateID() override;
 	virtual void StateEnter(ERogueCharacterStateID PreviousStateID) override;
@@ -41,7 +41,7 @@ public:
 	TObjectPtr<UAnimMontage> Attacking;
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UAnimMontage> RunAttacking;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float MinForce;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

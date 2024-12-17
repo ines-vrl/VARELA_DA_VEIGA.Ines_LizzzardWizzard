@@ -28,6 +28,7 @@ void URogueCharacterStatePushing::StateEnter(ERogueCharacterStateID PreviousStat
 		float Rate = RunStartAttack->RateScale;
 		if( Rate == 0) Rate = 1;
 		StartAnimTimeRemaining = RunStartAttack->GetPlayLength() / Rate;
+		OnStartMoving.Broadcast();
 	}
 	else
 	{
@@ -57,8 +58,9 @@ void URogueCharacterStatePushing::StateExit(ERogueCharacterStateID NextStateID)
 		Character->StopAnimMontage(RunAttacking);
 	}
 	ActorsToApplyForce.Empty();
+	OnStopMoving.Broadcast();
 	//Character->CancelPushing_Implementation(NextStateID);
-	
+
 }
 
 void URogueCharacterStatePushing::StateTick(float DeltaTime)
@@ -69,12 +71,14 @@ void URogueCharacterStatePushing::StateTick(float DeltaTime)
 	{
 		Character->PlayAnimMontage(RunChargingAttack);
 		bCharging = true;
+		OnStartMoving.Broadcast();
 	}
 	else if(!bPushed &&StartAnimTimeRemaining <= 0.5f && !bCharging && StateMachine->Sticks.Length() == 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("IdleCHarging"));
 		Character->PlayAnimMontage(ChargingAttack);
 		bCharging = true;
+		OnStopMoving.Broadcast();
 	}
 	else if(!bPushed && Character->GetMesh()->GetAnimInstance()->Montage_IsPlaying(ChargingAttack) && bCharging && StateMachine->Sticks.Length() != 0)
 	{
