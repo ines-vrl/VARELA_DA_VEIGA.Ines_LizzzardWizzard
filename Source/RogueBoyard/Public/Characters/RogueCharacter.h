@@ -93,6 +93,9 @@ public:
 	ACameraActor* GetCamera();
 	UFUNCTION(BlueprintCallable)
 	void SetCamera();
+
+	UFUNCTION(BlueprintCallable)
+	void SetCameraByParam(ACameraActor* cam);
 private:
 	UPROPERTY()
 	ACameraActor* Camera;

@@ -42,7 +42,13 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnNextRoom OnNextRoomEvent;
+	
+	UFUNCTION(BlueprintCallable)
+	void UnloadPreviousRoom();
 
+	UFUNCTION(BlueprintCallable)
+	void UnloadAllRooms();
+	
 private:
 	bool bPendingNextRoom = false;
 	bool bIsNextRoomPawnLoaded = false;
@@ -57,5 +63,6 @@ private:
 	
 	void LoadRoomAtPosition(const TSoftObjectPtr<UWorld>& Room, const FVector& Position);
 	void UnloadRoom(ULevelStreamingDynamic* Room);
-	void UnloadPreviousRoom();
+	
+	
 };

@@ -121,3 +121,9 @@ void URogueRoomSubsystem::UnloadPreviousRoom() {
 		UnloadRoom(LoadedRooms[ActiveRoomId-1]);
 	}
 }
+
+void URogueRoomSubsystem::UnloadAllRooms() {
+	for(ULevelStreamingDynamic* Room : LoadedRooms) {
+		UnloadRoom(Room);
+	}
+}
