@@ -121,6 +121,7 @@ void ARogueCharacter::UnPossessCharacter(ARogueRoomPawn* Room)
 	{
 		PC->UnPossess();
 		PC->Possess(Room);
+		Room->Player = this;
 	}
 }
 

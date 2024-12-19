@@ -112,6 +112,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "OnPushedWhenPushing")
 	void CancelPushing_Implementation(ERogueCharacterStateID StateID);
 
+	UFUNCTION(BlueprintImplementableEvent, Category= "Pushed")
+	void OnPushed();
+
 	UFUNCTION(BlueprintImplementableEvent)
 	void TriggerFinishPushed();
 

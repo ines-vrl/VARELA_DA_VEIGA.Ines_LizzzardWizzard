@@ -4,9 +4,12 @@
 #include "Characters/States/RogueCharacterStatePushed.h"
 
 #include "AkGameplayStatics.h"
+#include "K2Node_GetSubsystem.h"
 #include "Characters/RogueCharacter.h"
 #include "Characters/RogueCharacterStateMachine.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Input/ControllerVibrationSubSystem.h"
+#include "Kismet/GameplayStatics.h"
 
 ERogueCharacterStateID URogueCharacterStatePushed::GetStateID()
 {
@@ -25,6 +28,8 @@ void URogueCharacterStatePushed::StateEnter(ERogueCharacterStateID PreviousState
 		0,
 		NullCallBack,
 		false);
+
+	Character->OnPushed();
 }
 
 void URogueCharacterStatePushed::StateExit(ERogueCharacterStateID NextStateID)
@@ -51,7 +56,6 @@ void URogueCharacterStatePushed::StateTick(float DeltaTime)
 		{
 			StateMachine->ChangeState(ERogueCharacterStateID::Fall);
 		}
-
 		
 	}
 
