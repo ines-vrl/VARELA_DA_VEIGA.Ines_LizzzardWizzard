@@ -9,26 +9,26 @@
 /**
  * 
  */
-UCLASS(Config=Input, DefaultConfig, meta= (DisplayName="Controller Vibration Settings"))
+UCLASS(Config=Game, DefaultConfig, meta= (DisplayName="Controller Vibration Settings"))
 	
 class ROGUEBOYARD_API UControllerVibrationSettings : public UDeveloperSettings
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category="Controller Vibration Settings")
-	UForceFeedbackEffect * VibrationDegressiveFeedbackEffect;
-	UPROPERTY(EditAnywhere, Category="Controller Vibration Settings")
-	UForceFeedbackEffect * VibrationProgressiveFeedbackEffect;
-	UPROPERTY(EditAnywhere, Category="Controller Vibration Settings")
-	UForceFeedbackEffect * VibrationHeavyContinuousFeedbackEffect;
-	UPROPERTY(EditAnywhere, Category="Controller Vibration Settings")
-	UForceFeedbackEffect * VibrationHeavyQuickFeedbackEffect;
-	UPROPERTY(EditAnywhere, Category="Controller Vibration Settings")
-	UForceFeedbackEffect * VibrationLightQuickFeedbackEffect;
-	UPROPERTY(EditAnywhere, Category="Controller Vibration Settings")
-	UForceFeedbackEffect * VibrationLightContinuousFeedbackEffect;
-	UPROPERTY(EditAnywhere, Category="Controller Vibration Settings")
-	UForceFeedbackEffect * VibrationPulsingFeedbackEffect;
+	UPROPERTY(Config, EditAnywhere, Category="Controller Vibration Settings")
+	TSoftObjectPtr<UForceFeedbackEffect> VibrationDegressiveFeedbackEffect;
+	UPROPERTY(Config, EditAnywhere, Category="Controller Vibration Settings")
+	TSoftObjectPtr<UForceFeedbackEffect> VibrationProgressiveFeedbackEffect;
+	UPROPERTY(Config, EditAnywhere, Category="Controller Vibration Settings")
+	TSoftObjectPtr<UForceFeedbackEffect>  VibrationHeavyContinuousFeedbackEffect;
+	UPROPERTY(Config, EditAnywhere, Category="Controller Vibration Settings")
+	TSoftObjectPtr<UForceFeedbackEffect>  VibrationHeavyQuickFeedbackEffect;
+	UPROPERTY(Config, EditAnywhere, Category="Controller Vibration Settings")
+	TSoftObjectPtr<UForceFeedbackEffect>  VibrationLightQuickFeedbackEffect;
+	UPROPERTY(Config, EditAnywhere, Category="Controller Vibration Settings")
+	TSoftObjectPtr<UForceFeedbackEffect>  VibrationLightContinuousFeedbackEffect;
+	UPROPERTY(Config, EditAnywhere, Category="Controller Vibration Settings")
+	TSoftObjectPtr<UForceFeedbackEffect>  VibrationPulsingFeedbackEffect;
 	
 };
