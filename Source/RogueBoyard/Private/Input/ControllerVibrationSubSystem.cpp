@@ -10,7 +10,7 @@ void UControllerVibrationSubSystem::VibrationDegressive(APlayerController* Playe
 {
 
 	//UForceFeedbackEffect * ForceFeedbackEffect = LoadObject<UForceFeedbackEffect>(nullptr, TEXT("ForceFeedbackEffect'/Game/RogueBoyard/Inputs/JoystickVibration/FFE_Degressive.FFE_Degressive'"));
-	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationDegressiveFeedbackEffect;
+	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationDegressiveFeedbackEffect.LoadSynchronous();
 	if(ForceFeedbackEffect==nullptr||PlayerController==nullptr)return;
 	PlayerController->ClientPlayForceFeedback(ForceFeedbackEffect);
 }
@@ -18,7 +18,7 @@ void UControllerVibrationSubSystem::VibrationDegressive(APlayerController* Playe
 void UControllerVibrationSubSystem::VibrationProgressive(APlayerController* PlayerController)
 {
 	//UForceFeedbackEffect * ForceFeedbackEffect = LoadObject<UForceFeedbackEffect>(nullptr, TEXT("ForceFeedbackEffect'/Game/RogueBoyard/Inputs/JoystickVibration/FFE_Progressive.FFE_Progressive'"));
-	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationProgressiveFeedbackEffect;
+	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationProgressiveFeedbackEffect.LoadSynchronous();
 	if(ForceFeedbackEffect==nullptr||PlayerController==nullptr)return;
 	PlayerController->ClientPlayForceFeedback(ForceFeedbackEffect);
 }
@@ -26,7 +26,7 @@ void UControllerVibrationSubSystem::VibrationProgressive(APlayerController* Play
 void UControllerVibrationSubSystem::VibrationHeavyContinuous(APlayerController* PlayerController)
 {
 	//UForceFeedbackEffect * ForceFeedbackEffect = LoadObject<UForceFeedbackEffect>(nullptr, TEXT("ForceFeedbackEffect'/Game/RogueBoyard/Inputs/JoystickVibration/FFE_HeavyContinuous.FFE_HeavyContinuous'"));
-	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationHeavyContinuousFeedbackEffect;
+	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationHeavyContinuousFeedbackEffect.LoadSynchronous();
 	if(ForceFeedbackEffect==nullptr||PlayerController==nullptr)return;
 	PlayerController->ClientPlayForceFeedback(ForceFeedbackEffect);
 }
@@ -34,7 +34,7 @@ void UControllerVibrationSubSystem::VibrationHeavyContinuous(APlayerController* 
 void UControllerVibrationSubSystem::VibrationHeavyQuick(APlayerController* PlayerController)
 {
 	//UForceFeedbackEffect * ForceFeedbackEffect = LoadObject<UForceFeedbackEffect>(nullptr, TEXT("ForceFeedbackEffect'/Game/RogueBoyard/Inputs/JoystickVibration/FFE_HeavyQuick.FFE_HeavyQuick'"));
-	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationHeavyQuickFeedbackEffect;
+	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationHeavyQuickFeedbackEffect.LoadSynchronous();
 	if(ForceFeedbackEffect==nullptr||PlayerController==nullptr)return;
 	PlayerController->ClientPlayForceFeedback(ForceFeedbackEffect);
 }
@@ -42,7 +42,7 @@ void UControllerVibrationSubSystem::VibrationHeavyQuick(APlayerController* Playe
 void UControllerVibrationSubSystem::VibrationLightQuick(APlayerController* PlayerController)
 {
 	//UForceFeedbackEffect * ForceFeedbackEffect = LoadObject<UForceFeedbackEffect>(nullptr, TEXT("ForceFeedbackEffect'/Game/RogueBoyard/Inputs/JoystickVibration/FFE_LightQuick.FFE_LightQuick'"));
-	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationLightQuickFeedbackEffect;
+	 UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationLightQuickFeedbackEffect.LoadSynchronous();
 	if(ForceFeedbackEffect==nullptr||PlayerController==nullptr)return;
 	PlayerController->ClientPlayForceFeedback(ForceFeedbackEffect);
 }
@@ -50,7 +50,7 @@ void UControllerVibrationSubSystem::VibrationLightQuick(APlayerController* Playe
 void UControllerVibrationSubSystem::VibrationLightContinuous(APlayerController* PlayerController)
 {
 	//UForceFeedbackEffect * ForceFeedbackEffect = LoadObject<UForceFeedbackEffect>(nullptr, TEXT("ForceFeedbackEffect'/Game/RogueBoyard/Inputs/JoystickVibration/FFE_LightContinuous.FFE_LightContinuous'"));
-	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationLightContinuousFeedbackEffect;
+	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationLightContinuousFeedbackEffect.LoadSynchronous();
 	if(ForceFeedbackEffect==nullptr||PlayerController==nullptr)return;
 	PlayerController->ClientPlayForceFeedback(ForceFeedbackEffect);
 }
@@ -58,7 +58,7 @@ void UControllerVibrationSubSystem::VibrationLightContinuous(APlayerController* 
 void UControllerVibrationSubSystem::VibrationPulsing(APlayerController* PlayerController)
 {
 	//UForceFeedbackEffect * ForceFeedbackEffect = LoadObject<UForceFeedbackEffect>(nullptr, TEXT("ForceFeedbackEffect'/Game/RogueBoyard/Inputs/JoystickVibration/FFE_Pulsing.FFE_Pulsing'"));
-	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationPulsingFeedbackEffect;
+	UForceFeedbackEffect* ForceFeedbackEffect = GetDefault<UControllerVibrationSettings>()->VibrationPulsingFeedbackEffect.LoadSynchronous();
 	if(ForceFeedbackEffect==nullptr||PlayerController==nullptr)return;
 	PlayerController->ClientPlayForceFeedback(ForceFeedbackEffect);
 }
