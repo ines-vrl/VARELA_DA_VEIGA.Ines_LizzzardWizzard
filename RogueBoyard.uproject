@@ -35,6 +35,14 @@
 		{
 			"Name": "ScriptableToolsFramework",
 			"Enabled": true
+		},
+		{
+			"Name": "DataprepEditor",
+			"Enabled": true
+		},
+		{
+			"Name": "GeometryScripting",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
