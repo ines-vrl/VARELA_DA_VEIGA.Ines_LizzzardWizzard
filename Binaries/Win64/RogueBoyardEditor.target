@@ -3594,18 +3594,6 @@
 			"Type": "RequiredResource"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/NodeChecker/Binaries/Win64/UnrealEditor-NodeChecker.dll",
-			"Type": "DynamicLibrary"
-		},
-		{
-			"Path": "$(ProjectDir)/Plugins/NodeChecker/Binaries/Win64/UnrealEditor-NodeChecker.pdb",
-			"Type": "SymbolFile"
-		},
-		{
-			"Path": "$(ProjectDir)/Plugins/NodeChecker/Binaries/Win64/UnrealEditor.modules",
-			"Type": "RequiredResource"
-		},
-		{
 			"Path": "$(ProjectDir)/Plugins/WwiseNiagara/Binaries/Win64/UnrealEditor-WwiseNiagara.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -25113,10 +25101,6 @@
 		},
 		{
 			"Path": "$(EngineDir)/Plugins/XGEController/XGEController.uplugin",
-			"Type": "UFS"
-		},
-		{
-			"Path": "$(ProjectDir)/Plugins/NodeChecker/NodeChecker.uplugin",
 			"Type": "UFS"
 		},
 		{

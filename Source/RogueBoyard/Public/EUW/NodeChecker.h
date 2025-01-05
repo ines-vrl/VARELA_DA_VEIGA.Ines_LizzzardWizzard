@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Editor/Blutility/Classes/EditorUtilityWidget.h"
 #include "AssetRegistry/AssetRegistryModule.h"
-#include "BlueprintValidator.generated.h"
+#include "NodeChecker.generated.h"
 
 // Structure pour stocker les résultats
 	USTRUCT(BlueprintType)
@@ -27,7 +27,7 @@ struct FBlueprintValidationResult
 	};
 
 UCLASS(BlueprintType)
-class ROGUEBOYARD_API UBlueprintValidator : public UEditorUtilityWidget
+class ROGUEBOYARD_API UNodeChecker : public UEditorUtilityWidget
 {
 	GENERATED_BODY()
 

@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "EUW/BlueprintValidator.h"
+#include "EUW/NodeChecker.h"
 #include "Kismet2/KismetEditorUtilities.h"
 
 
-void UBlueprintValidator::FindUnconnectedNodes()
+void UNodeChecker::FindUnconnectedNodes()
 {
 	// Récupère tous les blueprints
 	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
@@ -23,7 +23,7 @@ void UBlueprintValidator::FindUnconnectedNodes()
 	}
 }
 
-void UBlueprintValidator::AnalyzeBlueprint(UBlueprint* Blueprint)
+void UNodeChecker::AnalyzeBlueprint(UBlueprint* Blueprint)
 {
 	if (!Blueprint) return;
 
@@ -56,14 +56,13 @@ void UBlueprintValidator::AnalyzeBlueprint(UBlueprint* Blueprint)
 	}
 }
 
-bool UBlueprintValidator::IsNodeConnected(UEdGraphNode* Node)
+bool UNodeChecker::IsNodeConnected(UEdGraphNode* Node)
 {
 	if (!Node) return true;
 
 	// Un node est connecté si :
 	// - Il a au moins une connexion entrante
 	// - Il a au moins une connexion sortante
-	// - C'est un node d'exécution (Event, etc.)
 	bool bHasInputConnections = false;
 	bool bHasOutputConnections = false;
 
@@ -90,7 +89,7 @@ bool UBlueprintValidator::IsNodeConnected(UEdGraphNode* Node)
 	return bHasInputConnections || bHasOutputConnections;
 }
 
-void UBlueprintValidator::JumpToNode(const FString& BlueprintName, const FString& GraphName, const FString& NodeName)
+void UNodeChecker::JumpToNode(const FString& BlueprintName, const FString& GraphName, const FString& NodeName)
 {
 	// Trouver le résultat correspondant
 	for (const FBlueprintValidationResult& Result : ValidationResults)
@@ -128,7 +127,7 @@ void UBlueprintValidator::JumpToNode(const FString& BlueprintName, const FString
 	}
 }
 
-void UBlueprintValidator::OpenBlueprint(const FString& BlueprintName)
+void UNodeChecker::OpenBlueprint(const FString& BlueprintName)
 {
 	for (const FBlueprintValidationResult& Result : ValidationResults)
 	{
@@ -143,7 +142,7 @@ void UBlueprintValidator::OpenBlueprint(const FString& BlueprintName)
 	}
 }
 
-UEdGraphPin* UBlueprintValidator::FindFirstPinInNode(UEdGraphNode* Node)
+UEdGraphPin* UNodeChecker::FindFirstPinInNode(UEdGraphNode* Node)
 {
 	if (!Node || Node->Pins.Num() == 0)
 		return nullptr;
